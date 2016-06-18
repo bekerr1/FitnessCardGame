@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Lewis Game View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LewisGameViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k" customClass="LewisCardView" customModule="LewisWorkout" customModuleProvider="target">
+                                <rect key="frame" x="389" y="93" width="161" height="316"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="161" id="3N7-Db-U3d"/>
+                                    <constraint firstAttribute="height" constant="316" id="ojn-29-XS1"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="GAb-RM-OUB" kind="embed" identifier="cardSegue" id="Ky8-7b-nsQ"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-eu-pyf">
+                                <rect key="frame" x="180" y="432" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="SYQ-VT-xaZ"/>
+                                    <constraint firstAttribute="width" constant="240" id="fr3-j2-enx"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="xBC-Mg-IQR" kind="embed" identifier="deckSegue" id="uTK-Nu-UHD"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2s-8D-kLo" customClass="LewisDeckView" customModule="LewisWorkout" customModuleProvider="target">
+                                <rect key="frame" x="180" y="432" width="240" height="128"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="1hJ-8F-hEp"/>
+                                    <constraint firstAttribute="width" constant="240" id="gNK-r9-QQW"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
+                                <rect key="frame" x="40" y="129" width="59" height="245"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
+                                        <rect key="frame" x="0.0" y="0.0" width="59" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
+                                        <rect key="frame" x="0.0" y="112" width="59" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
+                                        <rect key="frame" x="0.0" y="224" width="59" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="D2Q-A0-d4k" secondAttribute="trailing" constant="30" id="0NA-4H-bF1"/>
+                            <constraint firstItem="Ifb-QA-rka" firstAttribute="centerY" secondItem="D2Q-A0-d4k" secondAttribute="centerY" id="8RG-5o-FEe"/>
+                            <constraint firstItem="D2Q-A0-d4k" firstAttribute="bottom" secondItem="Om7-eu-pyf" secondAttribute="top" constant="-23" id="Rf8-aZ-03H"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="bottom" constant="40" id="Sgy-vS-eXS"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Om7-eu-pyf" secondAttribute="bottom" constant="40" id="TEQ-Rp-ar7"/>
+                            <constraint firstItem="s2s-8D-kLo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TF6-SZ-MIY"/>
+                            <constraint firstItem="Om7-eu-pyf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UN2-Q9-DdX"/>
+                            <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Z8Q-Qi-PE8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cardsCompletedLabel" destination="Lva-RF-YMf" id="vJn-L2-mlF"/>
+                        <outlet property="currentCardContainer" destination="D2Q-A0-d4k" id="pO0-8w-aPu"/>
+                        <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="Cui-aC-riz"/>
+                        <outlet property="deckPlaceholderView" destination="s2s-8D-kLo" id="82A-Xf-sD6"/>
+                        <outlet property="deckViewContainer" destination="Om7-eu-pyf" id="dp9-wy-gZz"/>
+                        <outlet property="pushupCountLabel" destination="jdU-ta-2hG" id="l7U-27-fyn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="199" y="136"/>
+        </scene>
+        <!--Lewis Card View Controller-->
+        <scene sceneID="XGd-Aw-ehp">
+            <objects>
+                <viewController id="GAb-RM-OUB" customClass="LewisCardViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xK9-uJ-uLM"/>
+                        <viewControllerLayoutGuide type="bottom" id="zAc-P3-Ii3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR">
+                        <rect key="frame" x="0.0" y="0.0" width="161" height="316"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EsW-Rz-cBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="759" y="136"/>
+        </scene>
+        <!--Lewis Deck View Controller-->
+        <scene sceneID="baL-rS-syu">
+            <objects>
+                <viewController id="xBC-Mg-IQR" customClass="LewisDeckViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t3k-xS-sma"/>
+                        <viewControllerLayoutGuide type="bottom" id="ga8-bc-CGD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HY8-cx-Im7">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KKO-CE-3pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="199" y="665"/>
+        </scene>
+    </scenes>
+</document>
