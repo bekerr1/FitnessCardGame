@@ -105,11 +105,14 @@
                         <viewControllerLayoutGuide type="top" id="xK9-uJ-uLM"/>
                         <viewControllerLayoutGuide type="bottom" id="zAc-P3-Ii3"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR">
+                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR" customClass="LewisCardFrontView" customModule="LewisWorkout" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="161" height="316"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="cardFrontView" destination="XN5-Q5-zRR" id="nV0-Ug-vYZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EsW-Rz-cBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

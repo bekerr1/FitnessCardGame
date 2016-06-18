@@ -22,6 +22,8 @@
 		F41D8C481CFFD88C00458A3F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = F41D8C471CFFD88C00458A3F /* squarePNG.png */; };
 		F4449E8F1D15EF950009A0CB /* LewisDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4449E8E1D15EF950009A0CB /* LewisDeckView.swift */; };
 		F4449E911D15EFA90009A0CB /* LewisCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4449E901D15EFA90009A0CB /* LewisCardView.swift */; };
+		F4F9E6CE1D15FE1E000BFCB0 /* LewisCardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */; };
+		F4F9E6D01D15FE2D000BFCB0 /* LewisCardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9E6CF1D15FE2D000BFCB0 /* LewisCardFrontView.swift */; };
 		F4FC304B1D05F3360048ADE7 /* LewisCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FC304A1D05F3360048ADE7 /* LewisCard.swift */; };
 		F4FC304D1D05F4EB0048ADE7 /* LewisDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FC304C1D05F4EB0048ADE7 /* LewisDeck.swift */; };
 		F4FC304F1D05FAFD0048ADE7 /* LewisCardProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FC304E1D05FAFD0048ADE7 /* LewisCardProtocols.swift */; };
@@ -66,6 +68,8 @@
 		F41D8C471CFFD88C00458A3F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
 		F4449E8E1D15EF950009A0CB /* LewisDeckView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDeckView.swift; sourceTree = "<group>"; };
 		F4449E901D15EFA90009A0CB /* LewisCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardView.swift; sourceTree = "<group>"; };
+		F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardBackView.swift; sourceTree = "<group>"; };
+		F4F9E6CF1D15FE2D000BFCB0 /* LewisCardFrontView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardFrontView.swift; sourceTree = "<group>"; };
 		F4FC304A1D05F3360048ADE7 /* LewisCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCard.swift; sourceTree = "<group>"; };
 		F4FC304C1D05F4EB0048ADE7 /* LewisDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDeck.swift; sourceTree = "<group>"; };
 		F4FC304E1D05FAFD0048ADE7 /* LewisCardProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardProtocols.swift; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 				F4449E901D15EFA90009A0CB /* LewisCardView.swift */,
 				F41D8C011CFB4F8600458A3F /* LewisGameViewController.swift */,
 				F41D8C031CFD712C00458A3F /* LewisDeckViewController.swift */,
+				F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */,
+				F4F9E6CF1D15FE2D000BFCB0 /* LewisCardFrontView.swift */,
 				F41D8C061CFEA2CB00458A3F /* LewisCardViewController.swift */,
 				F41D8C451CFF825100458A3F /* LewisAVDetectorController.swift */,
 				F4FC304A1D05F3360048ADE7 /* LewisCard.swift */,
@@ -295,10 +301,12 @@
 				F4FC304B1D05F3360048ADE7 /* LewisCard.swift in Sources */,
 				F4449E911D15EFA90009A0CB /* LewisCardView.swift in Sources */,
 				F4FC304F1D05FAFD0048ADE7 /* LewisCardProtocols.swift in Sources */,
+				F4F9E6D01D15FE2D000BFCB0 /* LewisCardFrontView.swift in Sources */,
 				F41D8C461CFF825100458A3F /* LewisAVDetectorController.swift in Sources */,
 				F41D8C041CFD712C00458A3F /* LewisDeckViewController.swift in Sources */,
 				F41D8BD31CFB465D00458A3F /* LewisWorkout.xcdatamodeld in Sources */,
 				F41D8C021CFB4F8600458A3F /* LewisGameViewController.swift in Sources */,
+				F4F9E6CE1D15FE1E000BFCB0 /* LewisCardBackView.swift in Sources */,
 				F41D8BCD1CFB465C00458A3F /* ViewController.swift in Sources */,
 				F41D8BCB1CFB465C00458A3F /* AppDelegate.swift in Sources */,
 				F41D8C071CFEA2CB00458A3F /* LewisCardViewController.swift in Sources */,

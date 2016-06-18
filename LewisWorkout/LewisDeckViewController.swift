@@ -14,19 +14,19 @@ class LewisDeckViewController: UIViewController {
     var switchTransitions: Bool = true
     var deckModel: LewisDeck
 
-    lazy var cardBackView: UIView = {
+    lazy var cardBackView: LewisCardBackView = {
         print("fromView initialized")
-        let aview: UIView = UIView.init(frame: self.view.bounds)
+        let aview: LewisCardBackView = LewisCardBackView.init(frame: self.view.bounds)
         aview.backgroundColor = UIColor.redColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
         aview.layer.cornerRadius = 20.0
         return aview
     }()
     
-    lazy var cardFrontView: UIView = {
+    lazy var cardFrontView: LewisCardFrontView = {
         print("toView initialized")
-        let aview = UIView.init(frame: self.view.bounds)
-        aview.backgroundColor = UIColor.greenColor()
+        let aview: LewisCardFrontView = LewisCardFrontView.init(frame: self.view.bounds)
+        aview.backgroundColor = UIColor.whiteColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
         aview.layer.cornerRadius = 20.0
         return aview
@@ -75,6 +75,7 @@ class LewisDeckViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: animations
     
     func deckTapTransitionTo() {
 
@@ -106,11 +107,14 @@ class LewisDeckViewController: UIViewController {
         }
     }
     
+    //MARK: Model stuff
     
     func randomCardFromDeck() -> LewisCard {
         
         return deckModel.pickRandomCard()
     }
+    
+    
 
 
 }

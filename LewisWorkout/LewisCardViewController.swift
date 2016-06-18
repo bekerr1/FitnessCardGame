@@ -11,8 +11,7 @@ import UIKit
 class LewisCardViewController: UIViewController {
 
     
-    var currentCard: LewisCard = LewisCard()
-    var pastCards: [LewisCard] = Array()
+    @IBOutlet var cardFrontView: LewisCardFrontView!
     
     
     required init(coder aDecoder: NSCoder) {
@@ -55,10 +54,9 @@ class LewisCardViewController: UIViewController {
     }
     
     
-    func newTopCard(card: LewisCard) {
+    func newCard(card: LewisCard) {
         
-        pastCards.append(currentCard)
-        currentCard = card
+        
         
     }
     
