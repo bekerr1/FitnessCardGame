@@ -18,7 +18,7 @@ class LewisGameViewController: UIViewController {
     @IBOutlet weak var currentCardContainer: UIView!
     @IBOutlet weak var deckViewContainer: UIView!
     
-    @IBOutlet weak var deckPlaceholderView: UIView!
+    @IBOutlet weak var deckPlaceholderView: LewisDeckPlaceholderView!
     private var deckVC: LewisDeckViewController!
     private var currentCardVC: LewisCardViewController!
     
@@ -32,15 +32,21 @@ class LewisGameViewController: UIViewController {
         let deckTapDesture = UITapGestureRecognizer(target: self, action: #selector(deckTap))
         let deckGestures = [deckTapDesture]
         deckPlaceholderView.gestureRecognizers = deckGestures
-        //deckViewContainer.gestureRecognizers = deckGestures
+        deckPlaceholderView.referenceRect = deckViewContainer.frame
+        //deckPlaceholderView.createStackEffect()
         
-        deckPlaceholderView.layer.cornerRadius = 20.0
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        deckPlaceholderView.createStackEffect()
     }
     
     override func viewDidLayoutSubviews() {
@@ -59,6 +65,7 @@ class LewisGameViewController: UIViewController {
     
     
     //MARK: Actions
+    
     func deckTap() {
         print("DeckTapped " + #function)
         
@@ -104,7 +111,7 @@ class LewisGameViewController: UIViewController {
     
     func setCardVCViewToAnimated() {
         //Get the deckVC's current deck model and set it to the cardVC's deck model
-        
+        currentCardVC.setViewToNewCard(deckVC.cardFrontView.currentCard)    
     }
     
     
@@ -118,6 +125,7 @@ class LewisGameViewController: UIViewController {
     
     
     //MARK: Prepare for Segue
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "deckSegue" {

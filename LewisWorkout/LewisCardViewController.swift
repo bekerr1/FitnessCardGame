@@ -53,14 +53,10 @@ class LewisCardViewController: UIViewController {
         
     }
     
-    
-    func newCard(card: LewisCard) {
+    func setViewToNewCard(card: LewisCard) {
         
-        
-        
+        self.view.backgroundColor = UIColor.whiteColor()
+        cardFrontView.newCardToView(card, Sideways: false)
     }
-    
-    
-    
 
 }

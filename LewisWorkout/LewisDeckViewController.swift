@@ -10,16 +10,16 @@ import UIKit
 
 class LewisDeckViewController: UIViewController {
     
+    //MARK: Properties
     
     var switchTransitions: Bool = true
     var deckModel: LewisDeck
-
+    
     lazy var cardBackView: LewisCardBackView = {
         print("fromView initialized")
         let aview: LewisCardBackView = LewisCardBackView.init(frame: self.view.bounds)
         aview.backgroundColor = UIColor.redColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
-        aview.layer.cornerRadius = 20.0
         return aview
     }()
     
@@ -28,12 +28,11 @@ class LewisDeckViewController: UIViewController {
         let aview: LewisCardFrontView = LewisCardFrontView.init(frame: self.view.bounds)
         aview.backgroundColor = UIColor.whiteColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
-        aview.layer.cornerRadius = 20.0
         return aview
     }()
     
     
-    //MARK: Initialize
+    //MARK: Initialize/ViewCalls
     
     required init?(coder aDecoder: NSCoder) {
         self.deckModel = LewisDeck()
@@ -42,7 +41,7 @@ class LewisDeckViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("deck init")
+        print("deck init in deckVC")
         
         self.view.clipsToBounds = true
         
@@ -51,16 +50,19 @@ class LewisDeckViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("view will appeared")
-
-        self.view.addSubview(self.cardFrontView)
-        self.view.addSubview(self.cardBackView)
+        print("view will appeared in deckVC")
+        
+        self.view.addSubview(cardFrontView)
+        self.view.addSubview(cardBackView)
 
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("view appeared")
+        print("view appeared in deckVC")
+        
+        //generateNewCardForViewing()
+        
         
     }
     
@@ -79,32 +81,30 @@ class LewisDeckViewController: UIViewController {
     
     func deckTapTransitionTo() {
 
-        animateTransition()
+        generateNewCardForViewing()
+        flip()
+        //animateTransition()
     }
     
     
-    func animateTransition() {
+    func flip() {
+        let transitionOptions: UIViewAnimationOptions = [.TransitionFlipFromRight, .ShowHideTransitionViews]
         
-        UIView.transitionFromView((switchTransitions ? self.cardBackView : self.cardFrontView), toView: (switchTransitions ? self.cardFrontView : self.cardBackView), duration: 1.0, options: [.TransitionFlipFromRight, .ShowHideTransitionViews], completion: {(complete: Bool) -> () in
-            print("transition animation complete")
-            
-            self.switchTransitions = !self.switchTransitions
-            
-            
+        UIView.transitionWithView(cardBackView, duration: 1.0, options: transitionOptions, animations: {
+            self.cardBackView.hidden = true
+            }, completion: nil)
         
-        })
+        UIView.transitionWithView(cardFrontView, duration: 1.0, options: transitionOptions, animations: {
+            self.cardFrontView.hidden = false
+            }, completion: nil)
     }
+    
     
     
     func resetTransitionViews() {
         
-        if self.switchTransitions {
-            self.cardBackView.backgroundColor = UIColor.redColor()
-            self.cardFrontView.backgroundColor = UIColor.greenColor()
-        } else {
-            self.cardBackView.backgroundColor = UIColor.greenColor()
-            self.cardFrontView.backgroundColor = UIColor.redColor()
-        }
+        self.cardBackView.hidden = false
+        self.cardFrontView.hidden = true
     }
     
     //MARK: Model stuff
@@ -112,6 +112,14 @@ class LewisDeckViewController: UIViewController {
     func randomCardFromDeck() -> LewisCard {
         
         return deckModel.pickRandomCard()
+    }
+
+    
+    func generateNewCardForViewing() {
+        
+        let card = randomCardFromDeck()
+        print("\(card.suit), \(card.rank)")
+        cardFrontView.newCardToView(card, Sideways: true)
     }
     
     
@@ -130,6 +138,20 @@ class LewisDeckViewController: UIViewController {
 
 
 
+//Couldnt figure out how to get this to work, probably cuase im an idiot
+//Was setting view1 to view2 (or vica verca) and i couldnt find out how to compensate
+//Flip() makes more sence to me
+//    func animateTransition() {
+//
+//        UIView.transitionFromView((switchTransitions ? view1 : view2), toView: (switchTransitions ? view2 : view1), duration: 1.0, options: [.TransitionFlipFromRight], completion: {(complete: Bool) -> () in
+//            print("transition animation complete in deckVC")
+//
+//            self.switchTransitions = !self.switchTransitions
+//            self.resetTransitionViews()
+//
+//
+//        })
+//    }
 
 
 

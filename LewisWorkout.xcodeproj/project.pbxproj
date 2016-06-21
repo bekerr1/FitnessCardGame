@@ -22,6 +22,8 @@
 		F41D8C481CFFD88C00458A3F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = F41D8C471CFFD88C00458A3F /* squarePNG.png */; };
 		F4449E8F1D15EF950009A0CB /* LewisDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4449E8E1D15EF950009A0CB /* LewisDeckView.swift */; };
 		F4449E911D15EFA90009A0CB /* LewisCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4449E901D15EFA90009A0CB /* LewisCardView.swift */; };
+		F4A5AF4F1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5AF4E1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift */; };
+		F4A5AF511D18FDEA00CA5ED4 /* GeormetricConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */; };
 		F4F9E6CE1D15FE1E000BFCB0 /* LewisCardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */; };
 		F4F9E6D01D15FE2D000BFCB0 /* LewisCardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9E6CF1D15FE2D000BFCB0 /* LewisCardFrontView.swift */; };
 		F4FC304B1D05F3360048ADE7 /* LewisCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FC304A1D05F3360048ADE7 /* LewisCard.swift */; };
@@ -68,6 +70,8 @@
 		F41D8C471CFFD88C00458A3F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
 		F4449E8E1D15EF950009A0CB /* LewisDeckView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDeckView.swift; sourceTree = "<group>"; };
 		F4449E901D15EFA90009A0CB /* LewisCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardView.swift; sourceTree = "<group>"; };
+		F4A5AF4E1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDeckPlaceholderView.swift; sourceTree = "<group>"; };
+		F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeormetricConstants.swift; sourceTree = "<group>"; };
 		F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardBackView.swift; sourceTree = "<group>"; };
 		F4F9E6CF1D15FE2D000BFCB0 /* LewisCardFrontView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardFrontView.swift; sourceTree = "<group>"; };
 		F4FC304A1D05F3360048ADE7 /* LewisCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCard.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 				F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */,
 				F4449E8E1D15EF950009A0CB /* LewisDeckView.swift */,
 				F4449E901D15EFA90009A0CB /* LewisCardView.swift */,
+				F4A5AF4E1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift */,
 				F41D8C011CFB4F8600458A3F /* LewisGameViewController.swift */,
 				F41D8C031CFD712C00458A3F /* LewisDeckViewController.swift */,
 				F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */,
@@ -136,6 +141,7 @@
 				F4FC304A1D05F3360048ADE7 /* LewisCard.swift */,
 				F4FC304E1D05FAFD0048ADE7 /* LewisCardProtocols.swift */,
 				F4FC304C1D05F4EB0048ADE7 /* LewisDeck.swift */,
+				F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */,
 				F41D8BCC1CFB465C00458A3F /* ViewController.swift */,
 				F41D8BCE1CFB465D00458A3F /* Main.storyboard */,
 				F41D8BD41CFB465D00458A3F /* Assets.xcassets */,
@@ -232,6 +238,7 @@
 				TargetAttributes = {
 					F41D8BC61CFB465C00458A3F = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 69M653D4N9;
 					};
 					F41D8BDD1CFB465D00458A3F = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -298,10 +305,12 @@
 			files = (
 				F4FC304D1D05F4EB0048ADE7 /* LewisDeck.swift in Sources */,
 				F4449E8F1D15EF950009A0CB /* LewisDeckView.swift in Sources */,
+				F4A5AF511D18FDEA00CA5ED4 /* GeormetricConstants.swift in Sources */,
 				F4FC304B1D05F3360048ADE7 /* LewisCard.swift in Sources */,
 				F4449E911D15EFA90009A0CB /* LewisCardView.swift in Sources */,
 				F4FC304F1D05FAFD0048ADE7 /* LewisCardProtocols.swift in Sources */,
 				F4F9E6D01D15FE2D000BFCB0 /* LewisCardFrontView.swift in Sources */,
+				F4A5AF4F1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift in Sources */,
 				F41D8C461CFF825100458A3F /* LewisAVDetectorController.swift in Sources */,
 				F41D8C041CFD712C00458A3F /* LewisDeckViewController.swift in Sources */,
 				F41D8BD31CFB465D00458A3F /* LewisWorkout.xcdatamodeld in Sources */,
@@ -449,10 +458,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LewisWorkout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Package.LewisWorkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -460,10 +472,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LewisWorkout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Package.LewisWorkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

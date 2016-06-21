@@ -10,6 +10,7 @@ import UIKit
 
 class LewisDeck: NSObject {
     
+    let initialCardCount = LewisCard.validRank().count * LewisCard.validSuit().count
     var deck: [LewisCard] = {
         
         var d: [LewisCard] = Array()
@@ -49,13 +50,13 @@ class LewisDeck: NSObject {
     override init() {
         
         numberOfDecks = 1
-        cardCount = 54 * numberOfDecks
+        cardCount = initialCardCount * numberOfDecks
     }
     
     init(withNumberOfDecks count: Int) {
         
         numberOfDecks = count
-        cardCount = 54 * numberOfDecks
+        cardCount = initialCardCount * numberOfDecks
         super.init()
         duplicateDeck()
     }
