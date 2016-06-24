@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LewisGameViewController: UIViewController {
+class LewisGameViewController: UIViewController, DetectorClassProtocol {
     
     //MARK: Properties
     @IBOutlet weak var pushupCountLabel: UILabel!
@@ -22,7 +22,17 @@ class LewisGameViewController: UIViewController {
     private var deckVC: LewisDeckViewController!
     private var currentCardVC: LewisCardViewController!
     
+    lazy var imageDisplayView: UIImageView = {
+        
+        let aview = UIImageView()
+        aview.backgroundColor = UIColor.redColor()
+        return aview
+    }()
+    
     private var tap: Bool = false
+    var deckTapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
+    
+    private var detectorController: LewisAVDetectorController!
     
     //MARK: Initialize
     override func viewDidLoad() {
@@ -30,10 +40,13 @@ class LewisGameViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let deckTapDesture = UITapGestureRecognizer(target: self, action: #selector(deckTap))
-        let deckGestures = [deckTapDesture]
+        deckTapGesture = deckTapDesture
+        let deckGestures = [deckTapGesture]
         deckPlaceholderView.gestureRecognizers = deckGestures
         deckPlaceholderView.referenceRect = deckViewContainer.frame
-        //deckPlaceholderView.createStackEffect()
+        
+        let dataTapGesture = UITapGestureRecognizer(target: self, action: #selector(recordData))
+        self.view.gestureRecognizers = [dataTapGesture]
         
         
     }
@@ -47,6 +60,13 @@ class LewisGameViewController: UIViewController {
         super.viewDidAppear(animated)
         
         deckPlaceholderView.createStackEffect()
+        
+        let insetFrame = CGRectInset(self.view.frame, 20.0, 40.0)
+        print("insetFrame = \(NSStringFromCGRect(self.view.layer.bounds))")
+        detectorController = LewisAVDetectorController(withparentFrame: insetFrame)
+        detectorController.delegate = self
+        
+        print("frame = \(NSStringFromCGRect(self.view.frame))")
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,16 +83,14 @@ class LewisGameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    //MARK: Actions
-    
-    func deckTap() {
-        print("DeckTapped " + #function)
+    required init?(coder aDecoder: NSCoder) {
         
-        self.view.bringSubviewToFront(self.deckViewContainer)
-        tap = true
+        super.init(coder: aDecoder)
+        
     }
     
+    
+    //MARK: Actions
     
     func animationStart() {
         
@@ -100,9 +118,11 @@ class LewisGameViewController: UIViewController {
             
             }, completion: {(complete: Bool) -> () in
                 print("Transform animation completed")
+                //All animations completed at this point
                 
                 self.setCardVCViewToAnimated()
                 self.resetViewsForNextAnimation(originalTransform: originalTransform, originalFrame: originalFrame)
+                self.startPreviewSession()
                 
         })
 
@@ -123,6 +143,38 @@ class LewisGameViewController: UIViewController {
         self.deckViewContainer.frame = frame
     }
     
+    func startPreviewSession() {
+        
+        deckTapGesture.enabled = false
+        
+        let preview = detectorController.getPreviewLayerForUse()
+        self.view.layer.addSublayer(preview)
+        detectorController.startCaptureSession()
+        
+        self.view.addSubview(self.imageDisplayView)
+    }
+    
+    
+    //MARK: GESTURES
+    
+    func deckTap() {
+        print("DeckTapped " + #function)
+        
+        self.view.bringSubviewToFront(self.deckViewContainer)
+        tap = true
+    }
+    
+    
+    func recordData() {
+        
+        self.detectorController.collectPushupData = !self.detectorController.collectPushupData
+        if self.detectorController.collectPushupData {
+            print("recording")
+        } else {
+            print("Not recording")
+        }
+    }
+    
     
     //MARK: Prepare for Segue
     
@@ -135,6 +187,20 @@ class LewisGameViewController: UIViewController {
             print("card segue")
             currentCardVC = segue.destinationViewController as? LewisCardViewController
         }
+    }
+    
+    
+    
+    func gotCIImageFromVideoDataOutput(image: CIImage) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            let newImage = UIImage(CIImage: image)
+            let imageSize = newImage.size
+            self.imageDisplayView.frame = CGRectMake(0, 0, 200, 350)
+            self.imageDisplayView.image = newImage
+            
+        })
+        
     }
 
 }
