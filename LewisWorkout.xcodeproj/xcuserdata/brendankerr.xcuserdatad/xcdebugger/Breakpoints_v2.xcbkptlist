@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488411397.292481"
+            timestampString = "488563479.8945"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
             landmarkName = "drawFaceBoxesForFeatures(_:forVideoBox:deviceOrientation:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -47,8 +47,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
             endingLineNumber = "44"
-            landmarkName = "deck"
-            landmarkType = "19">
+            landmarkName = "LewisDeck"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisCardFrontView.swift"
-            timestampString = "488161691.301685"
+            timestampString = "489513428.19675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "init(frame:)"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "init(coder:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -134,7 +134,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             scope = "0"
@@ -164,12 +164,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488411397.292481"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "startCaptureSession()"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "LewisAVDetectorController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisAVDetectorController.swift"
+            timestampString = "488775278.483549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "useFrontCamera()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -180,27 +196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488411397.292481"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "getPreviewLayerForUse()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488411397.292481"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "setupAVComponents()"
             landmarkType = "5">
          </BreakpointContent>
@@ -212,13 +212,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488411397.292481"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "init(withparentFrame:)"
-            landmarkType = "5">
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "LewisAVDetectorController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -228,11 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488421960.830634"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "513"
-            endingLineNumber = "513"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "captureOutput(_:didOutputSampleBuffer:fromConnection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -370,11 +370,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488411397.292481"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "drawFaceBoxesForFeatures(_:forVideoBox:deviceOrientation:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -386,11 +386,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488411397.292481"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "495"
+            endingLineNumber = "495"
             landmarkName = "videoPreviewBoxForGravity(_:frameSize:aperatureSize:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -402,11 +402,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488421960.830634"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "572"
-            endingLineNumber = "572"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
             landmarkName = "captureOutput(_:didOutputSampleBuffer:fromConnection:)"
             landmarkType = "5">
             <Locations>
@@ -450,12 +450,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488421960.830634"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "596"
-            endingLineNumber = "596"
-            landmarkName = "feedDataToFileWithFaceRectArea(_:FaceRectCenter:)"
+            startingLineNumber = "619"
+            endingLineNumber = "619"
+            landmarkName = "brightnessFromSampleBuffer(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -466,13 +466,237 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisAVDetectorController.swift"
-            timestampString = "488421926.58148"
+            timestampString = "488775278.483549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "580"
-            endingLineNumber = "580"
-            landmarkName = "brightnessFromSampleBuffer(_:)"
+            startingLineNumber = "597"
+            endingLineNumber = "597"
+            landmarkName = "captureOutput(_:didOutputSampleBuffer:fromConnection:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisAVDetectorController.swift"
+            timestampString = "488775278.483549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "636"
+            endingLineNumber = "636"
+            landmarkName = "determineFilterSettingsFromBrightness(_:AppliedToImage:ImageHeight:ImageWidth:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisClassicalCard.swift"
+            timestampString = "489513428.19675"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "layout(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisClassicalCardShapes.swift"
+            timestampString = "489087105.934007"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "drawWithPath()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LewisWorkout.Heart.drawWithPath () -&gt; __ObjC.CGMutablePath"
+                  moduleName = "LewisWorkout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisClassicalCardShapes.swift"
+                  timestampString = "489519232.110807"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for LewisWorkout.Pathable.drawWithPath () -&gt; __ObjC.CGMutablePath in conformance LewisWorkout.Heart : LewisWorkout.Pathable in LewisWorkout"
+                  moduleName = "LewisWorkout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisClassicalCardShapes.swift"
+                  timestampString = "489519232.111535"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisClassicalCard.swift"
+            timestampString = "489513428.19675"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "newRowFormatter(FirstRow:SecondRow:ThirdRow:FourthRow:FifthRow:SixthRow:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisCardFrontView.swift"
+            timestampString = "489518533.045856"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "newCardToView(_:Sideways:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisClassicalCard.swift"
+            timestampString = "489519227.139869"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "fillCardContentsWithShape(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisClassicalCard.swift"
+            timestampString = "489519408.195445"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "horizontalDouble(_:Height:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LewisWorkout.ClassicCard.horizontalDouble (CoreGraphics.CGFloat, Height : CoreGraphics.CGFloat) -&gt; Swift.Array&lt;__ObjC.CAShapeLayer&gt;"
+                  moduleName = "LewisWorkout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisClassicalCard.swift"
+                  timestampString = "489519408.201885"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LewisWorkout.ClassicCard.horizontalDouble (CoreGraphics.CGFloat, Height : CoreGraphics.CGFloat) -&gt; Swift.Array&lt;__ObjC.CAShapeLayer&gt;"
+                  moduleName = "LewisWorkout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisClassicalCard.swift"
+                  timestampString = "489519408.202074"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "189"
+                  endingLineNumber = "189"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LewisWorkout/LewisClassicalCard.swift"
+            timestampString = "489519410.026984"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "single(_:Height:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LewisWorkout.ClassicCard.single (CoreGraphics.CGFloat, Height : CoreGraphics.CGFloat) -&gt; Swift.Array&lt;__ObjC.CAShapeLayer&gt;"
+                  moduleName = "LewisWorkout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisClassicalCard.swift"
+                  timestampString = "489519410.033022"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "208"
+                  endingLineNumber = "208"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LewisWorkout.ClassicCard.single (CoreGraphics.CGFloat, Height : CoreGraphics.CGFloat) -&gt; Swift.Array&lt;__ObjC.CAShapeLayer&gt;"
+                  moduleName = "LewisWorkout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisClassicalCard.swift"
+                  timestampString = "489519410.033391"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

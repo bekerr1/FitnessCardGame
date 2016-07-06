@@ -10,19 +10,19 @@ import UIKit
 
 class LewisDeck: NSObject {
     
-    let initialCardCount = LewisCard.validRank().count * LewisCard.validSuit().count
+    let initialCardCount = LewisCard.Rank.validRanks.count * LewisCard.Suit.validSuits.count
     var deck: [LewisCard] = {
         
         var d: [LewisCard] = Array()
         var jokerCount: Int = 0
         
-        for rank in LewisCard.validRank() {
-            for suit in LewisCard.validSuit() {
+        for rank in LewisCard.Rank.validRanks {
+            for suit in LewisCard.Suit.validSuits {
                 
-                if rank == 14 {
+                if rank == LewisCard.Rank.Joker {
                     
                     if jokerCount < 2 {
-                        let newCard: LewisCard = LewisCard(withSuit: "Joker", rank: 14, color: "Joker")
+                        let newCard: LewisCard = LewisCard(WithSuit: LewisCard.Suit.Joker, Rank: LewisCard.Rank.Joker)
                         jokerCount += 1
                         d.append(newCard)
                     } else {
@@ -31,12 +31,9 @@ class LewisDeck: NSObject {
                     
                 } else {
                     
-                    let newCard: LewisCard = LewisCard(withSuit: suit, rank: rank, color: "")
+                    let newCard: LewisCard = LewisCard(WithSuit: suit, Rank: rank)
                     d.append(newCard)
                 }
-                
-                
-                
             }
         }
         
@@ -77,20 +74,43 @@ class LewisDeck: NSObject {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
+
+
+
+//class LewisDeck: NSObject {
+//    
+//    let initialCardCount = LewisCard.validRank().count * LewisCard.validSuit().count
+//    var deck: [LewisCard] = {
+//        
+//        var d: [LewisCard] = Array()
+//        var jokerCount: Int = 0
+//        
+//        for rank in LewisCard.validRank() {
+//            for suit in LewisCard.validSuit() {
+//                
+//                if rank == 14 {
+//                    
+//                    if jokerCount < 2 {
+//                        let newCard: LewisCard = LewisCard(withSuit: "Joker", rank: 14, color: "Joker")
+//                        jokerCount += 1
+//                        d.append(newCard)
+//                    } else {
+//                        print("have 2 jokers and dont need anymore")
+//                    }
+//                    
+//                } else {
+//                    
+//                    let newCard: LewisCard = LewisCard(withSuit: suit, rank: rank, color: "")
+//                    d.append(newCard)
+//                }
+//                
+//                
+//                
+//            }
+//        }
+//        
+//        return d
+//    }()
+
+

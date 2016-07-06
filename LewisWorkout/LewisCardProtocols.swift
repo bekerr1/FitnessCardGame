@@ -23,9 +23,3 @@ protocol Rankable {
     
 }
 
-protocol Colorable {
-    
-    var color: String {get set}
-    static func validColor() -> [String]
-    
-}

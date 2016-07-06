@@ -20,7 +20,7 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k" customClass="LewisCardView" customModule="LewisWorkout" customModuleProvider="target">
                                 <rect key="frame" x="389" y="93" width="161" height="316"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.13391359060402686" green="0.097708682885906034" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="161" id="3N7-Db-U3d"/>
                                     <constraint firstAttribute="height" constant="316" id="ojn-29-XS1"/>

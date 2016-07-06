@@ -131,7 +131,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     
     func setCardVCViewToAnimated() {
         //Get the deckVC's current deck model and set it to the cardVC's deck model
-        currentCardVC.setViewToNewCard(deckVC.cardFrontView.currentCard)    
+        currentCardVC.setViewToNewCard(deckVC.cardFrontView.currentCardModel)
     }
     
     
@@ -196,7 +196,8 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         dispatch_async(dispatch_get_main_queue(), {
             let newImage = UIImage(CIImage: image)
             let imageSize = newImage.size
-            self.imageDisplayView.frame = CGRectMake(0, 0, 200, 350)
+            self.imageDisplayView.frame = CGRectMake(0, 0, imageSize.width, imageSize.height)
+            print("\(NSStringFromCGRect(self.imageDisplayView.frame))")
             self.imageDisplayView.image = newImage
             
         })

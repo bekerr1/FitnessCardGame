@@ -24,11 +24,16 @@
 		F4449E911D15EFA90009A0CB /* LewisCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4449E901D15EFA90009A0CB /* LewisCardView.swift */; };
 		F4A5AF4F1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5AF4E1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift */; };
 		F4A5AF511D18FDEA00CA5ED4 /* GeormetricConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */; };
+		F4F1E8AB1D1EC8C60034539D /* LewisDetectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1E8AA1D1EC8C60034539D /* LewisDetectionProtocol.swift */; };
+		F4F1E8AD1D1ECF950034539D /* LewisDetectionStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1E8AC1D1ECF950034539D /* LewisDetectionStructures.swift */; };
+		F4F1E8AF1D1F131B0034539D /* LewisArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1E8AE1D1F131B0034539D /* LewisArrayExtensions.swift */; };
+		F4F1E8B11D243B3F0034539D /* LewisLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1E8B01D243B3F0034539D /* LewisLayout.swift */; };
+		F4F1E8B51D2445240034539D /* LewisClassicalCardShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1E8B41D2445240034539D /* LewisClassicalCardShapes.swift */; };
+		F4F1E8B71D2489540034539D /* LewisClassicalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1E8B61D2489540034539D /* LewisClassicalCard.swift */; };
 		F4F9E6CE1D15FE1E000BFCB0 /* LewisCardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */; };
 		F4F9E6D01D15FE2D000BFCB0 /* LewisCardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9E6CF1D15FE2D000BFCB0 /* LewisCardFrontView.swift */; };
 		F4FC304B1D05F3360048ADE7 /* LewisCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FC304A1D05F3360048ADE7 /* LewisCard.swift */; };
 		F4FC304D1D05F4EB0048ADE7 /* LewisDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FC304C1D05F4EB0048ADE7 /* LewisDeck.swift */; };
-		F4FC304F1D05FAFD0048ADE7 /* LewisCardProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FC304E1D05FAFD0048ADE7 /* LewisCardProtocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,11 +77,16 @@
 		F4449E901D15EFA90009A0CB /* LewisCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardView.swift; sourceTree = "<group>"; };
 		F4A5AF4E1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDeckPlaceholderView.swift; sourceTree = "<group>"; };
 		F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeormetricConstants.swift; sourceTree = "<group>"; };
+		F4F1E8AA1D1EC8C60034539D /* LewisDetectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDetectionProtocol.swift; sourceTree = "<group>"; };
+		F4F1E8AC1D1ECF950034539D /* LewisDetectionStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDetectionStructures.swift; sourceTree = "<group>"; };
+		F4F1E8AE1D1F131B0034539D /* LewisArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisArrayExtensions.swift; sourceTree = "<group>"; };
+		F4F1E8B01D243B3F0034539D /* LewisLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisLayout.swift; sourceTree = "<group>"; };
+		F4F1E8B41D2445240034539D /* LewisClassicalCardShapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisClassicalCardShapes.swift; sourceTree = "<group>"; };
+		F4F1E8B61D2489540034539D /* LewisClassicalCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisClassicalCard.swift; sourceTree = "<group>"; };
 		F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardBackView.swift; sourceTree = "<group>"; };
 		F4F9E6CF1D15FE2D000BFCB0 /* LewisCardFrontView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardFrontView.swift; sourceTree = "<group>"; };
 		F4FC304A1D05F3360048ADE7 /* LewisCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCard.swift; sourceTree = "<group>"; };
 		F4FC304C1D05F4EB0048ADE7 /* LewisDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDeck.swift; sourceTree = "<group>"; };
-		F4FC304E1D05FAFD0048ADE7 /* LewisCardProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisCardProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,10 +146,15 @@
 				F41D8C031CFD712C00458A3F /* LewisDeckViewController.swift */,
 				F4F9E6CD1D15FE1E000BFCB0 /* LewisCardBackView.swift */,
 				F4F9E6CF1D15FE2D000BFCB0 /* LewisCardFrontView.swift */,
+				F4F1E8B01D243B3F0034539D /* LewisLayout.swift */,
+				F4F1E8B61D2489540034539D /* LewisClassicalCard.swift */,
+				F4F1E8B41D2445240034539D /* LewisClassicalCardShapes.swift */,
 				F41D8C061CFEA2CB00458A3F /* LewisCardViewController.swift */,
 				F41D8C451CFF825100458A3F /* LewisAVDetectorController.swift */,
 				F4FC304A1D05F3360048ADE7 /* LewisCard.swift */,
-				F4FC304E1D05FAFD0048ADE7 /* LewisCardProtocols.swift */,
+				F4F1E8AA1D1EC8C60034539D /* LewisDetectionProtocol.swift */,
+				F4F1E8AC1D1ECF950034539D /* LewisDetectionStructures.swift */,
+				F4F1E8AE1D1F131B0034539D /* LewisArrayExtensions.swift */,
 				F4FC304C1D05F4EB0048ADE7 /* LewisDeck.swift */,
 				F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */,
 				F41D8BCC1CFB465C00458A3F /* ViewController.swift */,
@@ -304,18 +319,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4FC304D1D05F4EB0048ADE7 /* LewisDeck.swift in Sources */,
+				F4F1E8AB1D1EC8C60034539D /* LewisDetectionProtocol.swift in Sources */,
 				F4449E8F1D15EF950009A0CB /* LewisDeckView.swift in Sources */,
 				F4A5AF511D18FDEA00CA5ED4 /* GeormetricConstants.swift in Sources */,
 				F4FC304B1D05F3360048ADE7 /* LewisCard.swift in Sources */,
+				F4F1E8B71D2489540034539D /* LewisClassicalCard.swift in Sources */,
 				F4449E911D15EFA90009A0CB /* LewisCardView.swift in Sources */,
-				F4FC304F1D05FAFD0048ADE7 /* LewisCardProtocols.swift in Sources */,
 				F4F9E6D01D15FE2D000BFCB0 /* LewisCardFrontView.swift in Sources */,
 				F4A5AF4F1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift in Sources */,
+				F4F1E8AF1D1F131B0034539D /* LewisArrayExtensions.swift in Sources */,
 				F41D8C461CFF825100458A3F /* LewisAVDetectorController.swift in Sources */,
+				F4F1E8AD1D1ECF950034539D /* LewisDetectionStructures.swift in Sources */,
 				F41D8C041CFD712C00458A3F /* LewisDeckViewController.swift in Sources */,
+				F4F1E8B51D2445240034539D /* LewisClassicalCardShapes.swift in Sources */,
 				F41D8BD31CFB465D00458A3F /* LewisWorkout.xcdatamodeld in Sources */,
 				F41D8C021CFB4F8600458A3F /* LewisGameViewController.swift in Sources */,
 				F4F9E6CE1D15FE1E000BFCB0 /* LewisCardBackView.swift in Sources */,
+				F4F1E8B11D243B3F0034539D /* LewisLayout.swift in Sources */,
 				F41D8BCD1CFB465C00458A3F /* ViewController.swift in Sources */,
 				F41D8BCB1CFB465C00458A3F /* AppDelegate.swift in Sources */,
 				F41D8C071CFEA2CB00458A3F /* LewisCardViewController.swift in Sources */,
