@@ -12,4 +12,7 @@ import UIKit
 struct LewisGeometricConstants {
     
     static let cornerRadius: CGFloat = 10.0
+    
+    static let suitSizeWidth: CGFloat = 80.0
+    static let suitSizeHeight: CGFloat = 80.0
 }

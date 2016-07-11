@@ -148,7 +148,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         deckTapGesture.enabled = false
         
         let preview = detectorController.getPreviewLayerForUse()
-        self.view.layer.addSublayer(preview)
+        //self.view.layer.addSublayer(preview)
         detectorController.startCaptureSession()
         
         self.view.addSubview(self.imageDisplayView)

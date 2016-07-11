@@ -12,12 +12,12 @@ import UIKit
 
 class LewisCardFrontView: UIView {
     
-    var currentCard: LewisCard = LewisCard()
     var pastCards: [LewisCard] = Array()
     var currentCardModel: LewisCard!
-    var activeLabels: [UIView] = Array()
     var sideWays: Bool = false
-    let labelHeight: CGFloat = 100
+    var cardContents: Queue!
+    var layoutModel: ClassicalCardLayout!
+    
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -33,37 +33,46 @@ class LewisCardFrontView: UIView {
     
     override func layoutSubviews() {
         //Layout
+        super.layoutSubviews()
         
-        if let cardModel = currentCardModel {
-            var card = ClassicCard(WithCard: cardModel)
-            card.layout(self.bounds)
+        if let model = currentCardModel {
+            
+            var cardLayout = ClassicalCardLayout(WithContents: cardContents)
+            cardLayout.layout(Model: model, InsideRect: self.bounds, Sideways: sideWays)
         }
         
+
+    }
+    
+    func forceLayoutContent() {
         
+        if let model = currentCardModel {
+            
+            var cardLayout = ClassicalCardLayout(WithContents: cardContents)
+            cardLayout.layout(Model: model, InsideRect: self.bounds, Sideways: sideWays)
+        }
         
     }
     
     func newCardToView(newCard: LewisCard, Sideways side: Bool) {
         
+        self.sideWays = side
         
         if let pastCard = currentCardModel {
             pastCards.append(pastCard)
         }
         
         currentCardModel = newCard
-        let card = ClassicCard(WithCard: newCard)
-        
-        for card in card.cardContents {
-            self.layer.addSublayer(card)
+        var card = ClassicalCardModel(WithCard: currentCardModel)
+        self.cardContents = card.createModelFromCard()
+                
+        for shape in self.cardContents.queueContents() {
+            self.layer.addSublayer(shape)
         }
     }
     
     
-    
-    
-    
 }
-
 
 
 

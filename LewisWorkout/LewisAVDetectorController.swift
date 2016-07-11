@@ -579,7 +579,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         
         //for displaying image used every 20 images
         if detectionCount % 10 == 0 {
-            delegate.gotCIImageFromVideoDataOutput(imageCI)
+            //delegate.gotCIImageFromVideoDataOutput(imageCI)
             if !faceFound {
                 cropWidthOffset += 20
             }

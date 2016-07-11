@@ -57,6 +57,7 @@ class LewisCardViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.whiteColor()
         cardFrontView.newCardToView(card, Sideways: false)
+        cardFrontView.forceLayoutContent()
     }
 
 }
