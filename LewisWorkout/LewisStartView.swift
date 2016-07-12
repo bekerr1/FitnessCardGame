@@ -24,6 +24,11 @@ class LewisStartView: UIView {
     var wornHeartImage: UIImage!
     var wornDiamondImage: UIImage!
     
+    var clubImageView: UIImageView!
+    var spadeImageView: UIImageView!
+    var heartImageView: UIImageView!
+    var diamondImageView: UIImageView!
+    
     
     required init?(coder aDecoder: NSCoder) {
         print(#function)
@@ -32,11 +37,9 @@ class LewisStartView: UIView {
         startButton = UIButton(type: UIButtonType.RoundedRect)
         toplabel = UILabel(frame: CGRectMake(0, 0, 300, 80))
         bottomLabel = UILabel(frame: CGRectMake(0, 0, 300, 80))
-        
         super.init(coder: aDecoder)
-        
+        setupUIElements()
     }
-    
     
     override init(frame: CGRect) {
         print(#function)
@@ -45,13 +48,24 @@ class LewisStartView: UIView {
         startButton = UIButton(type: UIButtonType.RoundedRect)
         toplabel = UILabel(frame: CGRectMake(0, 0, 300, 20))
         bottomLabel = UILabel(frame: CGRectMake(0, 0, 300, 20))
-        
         super.init(frame: frame)
+        setupUIElements()
+    }
+    
+    func setupUIElements() {
+        crackedClubImage = UIImage(named:"CrackingClub")
+        crackedSpadeImage = UIImage(named:"CrackingSpade")
+        wornHeartImage = UIImage(named:"WornHeart")
+        wornDiamondImage = UIImage(named:"WornDiamond")
+        
+        clubImageView = UIImageView(image: crackedClubImage)
+        spadeImageView = UIImageView(image: crackedSpadeImage)
+        heartImageView = UIImageView(image: wornHeartImage)
+        diamondImageView =  UIImageView(image: wornDiamondImage)
     }
     
     
     func configureLayerShapes() {
-        
         
         let topCircle = UIBezierPath(arcCenter: CGPointMake(self.frame.width/2, 280), radius: 400, startAngle: 0, endAngle: 2 * CGFloat(M_PI), clockwise: false)
         
@@ -70,7 +84,6 @@ class LewisStartView: UIView {
     
     func configureStartButton() {
         
-        
         startButton.frame = CGRectMake(0, 0, 150, 60)
         startButton.center = CGPointMake(self.frame.width/2, self.frame.height + 100)
         startButton.setTitle("Start Workout", forState: .Normal)
@@ -83,7 +96,6 @@ class LewisStartView: UIView {
         startButton.addTarget(self, action: #selector(startButtonTapped), forControlEvents: .TouchUpInside)
         
         self.addSubview(startButton)
-        
     }
     
     func configureLabels() {
@@ -106,14 +118,11 @@ class LewisStartView: UIView {
         bottomLabel.center = CGPointMake(self.frame.width+bottomLabel.frame.width/2, self.frame.height/2 - labelHeightOffset)
         //bottomLabel.backgroundColor = UIColor.redColor()
         
-        
         self.addSubview(toplabel)
         self.addSubview(bottomLabel)
-        
     }
     
     func animateLabelsToPosition() {
-        
         
         UIView.animateWithDuration(1.0, delay: 2.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
             
@@ -133,12 +142,94 @@ class LewisStartView: UIView {
                                 print("bottomlabel Animated")
                             }
                     })
-
                 }
         })
+    }
+    
+    func configureSuits() {
         
+        suitsHiddenAndOffScreen()
+        
+        self.addSubview(clubImageView)
+        self.addSubview(spadeImageView)
+        self.addSubview(heartImageView)
+        self.addSubview(diamondImageView)
+    }
+
+    func suitsHiddenAndOffScreen() {
+        
+        clubImageView.hidden = true
+        spadeImageView.hidden = true
+        heartImageView.hidden = true
+        diamondImageView.hidden = true
+        
+        let imagesHeight = clubImageView.frame.size.height
+        let horizontalSpacing = CGRectGetWidth(self.bounds) / 4.0
+        let startVerticalPos = CGRectGetHeight(self.bounds) + imagesHeight / 2.0
+        
+        var centerX = horizontalSpacing / 2.0
+        
+        clubImageView.center = CGPointMake(centerX, startVerticalPos )
+        centerX += horizontalSpacing
+        spadeImageView.center = CGPointMake(centerX, startVerticalPos )
+        centerX += horizontalSpacing
+        heartImageView.center = CGPointMake(centerX, startVerticalPos )
+        centerX += horizontalSpacing
+        diamondImageView.center = CGPointMake(centerX, startVerticalPos )
+    }
+    
+    
+    func animateSuitsToPosition() {
+
+        // Hide and set Start OFF screen
+
+        suitsHiddenAndOffScreen()
+        
+        let imagesHeight = clubImageView.frame.size.height
+        let horizontalSpacing = CGRectGetWidth(self.bounds) / 4.0
+        let finalVerticalPos = CGRectGetHeight(self.bounds) - imagesHeight / 2.0
+
+        var centerX = horizontalSpacing / 2.0
+
+        //        UIView.animateWithDuration(1.0, delay: 1.0, options: .CurveEaseInOut, animations: {() -> Void in
+        
+        clubImageView.hidden = false
+        spadeImageView.hidden = false
+        heartImageView.hidden = false
+        diamondImageView.hidden = false
+
+        centerX = horizontalSpacing / 2.0
+        
+        UIView.animateWithDuration(1.0, delay: 0.25, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.clubImageView.center = CGPointMake(centerX, finalVerticalPos )
+            }, completion: nil)
+
+        centerX += horizontalSpacing
+
+        UIView.animateWithDuration(1.0, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.spadeImageView.center = CGPointMake(centerX, finalVerticalPos )
+            }, completion: nil)
+
+
+        centerX += horizontalSpacing
+
+        UIView.animateWithDuration(1.0, delay: 0.75, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.heartImageView.center = CGPointMake(centerX, finalVerticalPos )
+            }, completion: nil)
+        
+
+        centerX += horizontalSpacing
+
+        UIView.animateWithDuration(1.0, delay: 1.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.diamondImageView.center = CGPointMake(centerX, finalVerticalPos )
+            }, completion: nil)
         
     }
+
     
     
     func animateButtonToPosition() {
@@ -170,6 +261,9 @@ class LewisStartView: UIView {
     
     func startButtonTapped() {
         
+        
+        // Start button dismiss
+        
         UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveEaseInOut, animations: {() -> Void in
             
             self.startButton.center = CGPointMake(self.frame.width/2, self.frame.height - 210)
@@ -194,6 +288,9 @@ class LewisStartView: UIView {
                 }
         })
         
+        
+        // Labels dismiss
+        
         UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveEaseInOut, animations: {() -> Void in
             
             self.toplabel.center = CGPointMake(self.frame.width/2 + 20, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
@@ -213,19 +310,21 @@ class LewisStartView: UIView {
                             if completed {
                                 print("Button Animated")
                                 self.startButton.removeFromSuperview()
-                                
                             }
                     })
                     
                 }
         })
-
         
+        
+        // TODO: suits
+        
+        
+
     }
     
     
     func startLayerAnimations() {
-        
         
         let upperPositionAnimation: CABasicAnimation = CABasicAnimation(keyPath: "position")
         upperPositionAnimation.fromValue = topCircleShape.valueForKey("position")
@@ -245,7 +344,151 @@ class LewisStartView: UIView {
         
         bottomCircleShape.addAnimation(lowerPositionAnimation, forKey: "position")
     }
+    
 }
+
+
+
+
+extension LewisStartView {
+    
+    func programmedAnimation() {
+
+        suitsHiddenAndOffScreen()
+
+        startButton.hidden = true
+        toplabel.hidden = true
+        bottomLabel.hidden = true
+
+        startButton.center = CGPointMake(CGRectGetWidth(self.bounds)/2, CGRectGetHeight(self.bounds) + 100)
+        toplabel.center = CGPointMake(-toplabel.frame.width/2, CGRectGetHeight(self.bounds)/2 - labelDistance - labelHeightOffset)
+        bottomLabel.center = CGPointMake(CGRectGetWidth(self.bounds) + bottomLabel.frame.width/2, CGRectGetHeight(self.bounds)/2 - labelHeightOffset)
+
+
+        func labels() {
+            let delaySeconds = 0.5
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delaySeconds * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.programmedAnimateLabelsToPosition()
+            }
+        }
+        
+        func suits() {
+            let delaySeconds = 1.5
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delaySeconds * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.programmedAnimateSuitsToPosition()
+            }
+        }
+        
+        func buttons() {
+            let delaySeconds = 3.0
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delaySeconds * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.programmedAnimateButtonToPosition()
+            }
+        }
+        
+        startButton.hidden = false
+        toplabel.hidden = false
+        bottomLabel.hidden = false
+
+        labels()
+        suits()
+        buttons()
+    }
+    
+    
+    func programmedAnimateLabelsToPosition() {
+
+        let topFinalPosition = CGPointMake(self.frame.width/2, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
+        let bottomFinalPosition = CGPointMake(self.frame.width/2, self.frame.height/2 - self.labelHeightOffset)
+        
+        UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.toplabel.center = topFinalPosition
+            
+            }, completion: {(completed: Bool) -> Void in
+                
+                if completed {
+                    print("toplable Animated")
+                    UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+                        
+                        self.bottomLabel.center = bottomFinalPosition
+                        
+                        }, completion: nil)
+                }
+        })
+    }
+    
+    
+    func programmedAnimateSuitsToPosition() {
+        
+        // Hide and set Start OFF screen
+        
+        let imagesHeight = clubImageView.frame.size.height
+        let horizontalSpacing = CGRectGetWidth(self.bounds) / 4.0
+        let finalVerticalPos = CGRectGetHeight(self.bounds) - imagesHeight / 2.0
+        
+        var centerX = horizontalSpacing / 2.0
+        
+        //        UIView.animateWithDuration(1.0, delay: 1.0, options: .CurveEaseInOut, animations: {() -> Void in
+        
+        
+        clubImageView.hidden = false
+        spadeImageView.hidden = false
+        heartImageView.hidden = false
+        diamondImageView.hidden = false
+        
+        centerX = horizontalSpacing / 2.0
+        
+        let totalDuration = 0.5
+        
+        UIView.animateWithDuration(1.0, delay: totalDuration * 0.25, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.clubImageView.center = CGPointMake(centerX, finalVerticalPos )
+            }, completion: nil)
+        
+        centerX += horizontalSpacing
+        
+        UIView.animateWithDuration(1.0, delay: totalDuration * 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.spadeImageView.center = CGPointMake(centerX, finalVerticalPos )
+            }, completion: nil)
+        
+        
+        centerX += horizontalSpacing
+        
+        UIView.animateWithDuration(1.0, delay: totalDuration * 0.75, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.heartImageView.center = CGPointMake(centerX, finalVerticalPos )
+            }, completion: nil)
+        
+        
+        centerX += horizontalSpacing
+        
+        UIView.animateWithDuration(1.0, delay: totalDuration * 1.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.diamondImageView.center = CGPointMake(centerX, finalVerticalPos )
+            }, completion: nil)
+        
+    }
+    
+    func programmedAnimateButtonToPosition() {
+        
+        //        UIView.animateWithDuration(1.0, delay: 1.0, options: .CurveEaseInOut, animations: {() -> Void in
+        //
+        
+        UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+            
+            self.startButton.center = CGPointMake(self.frame.width/2, self.frame.height - 180)
+            
+            }, completion: nil)
+    }
+    
+}
+
+
 
 
 
