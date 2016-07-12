@@ -12,8 +12,8 @@ import UIKit
 
 class LewisCardFrontView: UIView {
     
+    private var currentCardModel: LewisCard!
     var pastCards: [LewisCard] = Array()
-    var currentCardModel: LewisCard!
     var sideWays: Bool = false
     var cardContents: Queue!
     var layoutModel: ClassicalCardLayout!
@@ -35,10 +35,10 @@ class LewisCardFrontView: UIView {
         //Layout
         super.layoutSubviews()
         
-        if let model = currentCardModel {
+        if currentCardModel != nil {
             
             var cardLayout = ClassicalCardLayout(WithContents: cardContents)
-            cardLayout.layout(Model: model, InsideRect: self.bounds, Sideways: sideWays)
+            cardLayout.layout(Model: currentCardModel, InsideRect: self.bounds, Sideways: sideWays)
         }
         
 
@@ -58,8 +58,8 @@ class LewisCardFrontView: UIView {
         
         self.sideWays = side
         
-        if let pastCard = currentCardModel {
-            pastCards.append(pastCard)
+        if currentCardModel != nil {
+            pastCards.append(currentCardModel)
         }
         
         currentCardModel = newCard
