@@ -12,8 +12,15 @@ class LewisStartViewController: UIViewController {
     
     
     @IBOutlet var startView: LewisStartView!
+    @IBOutlet weak var blurView: UIVisualEffectView!
 
-
+    @IBOutlet weak var stageStack: UIStackView!
+    @IBOutlet weak var stage1: LewisStageView!
+    @IBOutlet weak var stage2: LewisStageView!
+    @IBOutlet weak var stage3: LewisStageView!
+    @IBOutlet weak var stage4: LewisStageView!
+ 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //startView.backgroundColor = UIColor.darkGrayColor()
@@ -21,11 +28,21 @@ class LewisStartViewController: UIViewController {
         startView.configureStartButton()
         startView.configureLabels()
         startView.configureSuits()
+    
+        
+        
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print(NSStringFromCGRect(self.view.frame))
+        
+        stage1.stageImage.image = UIImage(named: "menuItem - 1")
+        stage2.stageImage.image = UIImage(named: "menuItem - 2")
+        stage3.stageImage.image = UIImage(named: "menuItem - 3")
+        stage4.stageImage.image = UIImage(named: "menuItem - 4")
+        
+        stage1.stageLabel.text = "Football"
     }
     
     override func viewDidAppear(animated: Bool) {

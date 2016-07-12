@@ -72,7 +72,7 @@ class LewisStartView: UIView {
         let bottomCircle = UIBezierPath(arcCenter: CGPointMake(self.frame.width/2, self.frame.height + 280), radius: 400, startAngle: 0, endAngle: 2 * CGFloat(M_PI), clockwise: false)
         
         topCircleShape.path = topCircle.CGPath
-        topCircleShape.fillColor = UIColor.blackColor().colorWithAlphaComponent(0.8).CGColor
+        topCircleShape.fillColor = UIColor.blackColor().colorWithAlphaComponent(0.7).CGColor
         
         bottomCircleShape.path = bottomCircle.CGPath
         bottomCircleShape.fillColor = UIColor.blackColor().CGColor

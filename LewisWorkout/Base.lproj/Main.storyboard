@@ -48,23 +48,23 @@
                                     <constraint firstAttribute="width" constant="240" id="gNK-r9-QQW"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
-                                <rect key="frame" x="40" y="129" width="59" height="244"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
+                                <rect key="frame" x="40" y="129" width="59" height="245"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
                                         <rect key="frame" x="0.0" y="0.0" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
                                         <rect key="frame" x="0.0" y="112" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Cards" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
-                                        <rect key="frame" x="0.0" y="223" width="59" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
+                                        <rect key="frame" x="0.0" y="224" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -130,39 +130,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bLE-cg-BdK" customClass="LewisStageTableView" customModule="LewisWorkout" customModuleProvider="target">
-                                <rect key="frame" x="20" y="28" width="560" height="552"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StageImageCell" rowHeight="78" id="z1P-OA-loq" customClass="LewisStageTableViewCell" customModule="LewisWorkout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="560" height="78"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z1P-OA-loq" id="asg-Gq-Mtv">
-                                            <rect key="frame" x="0.0" y="0.0" width="560" height="78"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7l-ro-grW">
-                                                    <rect key="frame" x="8" y="8" width="308" height="61"/>
-                                                    <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="52"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bVk-ns-kXR">
+                                <rect key="frame" x="0.0" y="90" width="600" height="420"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hhx-HL-Jje" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="101"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bay-8A-BND" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="106" width="600" height="102"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03P-M9-Fif" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="213" width="600" height="101"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FmK-gx-wUw" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="319" width="600" height="101"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Hhx-HL-Jje" firstAttribute="width" secondItem="bVk-ns-kXR" secondAttribute="width" id="oAZ-oK-A5r"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select A Stage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaA-Vs-dLk">
+                                <rect key="frame" x="0.0" y="28" width="600" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zS-rC-ads">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="n0t-Ql-lSD">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="uaA-Vs-dLk" firstAttribute="top" secondItem="CHn-15-HPA" secondAttribute="bottom" constant="8" id="0O7-Eu-38K"/>
+                            <constraint firstItem="uaA-Vs-dLk" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="9WM-d7-GMa"/>
+                            <constraint firstItem="bVk-ns-kXR" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" constant="-180" id="BNZ-t3-MPy"/>
+                            <constraint firstItem="bVk-ns-kXR" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="HFv-5j-ZtG"/>
+                            <constraint firstItem="uaA-Vs-dLk" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="JSs-HY-VwQ"/>
+                            <constraint firstItem="8zS-rC-ads" firstAttribute="centerY" secondItem="KMf-QG-F5D" secondAttribute="centerY" id="QGZ-Kc-tD3"/>
+                            <constraint firstItem="bVk-ns-kXR" firstAttribute="centerY" secondItem="KMf-QG-F5D" secondAttribute="centerY" id="XcS-T0-snu"/>
+                            <constraint firstItem="bVk-ns-kXR" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="dBf-dg-PgC"/>
+                            <constraint firstItem="8zS-rC-ads" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="mEX-aW-8BU"/>
+                            <constraint firstItem="8zS-rC-ads" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" id="v6a-sK-CKP"/>
+                            <constraint firstItem="8zS-rC-ads" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="yQY-nS-sUU"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="blurView" destination="8zS-rC-ads" id="zXR-b8-P9u"/>
+                        <outlet property="stage1" destination="Hhx-HL-Jje" id="Gyx-YU-eYx"/>
+                        <outlet property="stage2" destination="Bay-8A-BND" id="VK8-b3-vBk"/>
+                        <outlet property="stage3" destination="03P-M9-Fif" id="8fA-i6-kVA"/>
+                        <outlet property="stage4" destination="FmK-gx-wUw" id="RNs-VC-sP3"/>
+                        <outlet property="stageStack" destination="bVk-ns-kXR" id="f7i-Yu-j3t"/>
                         <outlet property="startView" destination="KMf-QG-F5D" id="4m5-Mp-sx1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZHh-vT-wfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2014" y="185"/>
+            <point key="canvasLocation" x="-1730" y="173"/>
         </scene>
         <!--Lewis Deck View Controller-->
         <scene sceneID="baL-rS-syu">
