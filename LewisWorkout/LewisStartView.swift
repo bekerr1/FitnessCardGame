@@ -56,9 +56,8 @@ class LewisStartView: UIView {
 //        setupUIElements()
 //    }
     
-    
-    
     func setupUIElements() {
+        
         crackedClubImage = UIImage(named:"CrackingClub")
         crackedSpadeImage = UIImage(named:"CrackingSpade")
         wornHeartImage = UIImage(named:"WornHeart")
@@ -68,8 +67,6 @@ class LewisStartView: UIView {
         spadeImageView = UIImageView(image: crackedSpadeImage)
         heartImageView = UIImageView(image: wornHeartImage)
         diamondImageView =  UIImageView(image: wornDiamondImage)
-        
-        
     }
     
     
@@ -144,8 +141,13 @@ class LewisStartView: UIView {
     
     func configureSuits() {
         
-        suitsHiddenAndOffScreen()
-        
+//        suitsHiddenAndOffScreen()
+
+        clubImageView.hidden = true
+        spadeImageView.hidden = true
+        heartImageView.hidden = true
+        diamondImageView.hidden = true
+
         self.addSubview(clubImageView)
         self.addSubview(spadeImageView)
         self.addSubview(heartImageView)
@@ -154,7 +156,7 @@ class LewisStartView: UIView {
     
 
     func suitsHiddenAndOffScreen() {
-        
+
         clubImageView.hidden = true
         spadeImageView.hidden = true
         heartImageView.hidden = true
@@ -178,7 +180,6 @@ class LewisStartView: UIView {
     
     
     func startButtonTapped() {
-        
         
         // Start button dismiss
         
@@ -273,12 +274,11 @@ class LewisStartView: UIView {
             
             self.blurVisualView.alpha = 0.0
             
-            } , completion: {(completed: Bool) in
+            } , completion: {
+                (completed: Bool) in
                 
                 self.selectStageLabel.hidden = false
                 self.blurVisualView.hidden = true
-                
-                
         })
     }
     
