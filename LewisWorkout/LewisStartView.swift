@@ -181,9 +181,12 @@ class LewisStartView: UIView {
         
         // Start button dismiss
         
+        let startButtonPosition1 = CGPointMake(self.frame.width/2, self.frame.height - 210)
+        let startButtonEndPosition = CGPointMake(self.frame.width/2, self.frame.height + 100)
+        
         UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveEaseInOut, animations: {() -> Void in
             
-            self.startButton.center = CGPointMake(self.frame.width/2, self.frame.height - 210)
+            self.startButton.center = startButtonPosition1
             
             }, completion: {(completed: Bool) -> Void in
                 
@@ -191,7 +194,7 @@ class LewisStartView: UIView {
                     
                     UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {() -> Void in
                         
-                        self.startButton.center = CGPointMake(self.frame.width/2, self.frame.height + 100)
+                        self.startButton.center = startButtonEndPosition
                         
                         }, completion: {(completed: Bool) -> Void in
                             
@@ -200,26 +203,33 @@ class LewisStartView: UIView {
                             self.startLayerAnimations()
                             self.animateBlurAway()
                     })
-
                 }
         })
         
         
         // Labels dismiss
         
+        
+        let topLabelPosition1 = CGPointMake(self.frame.width/2 + 20, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
+        let topLabelEndPosition = CGPointMake(-self.toplabel.frame.width/2, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
+
+        let bottomLabelPosition1 = CGPointMake(self.frame.width/2 - 20, self.frame.height/2 - self.labelHeightOffset)
+        let bottompLabelEndPosition = CGPointMake(self.frame.width+self.bottomLabel.frame.width/2, self.frame.height/2 - self.labelHeightOffset)
+
+        
         UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveEaseInOut, animations: {() -> Void in
             
-            self.toplabel.center = CGPointMake(self.frame.width/2 + 20, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
-            self.bottomLabel.center = CGPointMake(self.frame.width/2 - 20, self.frame.height/2 - self.labelHeightOffset)
+            self.toplabel.center = topLabelPosition1
+            self.bottomLabel.center = bottomLabelPosition1
             
-            }, completion: {(completed: Bool) -> Void in
+            }, completion: { (completed: Bool) -> Void in
                 
                 if completed {
                     
                     UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {() -> Void in
                         
-                        self.toplabel.center = CGPointMake(-self.toplabel.frame.width/2, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
-                        self.bottomLabel.center = CGPointMake(self.frame.width+self.bottomLabel.frame.width/2, self.frame.height/2 - self.labelHeightOffset)
+                        self.toplabel.center = topLabelEndPosition
+                        self.bottomLabel.center = bottompLabelEndPosition
                         
                         }, completion: {(completed: Bool) -> Void in
                             
@@ -228,8 +238,8 @@ class LewisStartView: UIView {
                     
                 } else {
                     
-                    self.toplabel.center = CGPointMake(-self.toplabel.frame.width/2, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
-                    self.bottomLabel.center = CGPointMake(self.frame.width+self.bottomLabel.frame.width/2, self.frame.height/2 - self.labelHeightOffset)
+                    self.toplabel.center = topLabelEndPosition
+                    self.bottomLabel.center = bottompLabelEndPosition
                     self.startButton.removeFromSuperview()
                 }
         })
@@ -237,8 +247,6 @@ class LewisStartView: UIView {
         
         // TODO: suits
         
-        
-
     }
     
     
@@ -261,7 +269,6 @@ class LewisStartView: UIView {
         bottomCircleShape.position = pointToEndLower
         
         bottomCircleShape.addAnimation(lowerPositionAnimation, forKey: "position")
-        
         
     }
     
