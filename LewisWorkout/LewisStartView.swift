@@ -21,11 +21,6 @@ class LewisStartView: UIView {
     @IBOutlet weak var selectStageLabel: UILabel!
     
     @IBOutlet weak var blurVisualView: UIVisualEffectView!
-    @IBOutlet weak var stageStack: UIStackView!
-    @IBOutlet weak var stage1: LewisStageView!
-    @IBOutlet weak var stage2: LewisStageView!
-    @IBOutlet weak var stage3: LewisStageView!
-    @IBOutlet weak var stage4: LewisStageView!
     
     var crackedClubImage: UIImage!
     var crackedSpadeImage: UIImage!
@@ -86,7 +81,6 @@ class LewisStartView: UIView {
         configureStartButton()
         configureLabels()
         configureSuits()
-//        configureStageImages()
     }
     
     
@@ -147,24 +141,6 @@ class LewisStartView: UIView {
         self.addSubview(toplabel)
         self.addSubview(bottomLabel)
     }
-    
-    
-//    func configureStageImages() {
-//        
-//        stage1.stageImage.image = UIImage(named: "menuItem - 1")
-//        stage2.stageImage.image = UIImage(named: "menuItem - 2")
-//        stage3.stageImage.image = UIImage(named: "menuItem - 3")
-//        stage4.stageImage.image = UIImage(named: "menuItem - 4")
-//        
-//        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))
-//        
-//        stage1.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-//        stage2.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-//        stage3.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-//        stage4.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-//        
-//    }
-    
     
     func configureSuits() {
         
@@ -306,29 +282,11 @@ class LewisStartView: UIView {
         })
     }
     
-    
-    
-    func stageTapped(sender: UITapGestureRecognizer) {
-        
-        if sender.view === stage1 {
-            print("stage 1 tap")
-        } else if sender.view === stage2 {
-            print("stage 2 tap")
-        } else if sender.view === stage3 {
-            print("stage 3 tap")
-        } else if sender.view === stage4 {
-            print("stage 4 tap")
-        }
-        
-    }
-    
 }
 
 
 
-
-
-
+// MARK: programmedAnimation extension
 
 extension LewisStartView {
     
