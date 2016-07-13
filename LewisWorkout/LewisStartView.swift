@@ -140,8 +140,6 @@ class LewisStartView: UIView {
     }
     
     func configureSuits() {
-        
-//        suitsHiddenAndOffScreen()
 
         clubImageView.hidden = true
         spadeImageView.hidden = true
@@ -370,9 +368,6 @@ extension LewisStartView {
         
         var centerX = horizontalSpacing / 2.0
         
-        //        UIView.animateWithDuration(1.0, delay: 1.0, options: .CurveEaseInOut, animations: {() -> Void in
-        
-        
         clubImageView.hidden = false
         spadeImageView.hidden = false
         heartImageView.hidden = false
@@ -413,9 +408,6 @@ extension LewisStartView {
     }
     
     func programmedAnimateButtonToPosition() {
-        
-        //        UIView.animateWithDuration(1.0, delay: 1.0, options: .CurveEaseInOut, animations: {() -> Void in
-        //
         
         UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
             
