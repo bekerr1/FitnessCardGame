@@ -186,7 +186,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="388"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationLevel="10" indentationWidth="10" reuseIdentifier="LewisCell" id="Rja-vi-JKb" customClass="LewisStartTableViewCell" customModule="LewisWorkout" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1" width="600" height="120"/>
