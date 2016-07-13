@@ -45,4 +45,14 @@ class LewisStartViewController: UIViewController {
 //            self.startView.animateSuitsToPosition()
 //        }
     }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "LWStageTableSegue" {
+            print("LWStageTableSegue")
+            
+        }
+    }
+
 }

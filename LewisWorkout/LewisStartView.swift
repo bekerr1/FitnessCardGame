@@ -86,9 +86,7 @@ class LewisStartView: UIView {
         configureStartButton()
         configureLabels()
         configureSuits()
-        configureStageImages()
-        
-        
+//        configureStageImages()
     }
     
     
@@ -151,21 +149,21 @@ class LewisStartView: UIView {
     }
     
     
-    func configureStageImages() {
-        
-        stage1.stageImage.image = UIImage(named: "menuItem - 1")
-        stage2.stageImage.image = UIImage(named: "menuItem - 2")
-        stage3.stageImage.image = UIImage(named: "menuItem - 3")
-        stage4.stageImage.image = UIImage(named: "menuItem - 4")
-        
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))
-        
-        stage1.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-        stage2.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-        stage3.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-        stage4.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-        
-    }
+//    func configureStageImages() {
+//        
+//        stage1.stageImage.image = UIImage(named: "menuItem - 1")
+//        stage2.stageImage.image = UIImage(named: "menuItem - 2")
+//        stage3.stageImage.image = UIImage(named: "menuItem - 3")
+//        stage4.stageImage.image = UIImage(named: "menuItem - 4")
+//        
+//        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))
+//        
+//        stage1.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
+//        stage2.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
+//        stage3.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
+//        stage4.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
+//        
+//    }
     
     
     func configureSuits() {
