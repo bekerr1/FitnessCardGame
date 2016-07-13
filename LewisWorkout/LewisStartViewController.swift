@@ -14,6 +14,7 @@ class LewisStartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //startView.backgroundColor = UIColor.darkGrayColor()
         
         startView.configure()
@@ -22,25 +23,13 @@ class LewisStartViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print(NSStringFromCGRect(self.view.frame))
-        
-        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
         startView.programmedAnimation()
-        
-//        startView.animateLabelsToPosition()
-//        startView.animateButtonToPosition()
-//        
-//        let delaySeconds1 = 1.0
-//        let delayTime1 = dispatch_time(DISPATCH_TIME_NOW, Int64(delaySeconds1 * Double(NSEC_PER_SEC)))
-//        dispatch_after(delayTime1, dispatch_get_main_queue()) {
-//            self.startView.animateSuitsToPosition()
-//        }
     }
-    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
