@@ -54,12 +54,13 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        deckPlaceholderView.createStackEffect()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        deckPlaceholderView.createStackEffect()
+        
         
         let insetFrame = CGRectInset(self.view.frame, 20.0, 40.0)
         print("insetFrame = \(NSStringFromCGRect(self.view.layer.bounds))")

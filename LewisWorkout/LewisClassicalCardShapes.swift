@@ -17,10 +17,10 @@ import UIKit
 
 
 
-protocol Pathable {
-    
-    func drawPathWithDesign(design: HeartDesign) -> CGMutablePath
-}
+//protocol Pathable {
+//    
+//    func drawPathWithDesign(design: HeartDesign) -> CGMutablePath
+//}
 
 
 protocol PathRenderer {
@@ -62,82 +62,107 @@ extension CGMutablePath : PathRenderer {
 
 protocol Shapeable  {
     
-    func thisShape() -> CAShapeLayer
+    associatedtype Shape
+    func thisShape() -> Shape
+    func place(AtPoint point: CGPoint)
+}
+
+
+extension CAShapeLayer : Shapeable {
     
+    typealias Shape = CGPath
+    
+    func thisShape() -> Shape {
+        return self.path!
+    }
+    
+    func place(AtPoint point: CGPoint) {
+        self.position = point
+    }
+}
+
+
+extension UIImageView : Shapeable {
+    
+    typealias Shape = UIImageView
+    
+    func thisShape() -> Shape {
+        return self
+    }
+    
+    func place(AtPoint point: CGPoint) {
+        self.center = point
+    }
 }
 
 
 
-
-struct HeartDesign {
-    
-    let bottomPoint: CGPoint
-    let leftArcControl: CGPoint
-    let topPoint: CGPoint
-    let rightArcControl: CGPoint
-    
-    init(_ b: CGPoint, _ lac: CGPoint, _ t: CGPoint, _ rac: CGPoint) {
-        bottomPoint = b
-        leftArcControl = lac
-        topPoint = t
-        rightArcControl = rac
-    }
-}
-
-
-
-struct Heart: Pathable, Shapeable {
-    
-    //typealias Shape = CAShapeLayer
-    
-    let shape: CAShapeLayer
-    var suitSize: CGSize
-    
-    init() {
-        
-        suitSize = CGSizeMake(LewisGeometricConstants.suitSizeWidth, LewisGeometricConstants.suitSizeHeight)
-        shape = CAShapeLayer()
-        shape.frame = CGRectMake(0, 0, LewisGeometricConstants.suitSizeWidth, LewisGeometricConstants.suitSizeHeight)
-        
-        createHeartDesign()
-    }
-    
-    
-    func drawPathWithDesign(design: HeartDesign) -> CGMutablePath {
-        
-        let path = CGPathCreateMutable()
-        path.startAtPoint(design.bottomPoint)
-        path.addSingleCurve(design.leftArcControl, EndingPoint: design.topPoint)
-        path.addSingleCurve(design.rightArcControl, EndingPoint: design.bottomPoint)
-        CGPathCloseSubpath(path)
-        return path
-    }
-    
-    func createHeartDesign() {
-        
-        let bottomPoint = CGPointMake(suitSize.width / 2, suitSize.height)
-        let leftControl = CGPointMake(0, 0)
-        let topPoint = CGPointMake(suitSize.width / 2, suitSize.height / 2)
-        let rightControl = CGPointMake(suitSize.width,0)
-        
-        print("\(NSStringFromCGPoint(bottomPoint)), \(NSStringFromCGPoint(leftControl)), \(NSStringFromCGPoint(topPoint)), \(NSStringFromCGPoint(rightControl))")
-        
-        let heartDesign = HeartDesign(bottomPoint, leftControl, topPoint, rightControl)
-        let heartPath = drawPathWithDesign(heartDesign)
-        
-        shape.path = heartPath
-        
-    
-    }
-    
-    
-    func thisShape() -> CAShapeLayer {
-        return self.shape
-    }
-    
-    
-    
-}
+//struct HeartDesign {
+//    
+//    let bottomPoint: CGPoint
+//    let leftArcControl: CGPoint
+//    let topPoint: CGPoint
+//    let rightArcControl: CGPoint
+//    
+//    init(_ b: CGPoint, _ lac: CGPoint, _ t: CGPoint, _ rac: CGPoint) {
+//        bottomPoint = b
+//        leftArcControl = lac
+//        topPoint = t
+//        rightArcControl = rac
+//    }
+//}
+//
+//
+//
+//struct Heart<T : Shapeable> : Pathable, Shapeable {
+//    
+//    typealias Shape = T.Shape
+//    
+//    //let child: T
+//    var suitSize: CGSize
+//    
+//    init() {
+//        
+//        suitSize = CGSizeMake(LewisGeometricConstants.suitSizeWidth, LewisGeometricConstants.suitSizeHeight)
+//        
+//    }
+//    
+//    
+//    func drawPathWithDesign(design: HeartDesign) -> CGMutablePath {
+//        
+//        let path = CGPathCreateMutable()
+//        path.startAtPoint(design.bottomPoint)
+//        path.addSingleCurve(design.leftArcControl, EndingPoint: design.topPoint)
+//        path.addSingleCurve(design.rightArcControl, EndingPoint: design.bottomPoint)
+//        CGPathCloseSubpath(path)
+//        return path
+//    }
+//    
+//    func createHeartDesign() -> HeartDesign {
+//        
+//        let bottomPoint = CGPointMake(suitSize.width / 2, suitSize.height)
+//        let leftControl = CGPointMake(0, 0)
+//        let topPoint = CGPointMake(suitSize.width / 2, suitSize.height / 2)
+//        let rightControl = CGPointMake(suitSize.width,0)
+//        
+//        print("\(NSStringFromCGPoint(bottomPoint)), \(NSStringFromCGPoint(leftControl)), \(NSStringFromCGPoint(topPoint)), \(NSStringFromCGPoint(rightControl))")
+//        
+//        return HeartDesign(bottomPoint, leftControl, topPoint, rightControl)
+//    
+//    }
+//    
+//    func place(AtPoint point: CGPoint) {
+//        self.place(AtPoint: point)
+//    }
+//    
+//    
+//    func thisShape() -> Shape {
+//        return child.thisShape()
+//    }
+//    
+//    
+//    
+//}
 
 
 

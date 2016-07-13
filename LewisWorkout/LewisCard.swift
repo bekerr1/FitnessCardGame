@@ -6,7 +6,7 @@
 //  Copyright © 2016 b3k3r. All rights reserved.
 //
 
-
+import UIKit
 
 struct LewisCard {
     
@@ -37,6 +37,21 @@ struct LewisCard {
             case .Club: return "Clubs"
             case .Spade: return "Spades"
             case .Joker: return "Joker"
+            }
+        }
+        
+        var suitImage: UIImage {
+            switch self {
+            case .Diamond:
+                return UIImage(named: "WornDiamond")!
+            case .Spade:
+                return UIImage(named: "CrackingSpade")!
+            case .Heart:
+                return UIImage(named: "WornHeart")!
+            case .Club:
+                return UIImage(named: "CrackingClub")!
+            case .Joker:
+                return UIImage() //Joker image
             }
         }
         

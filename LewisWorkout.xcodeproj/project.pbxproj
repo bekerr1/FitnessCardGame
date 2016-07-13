@@ -29,6 +29,7 @@
 		F45437991D33077500BF4777 /* LewisStageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437981D33077500BF4777 /* LewisStageTableView.swift */; };
 		F454379B1D356EC000BF4777 /* LewisStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F454379A1D356EC000BF4777 /* LewisStageView.swift */; };
 		F454379F1D35726E00BF4777 /* Stages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F454379E1D35726E00BF4777 /* Stages.xcassets */; };
+		F45437A11D36956F00BF4777 /* LewisStartAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437A01D36956F00BF4777 /* LewisStartAnimations.swift */; };
 		F4A5AF4F1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5AF4E1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift */; };
 		F4A5AF511D18FDEA00CA5ED4 /* GeormetricConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */; };
 		F4ABCDF61D32A77700F52D8C /* LewisStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ABCDF51D32A77700F52D8C /* LewisStartViewController.swift */; };
@@ -91,6 +92,7 @@
 		F45437981D33077500BF4777 /* LewisStageTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisStageTableView.swift; sourceTree = "<group>"; };
 		F454379A1D356EC000BF4777 /* LewisStageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisStageView.swift; sourceTree = "<group>"; };
 		F454379E1D35726E00BF4777 /* Stages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Stages.xcassets; sourceTree = "<group>"; };
+		F45437A01D36956F00BF4777 /* LewisStartAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisStartAnimations.swift; sourceTree = "<group>"; };
 		F4A5AF4E1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisDeckPlaceholderView.swift; sourceTree = "<group>"; };
 		F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeormetricConstants.swift; sourceTree = "<group>"; };
 		F4ABCDF51D32A77700F52D8C /* LewisStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LewisStartViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */,
 				F4ABCDF51D32A77700F52D8C /* LewisStartViewController.swift */,
 				F4ABCDF71D32A7C700F52D8C /* LewisStartView.swift */,
+				F45437A01D36956F00BF4777 /* LewisStartAnimations.swift */,
 				F454379A1D356EC000BF4777 /* LewisStageView.swift */,
 				F45437981D33077500BF4777 /* LewisStageTableView.swift */,
 				F4449E8E1D15EF950009A0CB /* LewisDeckView.swift */,
@@ -357,6 +360,7 @@
 				F4449E911D15EFA90009A0CB /* LewisCardView.swift in Sources */,
 				F4F9E6D01D15FE2D000BFCB0 /* LewisCardFrontView.swift in Sources */,
 				F4A5AF4F1D18F4A400CA5ED4 /* LewisDeckPlaceholderView.swift in Sources */,
+				F45437A11D36956F00BF4777 /* LewisStartAnimations.swift in Sources */,
 				F454379B1D356EC000BF4777 /* LewisStageView.swift in Sources */,
 				F4F1E8AF1D1F131B0034539D /* LewisArrayExtensions.swift in Sources */,
 				F41D8C461CFF825100458A3F /* LewisAVDetectorController.swift in Sources */,

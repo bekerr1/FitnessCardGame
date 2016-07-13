@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisGameViewController.swift"
-            timestampString = "488411397.292481"
+            timestampString = "490066197.453622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "startPreviewSession()"
             landmarkType = "5">
          </BreakpointContent>
@@ -244,11 +244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisGameViewController.swift"
-            timestampString = "488411397.292481"
+            timestampString = "490066197.453622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "gotCIImageFromVideoDataOutput(_:)"
             landmarkType = "5">
             <Locations>
@@ -497,54 +497,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LewisWorkout/LewisClassicalCardShapes.swift"
-            timestampString = "489714600.603455"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "init(_:_:_:_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LewisWorkout.Heart.drawWithPath () -&gt; __ObjC.CGMutablePath"
-                  moduleName = "LewisWorkout"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisClassicalCardShapes.swift"
-                  timestampString = "489519232.110807"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "76">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "protocol witness for LewisWorkout.Pathable.drawWithPath () -&gt; __ObjC.CGMutablePath in conformance LewisWorkout.Heart : LewisWorkout.Pathable in LewisWorkout"
-                  moduleName = "LewisWorkout"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisClassicalCardShapes.swift"
-                  timestampString = "489519232.111535"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "49"
-                  endingLineNumber = "49"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LewisWorkout/LewisClassicalCardModel.swift"
             timestampString = "489704581.109717"
             startingColumnNumber = "9223372036854775807"
@@ -569,54 +521,6 @@
             endingLineNumber = "57"
             landmarkName = "newCardToView(_:Sideways:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LewisWorkout/LewisCardFrontView.swift"
-            timestampString = "489704581.109717"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "layoutSubviews()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LewisWorkout.LewisCardFrontView.layoutSubviews () -&gt; ()"
-                  moduleName = "LewisWorkout"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisCardFrontView.swift"
-                  timestampString = "489726393.02578"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "96">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LewisWorkout.LewisCardFrontView.layoutSubviews () -&gt; ()"
-                  moduleName = "LewisWorkout"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/brendankerr/Desktop/iOS%20Projects/LewisWorkout/LewisWorkout/LewisCardFrontView.swift"
-                  timestampString = "489726393.025987"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "168">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
