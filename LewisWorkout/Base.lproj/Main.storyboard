@@ -138,7 +138,6 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bay-8A-BND" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="106" width="600" height="102"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03P-M9-Fif" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="213" width="600" height="101"/>
@@ -151,7 +150,7 @@
                                     <constraint firstItem="Hhx-HL-Jje" firstAttribute="width" secondItem="bVk-ns-kXR" secondAttribute="width" id="oAZ-oK-A5r"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select A Stage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaA-Vs-dLk">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select A Stage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaA-Vs-dLk">
                                 <rect key="frame" x="0.0" y="28" width="600" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -169,25 +168,28 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="uaA-Vs-dLk" firstAttribute="top" secondItem="CHn-15-HPA" secondAttribute="bottom" constant="8" id="0O7-Eu-38K"/>
+                            <constraint firstItem="8zS-rC-ads" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="8Pa-S6-Dqh"/>
+                            <constraint firstItem="8zS-rC-ads" firstAttribute="centerY" secondItem="KMf-QG-F5D" secondAttribute="centerY" id="9Cj-Hi-i0V"/>
                             <constraint firstItem="uaA-Vs-dLk" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="9WM-d7-GMa"/>
                             <constraint firstItem="bVk-ns-kXR" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" constant="-180" id="BNZ-t3-MPy"/>
                             <constraint firstItem="bVk-ns-kXR" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="HFv-5j-ZtG"/>
                             <constraint firstItem="uaA-Vs-dLk" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="JSs-HY-VwQ"/>
-                            <constraint firstItem="8zS-rC-ads" firstAttribute="centerY" secondItem="KMf-QG-F5D" secondAttribute="centerY" id="QGZ-Kc-tD3"/>
+                            <constraint firstItem="8zS-rC-ads" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" id="MjN-pK-Jd7"/>
+                            <constraint firstItem="8zS-rC-ads" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="QBN-5g-4J3"/>
                             <constraint firstItem="bVk-ns-kXR" firstAttribute="centerY" secondItem="KMf-QG-F5D" secondAttribute="centerY" id="XcS-T0-snu"/>
                             <constraint firstItem="bVk-ns-kXR" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="dBf-dg-PgC"/>
-                            <constraint firstItem="8zS-rC-ads" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="mEX-aW-8BU"/>
-                            <constraint firstItem="8zS-rC-ads" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" id="v6a-sK-CKP"/>
-                            <constraint firstItem="8zS-rC-ads" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="yQY-nS-sUU"/>
                         </constraints>
+                        <connections>
+                            <outlet property="blurVisualView" destination="8zS-rC-ads" id="6qM-ab-l0r"/>
+                            <outlet property="selectStageLabel" destination="uaA-Vs-dLk" id="bgp-dy-Qn4"/>
+                            <outlet property="stage1" destination="Hhx-HL-Jje" id="Mew-L3-szV"/>
+                            <outlet property="stage2" destination="Bay-8A-BND" id="Vx2-Ds-TZy"/>
+                            <outlet property="stage3" destination="03P-M9-Fif" id="AKH-rg-BeB"/>
+                            <outlet property="stage4" destination="FmK-gx-wUw" id="G6g-dE-aFF"/>
+                            <outlet property="stageStack" destination="bVk-ns-kXR" id="RNz-ny-FlT"/>
+                        </connections>
                     </view>
                     <connections>
-                        <outlet property="blurView" destination="8zS-rC-ads" id="zXR-b8-P9u"/>
-                        <outlet property="stage1" destination="Hhx-HL-Jje" id="Gyx-YU-eYx"/>
-                        <outlet property="stage2" destination="Bay-8A-BND" id="VK8-b3-vBk"/>
-                        <outlet property="stage3" destination="03P-M9-Fif" id="8fA-i6-kVA"/>
-                        <outlet property="stage4" destination="FmK-gx-wUw" id="RNs-VC-sP3"/>
-                        <outlet property="stageStack" destination="bVk-ns-kXR" id="f7i-Yu-j3t"/>
                         <outlet property="startView" destination="KMf-QG-F5D" id="4m5-Mp-sx1"/>
                     </connections>
                 </viewController>
