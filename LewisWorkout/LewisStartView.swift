@@ -21,11 +21,6 @@ class LewisStartView: UIView {
     @IBOutlet weak var selectStageLabel: UILabel!
     
     @IBOutlet weak var blurVisualView: UIVisualEffectView!
-    @IBOutlet weak var stageStack: UIStackView!
-    @IBOutlet weak var stage1: LewisStageView!
-    @IBOutlet weak var stage2: LewisStageView!
-    @IBOutlet weak var stage3: LewisStageView!
-    @IBOutlet weak var stage4: LewisStageView!
     
     var crackedClubImage: UIImage!
     var crackedSpadeImage: UIImage!
@@ -61,9 +56,8 @@ class LewisStartView: UIView {
 //        setupUIElements()
 //    }
     
-    
-    
     func setupUIElements() {
+        
         crackedClubImage = UIImage(named:"CrackingClub")
         crackedSpadeImage = UIImage(named:"CrackingSpade")
         wornHeartImage = UIImage(named:"WornHeart")
@@ -73,8 +67,6 @@ class LewisStartView: UIView {
         spadeImageView = UIImageView(image: crackedSpadeImage)
         heartImageView = UIImageView(image: wornHeartImage)
         diamondImageView =  UIImageView(image: wornDiamondImage)
-        
-        
     }
     
     
@@ -86,9 +78,6 @@ class LewisStartView: UIView {
         configureStartButton()
         configureLabels()
         configureSuits()
-        configureStageImages()
-        
-        
     }
     
     
@@ -150,28 +139,13 @@ class LewisStartView: UIView {
         self.addSubview(bottomLabel)
     }
     
-    
-    func configureStageImages() {
-        
-        stage1.stageImage.image = UIImage(named: "menuItem - 1")
-        stage2.stageImage.image = UIImage(named: "menuItem - 2")
-        stage3.stageImage.image = UIImage(named: "menuItem - 3")
-        stage4.stageImage.image = UIImage(named: "menuItem - 4")
-        
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))
-        
-        stage1.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-        stage2.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-        stage3.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-        stage4.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(stageTapped(_:)))]
-        
-    }
-    
-    
     func configureSuits() {
-        
-        suitsHiddenAndOffScreen()
-        
+
+        clubImageView.hidden = true
+        spadeImageView.hidden = true
+        heartImageView.hidden = true
+        diamondImageView.hidden = true
+
         self.addSubview(clubImageView)
         self.addSubview(spadeImageView)
         self.addSubview(heartImageView)
@@ -180,7 +154,7 @@ class LewisStartView: UIView {
     
 
     func suitsHiddenAndOffScreen() {
-        
+
         clubImageView.hidden = true
         spadeImageView.hidden = true
         heartImageView.hidden = true
@@ -205,12 +179,14 @@ class LewisStartView: UIView {
     
     func startButtonTapped() {
         
-        
         // Start button dismiss
+        
+        let startButtonPosition1 = CGPointMake(self.frame.width/2, self.frame.height - 210)
+        let startButtonEndPosition = CGPointMake(self.frame.width/2, self.frame.height + 100)
         
         UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveEaseInOut, animations: {() -> Void in
             
-            self.startButton.center = CGPointMake(self.frame.width/2, self.frame.height - 210)
+            self.startButton.center = startButtonPosition1
             
             }, completion: {(completed: Bool) -> Void in
                 
@@ -218,7 +194,7 @@ class LewisStartView: UIView {
                     
                     UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {() -> Void in
                         
-                        self.startButton.center = CGPointMake(self.frame.width/2, self.frame.height + 100)
+                        self.startButton.center = startButtonEndPosition
                         
                         }, completion: {(completed: Bool) -> Void in
                             
@@ -227,26 +203,33 @@ class LewisStartView: UIView {
                             self.startLayerAnimations()
                             self.animateBlurAway()
                     })
-
                 }
         })
         
         
         // Labels dismiss
         
+        
+        let topLabelPosition1 = CGPointMake(self.frame.width/2 + 20, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
+        let topLabelEndPosition = CGPointMake(-self.toplabel.frame.width/2, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
+
+        let bottomLabelPosition1 = CGPointMake(self.frame.width/2 - 20, self.frame.height/2 - self.labelHeightOffset)
+        let bottompLabelEndPosition = CGPointMake(self.frame.width+self.bottomLabel.frame.width/2, self.frame.height/2 - self.labelHeightOffset)
+
+        
         UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveEaseInOut, animations: {() -> Void in
             
-            self.toplabel.center = CGPointMake(self.frame.width/2 + 20, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
-            self.bottomLabel.center = CGPointMake(self.frame.width/2 - 20, self.frame.height/2 - self.labelHeightOffset)
+            self.toplabel.center = topLabelPosition1
+            self.bottomLabel.center = bottomLabelPosition1
             
-            }, completion: {(completed: Bool) -> Void in
+            }, completion: { (completed: Bool) -> Void in
                 
                 if completed {
                     
                     UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {() -> Void in
                         
-                        self.toplabel.center = CGPointMake(-self.toplabel.frame.width/2, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
-                        self.bottomLabel.center = CGPointMake(self.frame.width+self.bottomLabel.frame.width/2, self.frame.height/2 - self.labelHeightOffset)
+                        self.toplabel.center = topLabelEndPosition
+                        self.bottomLabel.center = bottompLabelEndPosition
                         
                         }, completion: {(completed: Bool) -> Void in
                             
@@ -255,8 +238,8 @@ class LewisStartView: UIView {
                     
                 } else {
                     
-                    self.toplabel.center = CGPointMake(-self.toplabel.frame.width/2, self.frame.height/2 - self.labelDistance - self.labelHeightOffset)
-                    self.bottomLabel.center = CGPointMake(self.frame.width+self.bottomLabel.frame.width/2, self.frame.height/2 - self.labelHeightOffset)
+                    self.toplabel.center = topLabelEndPosition
+                    self.bottomLabel.center = bottompLabelEndPosition
                     self.startButton.removeFromSuperview()
                 }
         })
@@ -264,8 +247,6 @@ class LewisStartView: UIView {
         
         // TODO: suits
         
-        
-
     }
     
     
@@ -289,7 +270,6 @@ class LewisStartView: UIView {
         
         bottomCircleShape.addAnimation(lowerPositionAnimation, forKey: "position")
         
-        
     }
     
     
@@ -299,38 +279,19 @@ class LewisStartView: UIView {
             
             self.blurVisualView.alpha = 0.0
             
-            } , completion: {(completed: Bool) in
+            } , completion: {
+                (completed: Bool) in
                 
                 self.selectStageLabel.hidden = false
                 self.blurVisualView.hidden = true
-                
-                
         })
-    }
-    
-    
-    
-    func stageTapped(sender: UITapGestureRecognizer) {
-        
-        if sender.view === stage1 {
-            print("stage 1 tap")
-        } else if sender.view === stage2 {
-            print("stage 2 tap")
-        } else if sender.view === stage3 {
-            print("stage 3 tap")
-        } else if sender.view === stage4 {
-            print("stage 4 tap")
-        }
-        
     }
     
 }
 
 
 
-
-
-
+// MARK: programmedAnimation extension
 
 extension LewisStartView {
     
@@ -414,9 +375,6 @@ extension LewisStartView {
         
         var centerX = horizontalSpacing / 2.0
         
-        //        UIView.animateWithDuration(1.0, delay: 1.0, options: .CurveEaseInOut, animations: {() -> Void in
-        
-        
         clubImageView.hidden = false
         spadeImageView.hidden = false
         heartImageView.hidden = false
@@ -457,9 +415,6 @@ extension LewisStartView {
     }
     
     func programmedAnimateButtonToPosition() {
-        
-        //        UIView.animateWithDuration(1.0, delay: 1.0, options: .CurveEaseInOut, animations: {() -> Void in
-        //
         
         UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
             

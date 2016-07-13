@@ -48,23 +48,23 @@
                                     <constraint firstAttribute="width" constant="240" id="gNK-r9-QQW"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
-                                <rect key="frame" x="40" y="129" width="59" height="245"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
+                                <rect key="frame" x="40" y="129" width="59" height="244"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
                                         <rect key="frame" x="0.0" y="0.0" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
                                         <rect key="frame" x="0.0" y="112" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
-                                        <rect key="frame" x="0.0" y="224" width="59" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Cards" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
+                                        <rect key="frame" x="0.0" y="223" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -95,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="199" y="136"/>
+            <point key="canvasLocation" x="-673" y="-354"/>
         </scene>
         <!--Lewis Card View Controller-->
         <scene sceneID="XGd-Aw-ehp">
@@ -116,7 +116,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EsW-Rz-cBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="759" y="136"/>
+            <point key="canvasLocation" x="-281.5" y="-120"/>
         </scene>
         <!--Lewis Start View Controller-->
         <scene sceneID="9aG-mp-Jt8">
@@ -130,32 +130,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bVk-ns-kXR">
-                                <rect key="frame" x="0.0" y="90" width="600" height="420"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hhx-HL-Jje" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="101"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bay-8A-BND" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="106" width="600" height="102"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03P-M9-Fif" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="213" width="600" height="101"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FmK-gx-wUw" customClass="LewisStageView" customModule="LewisWorkout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="319" width="600" height="101"/>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="Hhx-HL-Jje" firstAttribute="width" secondItem="bVk-ns-kXR" secondAttribute="width" id="oAZ-oK-A5r"/>
-                                </constraints>
-                            </stackView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select A Stage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaA-Vs-dLk">
                                 <rect key="frame" x="0.0" y="28" width="600" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NTF-jD-KnN">
+                                <rect key="frame" x="0.0" y="106" width="600" height="388"/>
+                                <connections>
+                                    <segue destination="IdP-Yu-CAl" kind="embed" identifier="LWStageTableSegue" id="Ffr-jB-iFy"/>
+                                </connections>
+                            </containerView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zS-rC-ads">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="n0t-Ql-lSD">
@@ -168,25 +154,20 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="uaA-Vs-dLk" firstAttribute="top" secondItem="CHn-15-HPA" secondAttribute="bottom" constant="8" id="0O7-Eu-38K"/>
+                            <constraint firstItem="NTF-jD-KnN" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="0Th-KJ-hqa"/>
+                            <constraint firstItem="NTF-jD-KnN" firstAttribute="centerY" secondItem="KMf-QG-F5D" secondAttribute="centerY" id="3vS-VL-HGZ"/>
                             <constraint firstItem="8zS-rC-ads" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="8Pa-S6-Dqh"/>
                             <constraint firstItem="8zS-rC-ads" firstAttribute="centerY" secondItem="KMf-QG-F5D" secondAttribute="centerY" id="9Cj-Hi-i0V"/>
                             <constraint firstItem="uaA-Vs-dLk" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="9WM-d7-GMa"/>
-                            <constraint firstItem="bVk-ns-kXR" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" constant="-180" id="BNZ-t3-MPy"/>
-                            <constraint firstItem="bVk-ns-kXR" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="HFv-5j-ZtG"/>
                             <constraint firstItem="uaA-Vs-dLk" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="JSs-HY-VwQ"/>
                             <constraint firstItem="8zS-rC-ads" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" id="MjN-pK-Jd7"/>
                             <constraint firstItem="8zS-rC-ads" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="QBN-5g-4J3"/>
-                            <constraint firstItem="bVk-ns-kXR" firstAttribute="centerY" secondItem="KMf-QG-F5D" secondAttribute="centerY" id="XcS-T0-snu"/>
-                            <constraint firstItem="bVk-ns-kXR" firstAttribute="width" secondItem="KMf-QG-F5D" secondAttribute="width" id="dBf-dg-PgC"/>
+                            <constraint firstItem="NTF-jD-KnN" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="eMv-fJ-PNk"/>
+                            <constraint firstItem="NTF-jD-KnN" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" constant="-212" id="m0y-ul-ubi"/>
                         </constraints>
                         <connections>
                             <outlet property="blurVisualView" destination="8zS-rC-ads" id="6qM-ab-l0r"/>
                             <outlet property="selectStageLabel" destination="uaA-Vs-dLk" id="bgp-dy-Qn4"/>
-                            <outlet property="stage1" destination="Hhx-HL-Jje" id="Mew-L3-szV"/>
-                            <outlet property="stage2" destination="Bay-8A-BND" id="Vx2-Ds-TZy"/>
-                            <outlet property="stage3" destination="03P-M9-Fif" id="AKH-rg-BeB"/>
-                            <outlet property="stage4" destination="FmK-gx-wUw" id="G6g-dE-aFF"/>
-                            <outlet property="stageStack" destination="bVk-ns-kXR" id="RNz-ny-FlT"/>
                         </connections>
                     </view>
                     <connections>
@@ -195,7 +176,63 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZHh-vT-wfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1730" y="173"/>
+            <point key="canvasLocation" x="-1461" y="-1200"/>
+        </scene>
+        <!--Lewis Start Table View Controller-->
+        <scene sceneID="5Nq-aE-Ylf">
+            <objects>
+                <tableViewController id="IdP-Yu-CAl" customClass="LewisStartTableViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="1" sectionFooterHeight="1" id="67H-VS-5bt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="388"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationLevel="10" indentationWidth="10" reuseIdentifier="LewisCell" id="Rja-vi-JKb" customClass="LewisStartTableViewCell" customModule="LewisWorkout" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="1" width="600" height="120"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rja-vi-JKb" id="7a1-b9-5FA">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="119.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kW1-Nw-aUA">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="119.5"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcN-lQ-jQp">
+                                            <rect key="frame" x="30" y="0.0" width="540" height="119.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
+                                            <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <color key="shadowColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <size key="shadowOffset" width="1" height="-1"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="pcN-lQ-jQp" firstAttribute="height" secondItem="7a1-b9-5FA" secondAttribute="height" id="Brl-5f-LY1"/>
+                                        <constraint firstItem="kW1-Nw-aUA" firstAttribute="width" secondItem="7a1-b9-5FA" secondAttribute="width" id="E0q-Kj-9ff"/>
+                                        <constraint firstItem="pcN-lQ-jQp" firstAttribute="centerX" secondItem="7a1-b9-5FA" secondAttribute="centerX" id="QbK-0s-0Fh"/>
+                                        <constraint firstItem="pcN-lQ-jQp" firstAttribute="width" secondItem="7a1-b9-5FA" secondAttribute="width" constant="-60" id="V4Q-ch-08e"/>
+                                        <constraint firstItem="kW1-Nw-aUA" firstAttribute="centerX" secondItem="7a1-b9-5FA" secondAttribute="centerX" id="XUt-cV-7mn"/>
+                                        <constraint firstItem="kW1-Nw-aUA" firstAttribute="centerY" secondItem="7a1-b9-5FA" secondAttribute="centerY" id="luA-dW-rni"/>
+                                        <constraint firstItem="kW1-Nw-aUA" firstAttribute="height" secondItem="7a1-b9-5FA" secondAttribute="height" id="mTK-aX-7D5"/>
+                                        <constraint firstItem="pcN-lQ-jQp" firstAttribute="centerY" secondItem="7a1-b9-5FA" secondAttribute="centerY" id="owZ-4z-9Eq"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="stageImageView" destination="kW1-Nw-aUA" id="fMV-9Q-uwk"/>
+                                    <outlet property="stageLabel" destination="pcN-lQ-jQp" id="uZr-S2-Ue7"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="IdP-Yu-CAl" id="tnp-NG-HtZ"/>
+                            <outlet property="delegate" destination="IdP-Yu-CAl" id="5iP-61-wSa"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aLw-N0-uvN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1461" y="-437"/>
         </scene>
         <!--Lewis Deck View Controller-->
         <scene sceneID="baL-rS-syu">
@@ -213,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KKO-CE-3pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="199" y="665"/>
+            <point key="canvasLocation" x="-601" y="561"/>
         </scene>
     </scenes>
 </document>
