@@ -10,12 +10,7 @@ import UIKit
 
 class LewisStartViewController: UIViewController {
     
-    
     @IBOutlet var startView: LewisStartView!
-    @IBOutlet weak var blurView: UIVisualEffectView!
-
-    
- 
     
     override func viewDidLoad() {
         super.viewDidLoad()
