@@ -37,13 +37,14 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
     //MARK: Properties
     var detectionCount = 0
     var delegate: DetectorClassProtocol!
-    var facesFound: Int = 0
+    var facesFound: UInt = 0
     
     var changeInArea: CGFloat = 0.0
     let areaChangeTolerance: CGFloat = 15000
     var oldFaceRectArea: CGFloat = 0.0
     var faceRectArea: CGFloat = 0.0
     var faceRectAreasForAverage: [CGFloat] = Array()
+    var faceRectAreasForAccelerate: [Float] = Array()
     
     let faceDetector: CIDetector
     
@@ -101,6 +102,9 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
     
     var detectPushDown: DetectDown!
     var detectPushUp: DetectUp!
+    
+    //var faceRectQueue = DetectionQueue<CGRect>()
+    var faceRectFilter: FaceRectFilter?
     
     var detectingMax: Bool = false
     var previewLayerActive: Bool = false
@@ -326,9 +330,11 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         } else {
             
             facesFound += 1
-            if facesFound > 30 {
+            if facesFound == 30 {
                 faceFound = true
                 calibrateForFacesFound()
+            } else if facesFound % 10 == 0 {
+                
             }
         }
         
@@ -337,12 +343,9 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         
         
         for feature in features {
-            
-            
-            
+        
             var faceRect = feature.bounds
-            
-            print("original faceRect: \(NSStringFromCGRect(faceRect))")
+            //print("original faceRect: \(NSStringFromCGRect(faceRect))")
             
             //Flip preview width and height
             var temp = faceRect.width
@@ -360,34 +363,20 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
             faceRect.origin.x *= widthScaleBy
             faceRect.origin.y *= heightScaleBy
             
+            
+            
             //print("new faceRect: \(NSStringFromCGRect(faceRect))")
-            
+//
             faceRect = CGRectOffset(faceRect, previewBox.origin.x + previewBox.size.width - faceRect.size.width - (faceRect.origin.x * 2), previewBox.origin.y)
-            
-            print("offset faceRect: \(NSStringFromCGRect(faceRect))")
-            
-            
-            faceRectArea = faceRect.size.height * faceRect.size.width
-            let faceRectCenter = CGPointMake(faceRect.origin.x + CGRectGetWidth(faceRect)/2, faceRect.origin.y + CGRectGetHeight(faceRect)/2);
+            let faceRectArea = faceRect.size.height * faceRect.size.width
             
             if !faceFound {
                 faceRectAreasForAverage.append(faceRectArea)
+                faceRectAreasForAccelerate.append(Float(faceRectArea))
+            } else {
+                faceRectFilter?.newRectArrived(faceRect)
             }
-            
-            print("change in area = \(changeInArea)")
-            print("Face Rect Area = \(faceRectArea), Face Rect Center = \(faceRectCenter)")
-            
-            //Happens on tap of screen - data is collected for face rect only
-            if collectPushupData {
-                
-                if deleteDataFileOnNewInstance {
-                    deleteDataFiles([rectDataPath, brightnessDataPath])
-                }
-                
-                feedDataToFileWithFaceRectArea(faceRectArea, FaceRectCenter: faceRectCenter)
-            }
-            
-            
+
 
             var featureLayer = CALayer()
             
@@ -419,74 +408,15 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
     
     func calibrateForFacesFound() {
         
-        faceRectAreasForAverage.sortInPlace()
-        
+
+        faceRectFilter = FaceRectFilter(WithInitialPoints: faceRectAreasForAccelerate, FromNumberOfValues: UInt(faceRectAreasForAccelerate.count))
+        //print("Got a mean from \(facesFound) faces, Mean: \(initialMean)")
     }
     
     
     func detectFaceMovement() {
         
-//        var closeNess: CGFloat = 1.0
-//        
-//        if (detectingMax) {
-//            // detect down
-//            
-//            if (faceRectArea > (maxArea - maxTolerance))
-//            {
-//                print("DETECTED DOWN")
-//                detectingMax = false
-//                
-//                //Delegate call to do pushup
-//                
-//            } else {
-//                
-//                var vpoint: CGFloat = (minArea + minTolerance)
-//                
-//                if (faceRectArea > (minArea + minTolerance)) {
-//                    vpoint = faceRectArea - (minArea + minTolerance)
-//                }
-//                
-//                let vtotal: CGFloat = (maxArea - maxTolerance) - (minArea + minTolerance)
-//                
-//                closeNess = (vpoint / vtotal)
-//                
-//                print("DN Closeness: \(closeNess)  vpoint \(vpoint) vtotal \(vtotal)")
-//                
-//                //Delegate call to will do push down
-//                
-//            }
-//            
-//            
-//            
-//        } else {
-//            
-//            // DETECT up
-//            if (faceRectArea < (minArea + minTolerance))
-//            {
-//                print("DETECTED UP")
-//                detectingMax = true;
-//                
-//                //Delegate call to push up
-//                
-//            } else {
-//                
-//                let vtotal = (maxArea - maxTolerance) - (minArea + minTolerance)
-//                
-//                var vpoint = vtotal
-//                
-//                if (faceRectArea < (maxArea - maxTolerance)) {
-//                    vpoint = faceRectArea - (minArea + minTolerance)
-//                }
-//                
-//                closeNess = (vpoint / vtotal)
-//                
-//                print("UP Closeness: \(closeNess)  vpoint \(vpoint) vtotal \(vtotal)")
-//                
-//                //delegate call to will do push up
-//                
-//            }
-//            
-//        }
+
         
     }
     
@@ -564,7 +494,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         //capture delegate to analyze samples
         
         let brightness = brightnessFromSampleBuffer(sampleBuffer)
-        print("brightness = \(brightness)")
+        //print("brightness = \(brightness)")
         
         let imageBuffer: CVPixelBufferRef = CMSampleBufferGetImageBuffer(sampleBuffer)!
         let imageHeight = CVPixelBufferGetHeight(imageBuffer)
@@ -579,7 +509,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         
         //for displaying image used every 20 images
         if detectionCount % 10 == 0 {
-            //delegate.gotCIImageFromVideoDataOutput(imageCI)
+            delegate.gotCIImageFromVideoDataOutput(imageCI)
             if !faceFound {
                 cropWidthOffset += 20
             }
@@ -639,7 +569,6 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         //print(height, width)
         //Just tested this filter and it helps for face detection in dim light! -- very cool!
         //Combination of these three filters will detect a face in a very dark room
-        returnImage = returnImage.imageByApplyingFilter("CIExposureAdjust", withInputParameters: ["inputImage" : returnImage, "inputEV" : 2.0])
         //returnImage = returnImage.imageByApplyingFilter("CIHighlightShadowAdjust", withInputParameters: ["inputImage" : returnImage, "inputHighlightAmount" : 2.0, "inputShadowAmount" : 5.0])
         //returnImage = returnImage.imageByApplyingFilter("CIVibrance", withInputParameters: ["inputImage" : returnImage, "inputAmount" : 5.0])
         //returnImage = returnImage.imageByApplyingFilter("CIGammaAdjust", withInputParameters: ["inputImage" : returnImage, "inputPower" : 2.0])
@@ -648,7 +577,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         //let cropTangle = CIVector(CGRect: CGRectMake(0, 0, 400, 400))
         //returnImage = returnImage.imageByApplyingFilter("CICrop", withInputParameters: ["inputImage" : returnImage, "inputRectangle" : cropTangle])
         
-
+        returnImage = returnImage.imageByApplyingFilter("CIExposureAdjust", withInputParameters: ["inputImage" : returnImage, "inputEV" : 2.0])
         returnImage = returnImage.imageByCroppingToRect(CGRectMake(CGFloat(width) - cropWidthOffset, CGFloat(height) - cropHeightOffset, cropWidth, cropHeight))
         
         return returnImage
@@ -788,4 +717,92 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
 //        }
 
 //imageCI = imageCI.imageByApplyingFilter("CIColorControls", withInputParameters: ["inputImage" : imageCI, "inputBrightness" : 0.8, "inputContrast" : 0.5])
+
+
+
+
+//        var closeNess: CGFloat = 1.0
+//
+//        if (detectingMax) {
+//            // detect down
+//
+//            if (faceRectArea > (maxArea - maxTolerance))
+//            {
+//                print("DETECTED DOWN")
+//                detectingMax = false
+//
+//                //Delegate call to do pushup
+//
+//            } else {
+//
+//                var vpoint: CGFloat = (minArea + minTolerance)
+//
+//                if (faceRectArea > (minArea + minTolerance)) {
+//                    vpoint = faceRectArea - (minArea + minTolerance)
+//                }
+//
+//                let vtotal: CGFloat = (maxArea - maxTolerance) - (minArea + minTolerance)
+//
+//                closeNess = (vpoint / vtotal)
+//
+//                print("DN Closeness: \(closeNess)  vpoint \(vpoint) vtotal \(vtotal)")
+//
+//                //Delegate call to will do push down
+//
+//            }
+//
+//
+//
+//        } else {
+//
+//            // DETECT up
+//            if (faceRectArea < (minArea + minTolerance))
+//            {
+//                print("DETECTED UP")
+//                detectingMax = true;
+//
+//                //Delegate call to push up
+//
+//            } else {
+//
+//                let vtotal = (maxArea - maxTolerance) - (minArea + minTolerance)
+//
+//                var vpoint = vtotal
+//
+//                if (faceRectArea < (maxArea - maxTolerance)) {
+//                    vpoint = faceRectArea - (minArea + minTolerance)
+//                }
+//
+//                closeNess = (vpoint / vtotal)
+//
+//                print("UP Closeness: \(closeNess)  vpoint \(vpoint) vtotal \(vtotal)")
+//
+//                //delegate call to will do push up
+//
+//            }
+//
+//        }
+
+
+//            //print("offset faceRect: \(NSStringFromCGRect(faceRect))")
+//
+//
+//            faceRectArea = faceRect.size.height * faceRect.size.width
+//            let faceRectCenter = CGPointMake(faceRect.origin.x + CGRectGetWidth(faceRect)/2, faceRect.origin.y + CGRectGetHeight(faceRect)/2);
+//
+
+//
+//            //print("change in area = \(changeInArea)")
+//            //print("Face Rect Area = \(faceRectArea), Face Rect Center = \(faceRectCenter)")
+//
+//            //Happens on tap of screen - data is collected for face rect only
+//            if collectPushupData {
+//
+//                if deleteDataFileOnNewInstance {
+//                    deleteDataFiles([rectDataPath, brightnessDataPath])
+//                }
+//
+//                feedDataToFileWithFaceRectArea(faceRectArea, FaceRectCenter: faceRectCenter)
+//            }
+//
 

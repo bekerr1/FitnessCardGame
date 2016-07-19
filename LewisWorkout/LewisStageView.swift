@@ -27,9 +27,6 @@ class LewisStageView: UIView {
         stageImage.contentMode = .ScaleAspectFill
         
         stageLabel = UILabel(frame: self.frame)
-//        stageLabel.translatesAutoresizingMaskIntoConstraints = false
-//        stageLabel.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-        
         
         self.addSubview(stageImage)
         self.addSubview(stageLabel)

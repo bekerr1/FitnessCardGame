@@ -90,13 +90,18 @@ class LewisDeckViewController: UIViewController {
     func flip() {
         let transitionOptions: UIViewAnimationOptions = [.TransitionFlipFromRight, .ShowHideTransitionViews]
         
-        UIView.transitionWithView(cardBackView, duration: 1.0, options: transitionOptions, animations: {
+        UIView.transitionWithView(self.view, duration: 1.0, options: transitionOptions, animations: {
             self.cardBackView.hidden = true
-            }, completion: nil)
-        
-        UIView.transitionWithView(cardFrontView, duration: 1.0, options: transitionOptions, animations: {
             self.cardFrontView.hidden = false
             }, completion: nil)
+        
+//        UIView.transitionWithView(cardBackView, duration: 1.0, options: transitionOptions, animations: {
+//            self.cardBackView.hidden = true
+//            }, completion: nil)
+//        
+//        UIView.transitionWithView(cardFrontView, duration: 1.0, options: transitionOptions, animations: {
+//            self.cardFrontView.hidden = false
+//            }, completion: nil)
     }
     
     

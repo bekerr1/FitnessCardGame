@@ -10,8 +10,8 @@ import UIKit
 
 class LewisStartView: UIView {
     
-    let labelHeightOffset: CGFloat = 80
-    let labelDistance: CGFloat = 40
+    let labelHeightOffset: CGFloat = 90
+    let labelDistance: CGFloat = 50
     
     let topCircleShape: CAShapeLayer
     let bottomCircleShape: CAShapeLayer
@@ -120,7 +120,7 @@ class LewisStartView: UIView {
         toplabel.text = "Push-up"
         toplabel.textAlignment = .Center
         toplabel.textColor = UIColor.whiteColor()
-        toplabel.font = UIFont(name: "Futura-CondensedExtraBold", size: 30)
+        toplabel.font = UIFont(name: "Futura-CondensedExtraBold", size: 50)
         let fontNames = UIFont.fontNamesForFamilyName("Futura")
         for name in fontNames {
             print(name)
@@ -130,7 +130,7 @@ class LewisStartView: UIView {
         
         bottomLabel.text = "Card Game"
         bottomLabel.textAlignment = .Center
-        bottomLabel.font = UIFont(name: "Futura-CondensedExtraBold", size: 30)
+        bottomLabel.font = UIFont(name: "Futura-CondensedExtraBold", size: 50)
         bottomLabel.textColor = UIColor.whiteColor()
         bottomLabel.center = CGPointMake(self.frame.width+bottomLabel.frame.width/2, self.frame.height/2 - labelHeightOffset)
         //bottomLabel.backgroundColor = UIColor.redColor()
@@ -254,7 +254,7 @@ class LewisStartView: UIView {
         
         let upperPositionAnimation: CABasicAnimation = CABasicAnimation(keyPath: "position")
         upperPositionAnimation.fromValue = topCircleShape.valueForKey("position")
-        let pointToEndUpper = CGPointMake(0, -635)
+        let pointToEndUpper = CGPointMake(0, -650)
         upperPositionAnimation.toValue = NSValue.init(CGPoint: pointToEndUpper)
         upperPositionAnimation.duration = 0.5
         topCircleShape.position = pointToEndUpper
@@ -263,7 +263,7 @@ class LewisStartView: UIView {
 
         let lowerPositionAnimation: CABasicAnimation = CABasicAnimation(keyPath: "position")
         lowerPositionAnimation.fromValue = bottomCircleShape.valueForKey("position")
-        let pointToEndLower = CGPointMake(0, 80)
+        let pointToEndLower = CGPointMake(0, 100)
         lowerPositionAnimation.toValue = NSValue.init(CGPoint: pointToEndLower)
         lowerPositionAnimation.duration = 0.5
         bottomCircleShape.position = pointToEndLower

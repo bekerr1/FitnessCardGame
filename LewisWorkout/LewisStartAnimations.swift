@@ -21,7 +21,7 @@ extension Animatable {
     
     func animateToPosition(position: CGPoint, _ interval: NSTimeInterval, _ delay: NSTimeInterval, _ options: UIViewAnimationOptions, _ completion: ((Bool) -> Void)?) {
         
-        UIView.animateWithDuration(interval, delay: delay, options: options, animations: <#T##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+        
     }
 }
 

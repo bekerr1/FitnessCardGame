@@ -15,7 +15,9 @@ class LewisCardFrontView: UIView {
     var pastCards: [LewisCard] = Array()
     var currentCardModel: LewisCard!
     var sideWays: Bool = false
-    var cardContents: [UIImageView]!
+    var cardContents: [UIImageView] = Array()
+    
+    let contentSize: CGSize = CGSizeMake(40, 40)
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,7 +37,7 @@ class LewisCardFrontView: UIView {
         super.layoutSubviews()
         
         if let model = currentCardModel {
-            let queue = Queue<UIImageView>(WithArray: self.cardContents)
+            let queue = ShapeQueue<UIImageView>(WithArray: self.cardContents)
             var cardLayout = ClassicalCardLayout(WithContents: queue)
             cardLayout.layout(Model: model, InsideRect: self.bounds, Sideways: sideWays)
         }
@@ -62,16 +64,11 @@ class LewisCardFrontView: UIView {
         }
         
         currentCardModel = newCard
-        
-        
         createViewContentsFromCardModel()
         
-//        var card = ClassicalCardModel(WithCard: currentCardModel)
-//        self.cardContents = card.createModelFromCard()
-//                
-//        for shape in self.cardContents.queueContents() {
-//            self.layer.addSublayer(shape)
-//        }
+        for shape in self.cardContents {
+            self.addSubview(shape)
+        }
     }
     
     
@@ -85,13 +82,13 @@ class LewisCardFrontView: UIView {
                 //Do nothing
                 break
             default:
-                let imageView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
+                let imageView = UIImageView(frame: CGRectMake(0, 0, contentSize.width, contentSize.height))
                 imageView.image = currentCardModel.suit.suitImage
                 result.append(imageView)
                 break
             }
         }
-        
+    
         cardContents = result
     }
 

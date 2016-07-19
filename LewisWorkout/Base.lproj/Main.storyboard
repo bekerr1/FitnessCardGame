@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NTw-wy-xIh">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -9,7 +9,7 @@
         <!--Lewis Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LewisGameViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LewisGameViewController" id="BYZ-38-t0r" customClass="LewisGameViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -18,9 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ta0-st-GRK">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k" customClass="LewisCardView" customModule="LewisWorkout" customModuleProvider="target">
                                 <rect key="frame" x="389" y="93" width="161" height="316"/>
-                                <color key="backgroundColor" red="0.13391359060402686" green="0.097708682885906034" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="161" id="3N7-Db-U3d"/>
                                     <constraint firstAttribute="height" constant="316" id="ojn-29-XS1"/>
@@ -48,23 +51,23 @@
                                     <constraint firstAttribute="width" constant="240" id="gNK-r9-QQW"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
-                                <rect key="frame" x="40" y="129" width="59" height="244"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
+                                <rect key="frame" x="40" y="129" width="59" height="245"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
                                         <rect key="frame" x="0.0" y="0.0" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
                                         <rect key="frame" x="0.0" y="112" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Cards" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
-                                        <rect key="frame" x="0.0" y="223" width="59" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
+                                        <rect key="frame" x="0.0" y="224" width="59" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -76,12 +79,17 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="D2Q-A0-d4k" secondAttribute="trailing" constant="30" id="0NA-4H-bF1"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="centerY" secondItem="D2Q-A0-d4k" secondAttribute="centerY" id="8RG-5o-FEe"/>
+                            <constraint firstItem="Ta0-st-GRK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9BL-cW-Bzk"/>
+                            <constraint firstItem="Ta0-st-GRK" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="A2U-v6-DEL"/>
                             <constraint firstItem="D2Q-A0-d4k" firstAttribute="bottom" secondItem="Om7-eu-pyf" secondAttribute="top" constant="-30" id="Rf8-aZ-03H"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="bottom" constant="40" id="Sgy-vS-eXS"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Om7-eu-pyf" secondAttribute="bottom" constant="57" id="TEQ-Rp-ar7"/>
                             <constraint firstItem="s2s-8D-kLo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TF6-SZ-MIY"/>
                             <constraint firstItem="Om7-eu-pyf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UN2-Q9-DdX"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Z8Q-Qi-PE8"/>
+                            <constraint firstItem="Ta0-st-GRK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fnV-eJ-dR7"/>
+                            <constraint firstItem="Ta0-st-GRK" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="g4L-rk-2dQ"/>
+                            <constraint firstItem="Ta0-st-GRK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="sge-Kg-fzG"/>
                         </constraints>
                     </view>
                     <connections>
@@ -90,7 +98,9 @@
                         <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="Cui-aC-riz"/>
                         <outlet property="deckPlaceholderView" destination="s2s-8D-kLo" id="82A-Xf-sD6"/>
                         <outlet property="deckViewContainer" destination="Om7-eu-pyf" id="dp9-wy-gZz"/>
+                        <outlet property="labelStackView" destination="Ifb-QA-rka" id="XJ3-DK-pdE"/>
                         <outlet property="pushupCountLabel" destination="jdU-ta-2hG" id="l7U-27-fyn"/>
+                        <outlet property="stageImageView" destination="Ta0-st-GRK" id="S87-P2-x0X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -105,10 +115,10 @@
                         <viewControllerLayoutGuide type="top" id="xK9-uJ-uLM"/>
                         <viewControllerLayoutGuide type="bottom" id="zAc-P3-Ii3"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR" customClass="LewisCardFrontView" customModule="LewisWorkout" customModuleProvider="target">
+                    <view key="view" hidden="YES" contentMode="scaleToFill" id="XN5-Q5-zRR" customClass="LewisCardFrontView" customModule="LewisWorkout" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="161" height="316"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="cardFrontView" destination="XN5-Q5-zRR" id="nV0-Ug-vYZ"/>
@@ -116,7 +126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EsW-Rz-cBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-281.5" y="-120"/>
+            <point key="canvasLocation" x="-200.5" y="-354"/>
         </scene>
         <!--Lewis Start View Controller-->
         <scene sceneID="9aG-mp-Jt8">
@@ -171,12 +181,46 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="containerView" destination="NTF-jD-KnN" id="Hqq-en-OTd"/>
                         <outlet property="startView" destination="KMf-QG-F5D" id="4m5-Mp-sx1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZHh-vT-wfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1461" y="-1200"/>
+        </scene>
+        <!--Lewis Test Animate View Controller-->
+        <scene sceneID="4Gp-YR-VAA">
+            <objects>
+                <viewController storyboardIdentifier="TestViewController" id="1U7-pc-pdC" customClass="LewisTestAnimateViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dYx-Gc-0LG"/>
+                        <viewControllerLayoutGuide type="bottom" id="L9L-TN-jOE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s4b-D7-j4i">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zXR-YL-G2B">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zXR-YL-G2B" firstAttribute="centerX" secondItem="s4b-D7-j4i" secondAttribute="centerX" id="7uQ-69-ohg"/>
+                            <constraint firstItem="zXR-YL-G2B" firstAttribute="centerY" secondItem="s4b-D7-j4i" secondAttribute="centerY" id="84E-Dr-uF3"/>
+                            <constraint firstItem="zXR-YL-G2B" firstAttribute="height" secondItem="s4b-D7-j4i" secondAttribute="height" id="MBl-lD-qLu"/>
+                            <constraint firstItem="zXR-YL-G2B" firstAttribute="width" secondItem="s4b-D7-j4i" secondAttribute="width" id="bye-nn-dOp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="g7e-QH-r3i"/>
+                    <connections>
+                        <outlet property="backgroundImage" destination="zXR-YL-G2B" id="GDR-8v-jPS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xe6-Z5-QMN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-127" y="-1241"/>
         </scene>
         <!--Lewis Start Table View Controller-->
         <scene sceneID="5Nq-aE-Ylf">
@@ -191,16 +235,16 @@
                                 <rect key="frame" x="0.0" y="1" width="600" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rja-vi-JKb" id="7a1-b9-5FA">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="119.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kW1-Nw-aUA">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="119.5"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kW1-Nw-aUA">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcN-lQ-jQp">
-                                            <rect key="frame" x="30" y="0.0" width="540" height="119.5"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
-                                            <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pcN-lQ-jQp">
+                                            <rect key="frame" x="30" y="0.0" width="540" height="119"/>
+                                            <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="56"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <color key="shadowColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="1" height="-1"/>
@@ -250,7 +294,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KKO-CE-3pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-601" y="561"/>
+            <point key="canvasLocation" x="-673" y="124"/>
         </scene>
     </scenes>
 </document>

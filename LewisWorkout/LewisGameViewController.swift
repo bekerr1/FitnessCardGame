@@ -11,10 +11,25 @@ import UIKit
 class LewisGameViewController: UIViewController, DetectorClassProtocol {
     
     //MARK: Properties
+    var topHiderView: UIView = {
+        let result = UIView()
+        result.backgroundColor = UIColor.blackColor()
+        return result
+        
+    }()
+    var bottomHiderView: UIView = {
+        let result = UIView()
+        result.backgroundColor = UIColor.blackColor()
+        return result
+        
+    }()
+    
     @IBOutlet weak var pushupCountLabel: UILabel!
     @IBOutlet weak var currentCardLabel: UILabel!
     @IBOutlet weak var cardsCompletedLabel: UILabel!
     
+    @IBOutlet weak var stageImageView: UIImageView!
+    @IBOutlet weak var labelStackView: UIStackView!
     @IBOutlet weak var currentCardContainer: UIView!
     @IBOutlet weak var deckViewContainer: UIView!
     
@@ -37,6 +52,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     //MARK: Initialize
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("ViewdidLoad on gameVC")
         // Do any additional setup after loading the view, typically from a nib.
         
         let deckTapDesture = UITapGestureRecognizer(target: self, action: #selector(deckTap))
@@ -48,6 +64,13 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         let dataTapGesture = UITapGestureRecognizer(target: self, action: #selector(recordData))
         self.view.gestureRecognizers = [dataTapGesture]
         
+        labelStackView.alpha = 0.0
+        currentCardContainer.alpha = 0.0
+        deckViewContainer.alpha = 0.0
+        
+        
+        self.view.addSubview(topHiderView)
+        self.view.addSubview(bottomHiderView)
         
     }
     
@@ -60,14 +83,26 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        
-        
         let insetFrame = CGRectInset(self.view.frame, 20.0, 40.0)
         print("insetFrame = \(NSStringFromCGRect(self.view.layer.bounds))")
         detectorController = LewisAVDetectorController(withparentFrame: insetFrame)
         detectorController.delegate = self
         
+        showViewContents()
         print("frame = \(NSStringFromCGRect(self.view.frame))")
+    }
+    
+    
+    func showViewContents() {
+        
+        UIView.animateWithDuration(2.0, animations: {
+            
+            self.labelStackView.alpha = 1.0
+            self.currentCardContainer.alpha = 1.0
+            self.deckViewContainer.alpha = 1.0
+            
+        })
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,15 +130,17 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     
     func animationStart() {
         
-        let originalTransform = self.deckViewContainer.transform
+        //let originalTransform = self.deckViewContainer.transform
         let originalFrame = self.deckViewContainer.frame
         
         deckVC.deckTapTransitionTo()
+        setCardVCViewToAnimated()
 
         UIView.animateWithDuration(1.0, animations: { () -> () in
             
             self.deckViewContainer.frame.size = CGSizeMake(self.currentCardContainer.frame.size.height, self.currentCardContainer.frame.size.width)
             self.deckViewContainer.center = self.currentCardContainer.center
+            
             self.deckViewContainer.transform = CGAffineTransformRotate(self.deckViewContainer.transform, CGFloat(M_PI * 1.5))
             
             },
@@ -112,35 +149,61 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
                 
         })
         
+        let finalT = CGAffineTransformConcat(CGAffineTransformMakeScale(1.0, 1.0), CGAffineTransformMakeRotation(CGFloat(M_PI * 1.5)))
         
-        UIView.animateWithDuration(0.6, delay: 0.4, options: .Autoreverse, animations: {() -> () in
+        UIView.animateWithDuration(0.3, delay: 0.4, options: [.BeginFromCurrentState], animations: {
             
             self.deckViewContainer.transform = CGAffineTransformScale(self.deckViewContainer.transform, 1.3, 1.3);
             
-            }, completion: {(complete: Bool) -> () in
-                print("Transform animation completed")
-                //All animations completed at this point
+            }, completion: {
+                (complete) in
                 
-                self.setCardVCViewToAnimated()
-                self.resetViewsForNextAnimation(originalTransform: originalTransform, originalFrame: originalFrame)
-                self.startPreviewSession()
+                if complete {
+                    UIView.animateWithDuration(0.5, delay: 0.0, options: [.BeginFromCurrentState], animations: {
+                        self.deckViewContainer.transform = finalT
+                        
+                        }, completion: {(complete: Bool) -> () in
+                            print("Second Transform animation completed")
+                            //All animations completed at this point
+                            //self.startPreviewSession()
+                            
+                            UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseOut, animations: {
+                                self.currentCardVC.view.hidden = false
+                                self.deckViewContainer.hidden = true
+                                
+                                
+                                }, completion: {(complete: Bool) -> () in
+                                    print("Second Transform animation completed")
+                                    //self.deckViewContainer.removeFromSuperview()
+                                    self.resetViewsForNextAnimation(OriginalFrame: originalFrame)
+                                    self.startPreviewSession()
+                            })
+                    })
+                    
+                } else {
+                    self.deckViewContainer.transform = finalT
+                    self.startPreviewSession()
+                }
                 
         })
-
+        
     }
     
     
     func setCardVCViewToAnimated() {
         //Get the deckVC's current deck model and set it to the cardVC's deck model
+        currentCardVC.view.hidden = true
         currentCardVC.setViewToNewCard(deckVC.cardFrontView.currentCardModel)
     }
     
     
-    func resetViewsForNextAnimation(originalTransform trans: CGAffineTransform, originalFrame frame: CGRect) {
+    func resetViewsForNextAnimation(OriginalFrame frame: CGRect) {
         
+        
+        self.deckVC.view.hidden = true
         self.view.bringSubviewToFront(self.deckPlaceholderView)
         self.deckVC.resetTransitionViews()
-        self.deckViewContainer.transform = trans
+        self.deckViewContainer.transform = CGAffineTransformIdentity
         self.deckViewContainer.frame = frame
     }
     
@@ -149,7 +212,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         deckTapGesture.enabled = false
         
         let preview = detectorController.getPreviewLayerForUse()
-        //self.view.layer.addSublayer(preview)
+        self.view.layer.addSublayer(preview)
         detectorController.startCaptureSession()
         
         self.view.addSubview(self.imageDisplayView)

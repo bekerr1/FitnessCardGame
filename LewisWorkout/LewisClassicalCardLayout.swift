@@ -13,11 +13,11 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     
     var rectSection: CGSize!
     var offsets: [CGFloat]!
-    var content: Queue<Shape>
+    var content: ShapeQueue<Shape>
     var sideways: Bool = false
     
     
-    init(WithContents content: Queue<Shape>) {
+    init(WithContents content: ShapeQueue<Shape>) {
         self.content = content
     }
     
@@ -189,8 +189,8 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         let leftShape = content.dequeue()
         let rightShape = content.dequeue()
         
-        leftShape.place(AtPoint: CGPointMake(atWidth - 50, atHeight))
-        rightShape.place(AtPoint: CGPointMake(atWidth + 50, atHeight))
+        leftShape?.place(AtPoint: CGPointMake(atWidth - 50, atHeight))
+        rightShape?.place(AtPoint: CGPointMake(atWidth + 50, atHeight))
         
     }
     
@@ -201,8 +201,8 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         
         //rotate 90 deg before place
         
-        leftShape.place(AtPoint: CGPointMake(atWidth, atHeight - 50))
-        rightShape.place(AtPoint: CGPointMake(atWidth, atHeight + 50))
+        leftShape?.place(AtPoint: CGPointMake(atWidth, atHeight - 50))
+        rightShape?.place(AtPoint: CGPointMake(atWidth, atHeight + 50))
         
     }
 
@@ -210,7 +210,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         
         let singleShape = content.dequeue()
         
-        singleShape.place(AtPoint: CGPointMake(atWidth, atHeight))
+        singleShape?.place(AtPoint: CGPointMake(atWidth, atHeight))
         
     }
     

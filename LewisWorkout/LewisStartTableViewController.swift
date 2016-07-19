@@ -14,9 +14,17 @@ class LewisStartTableViewCell: UITableViewCell {
     @IBOutlet weak var stageImageView: UIImageView!
 }
 
+protocol TableResponseDelegate {
+    
+    func createViewWithCellContents(cell: LewisStartTableViewCell, ContentOffset offset: CGFloat)
+}
+
 
 class LewisStartTableViewController: UITableViewController {
 
+    
+    var delegate: TableResponseDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,6 +99,16 @@ class LewisStartTableViewController: UITableViewController {
         // Configure the cell...
 
         return cell
+    }
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //
+        let cellSelected: LewisStartTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! LewisStartTableViewCell
+        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: false)
+        
+        delegate?.createViewWithCellContents(cellSelected, ContentOffset: self.tableView.contentOffset.y)
+        
     }
    
 }
