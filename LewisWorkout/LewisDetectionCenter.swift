@@ -74,7 +74,7 @@ class FaceRectFilter {
         
         vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
         allowedPercentOfMean = runningMeanF * percentOfMean
-        print("InitialMean: \(runningMeanF), AllowedOffset: \(allowedPercentOfMean)")
+        //print("InitialMean: \(runningMeanF), AllowedOffset: \(allowedPercentOfMean)")
         
     }
     
@@ -85,7 +85,7 @@ class FaceRectFilter {
         count += 1
         
         if Float(faceRectArea) < (runningMeanF + allowedPercentOfMean) && Float(faceRectArea) > (runningMeanF - allowedPercentOfMean) {
-            print("FaceRectArea allowed: \(faceRectArea)")
+            //print("FaceRectArea allowed: \(faceRectArea)")
             currentSamplesF[currentSamplePointer] = Float(faceRectArea)
             currentSamplePointer += 1
             currentDeclinedAreas = 0
@@ -97,7 +97,7 @@ class FaceRectFilter {
         } else {
             
             //values arent being accepted
-            print("FaceRectArea outside allowed value: \(faceRectArea)")
+            //print("FaceRectArea outside allowed value: \(faceRectArea)")
             currentDeclinedAreas += 1
             if currentDeclinedAreas == 10 {
                 currentSamplesF = Array(count: Int(valuesSampledUI), repeatedValue: 0)
@@ -115,7 +115,7 @@ class FaceRectFilter {
             vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
         }
         
-        print("runningMean: \(runningMeanF)")
+        //print("runningMean: \(runningMeanF)")
         
         
         //reset circular buffer

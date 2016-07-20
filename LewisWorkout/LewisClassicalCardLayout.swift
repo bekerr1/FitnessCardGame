@@ -200,6 +200,8 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         let rightShape = content.dequeue()
         
         //rotate 90 deg before place
+        leftShape?.rotateBy(CGFloat(M_PI_2))
+        rightShape?.rotateBy(CGFloat(M_PI_2))
         
         leftShape?.place(AtPoint: CGPointMake(atWidth, atHeight - 50))
         rightShape?.place(AtPoint: CGPointMake(atWidth, atHeight + 50))
@@ -209,6 +211,10 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     mutating func single(atWidth: CGFloat, Height atHeight: CGFloat) {
         
         let singleShape = content.dequeue()
+        
+        if sideways {
+            singleShape?.rotateBy(CGFloat(M_PI_2))
+        }
         
         singleShape?.place(AtPoint: CGPointMake(atWidth, atHeight))
         

@@ -29,6 +29,7 @@ enum ImageOrientation: Int {
 protocol DetectorClassProtocol {
     
     func gotCIImageFromVideoDataOutput(image: CIImage)
+    func getCenterForAlignment(CenterPoint center: CGPoint)
 }
 
 
@@ -370,6 +371,9 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
             faceRect = CGRectOffset(faceRect, previewBox.origin.x + previewBox.size.width - faceRect.size.width - (faceRect.origin.x * 2), previewBox.origin.y)
             let faceRectArea = faceRect.size.height * faceRect.size.width
             
+            let faceRectCenter = CGPointMake(faceRect.origin.x + CGRectGetWidth(faceRect)/2, faceRect.origin.y + CGRectGetHeight(faceRect)/2);
+            delegate.getCenterForAlignment(CenterPoint: faceRectCenter)
+            
             if !faceFound {
                 faceRectAreasForAverage.append(faceRectArea)
                 faceRectAreasForAccelerate.append(Float(faceRectArea))
@@ -413,12 +417,6 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         //print("Got a mean from \(facesFound) faces, Mean: \(initialMean)")
     }
     
-    
-    func detectFaceMovement() {
-        
-
-        
-    }
     
     
     class func videoPreviewBoxForGravity(gravity: NSString, frameSize fs: CGSize, aperatureSize apsize: CGSize) -> CGRect {
@@ -509,14 +507,11 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         
         //for displaying image used every 20 images
         if detectionCount % 10 == 0 {
-            delegate.gotCIImageFromVideoDataOutput(imageCI)
+            //delegate.gotCIImageFromVideoDataOutput(imageCI)
             if !faceFound {
-                cropWidthOffset += 20
+                //cropWidthOffset += 20
             }
-            
-            //cropHeightOffset += 40
-            //cropWidth += 20
-            //cropHeight += 20
+        
         }
         detectionCount += 1
         
@@ -524,7 +519,6 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         //orientation 5 passed the dark face test
         //orientation 6 passed the dark face test
         exifOrientation = 6
-        //print(exifOrientation)
         let options = ["CIDetectorImageOrientation" : exifOrientation]
         let features = faceDetector.featuresInImage(imageCI, options: options)
         
@@ -557,7 +551,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
     }
     
     
-    var cropWidthOffset: CGFloat = 100
+    var cropWidthOffset: CGFloat = 300
     var cropHeightOffset: CGFloat = 500
     var cropWidth: CGFloat = 300
     var cropHeight: CGFloat = 500

@@ -18,7 +18,7 @@ class LewisDeckViewController: UIViewController {
     lazy var cardBackView: LewisCardBackView = {
         print("fromView initialized")
         let aview: LewisCardBackView = LewisCardBackView.init(frame: self.view.bounds)
-        aview.backgroundColor = UIColor.redColor()
+        aview.backgroundColor = UIColor.grayColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
         return aview
     }()

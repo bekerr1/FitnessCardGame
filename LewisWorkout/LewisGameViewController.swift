@@ -24,6 +24,12 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         
     }()
     
+    var invisibleTopView: UIView = {
+        let result = UIView()
+        result.backgroundColor = UIColor.clearColor()
+        return result
+    }()
+    
     @IBOutlet weak var pushupCountLabel: UILabel!
     @IBOutlet weak var currentCardLabel: UILabel!
     @IBOutlet weak var cardsCompletedLabel: UILabel!
@@ -33,6 +39,10 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     @IBOutlet weak var currentCardContainer: UIView!
     @IBOutlet weak var deckViewContainer: UIView!
     
+    
+    var alignmentCenterPoint: CGPoint = CGPointZero
+    var alignmentLayer: CALayer = CALayer()
+    let blankFaceImage: UIImage = UIImage(named: "blankFace")!
     @IBOutlet weak var deckPlaceholderView: LewisDeckPlaceholderView!
     private var deckVC: LewisDeckViewController!
     private var currentCardVC: LewisCardViewController!
@@ -68,16 +78,25 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         currentCardContainer.alpha = 0.0
         deckViewContainer.alpha = 0.0
         
+        alignmentLayer.contents = blankFaceImage.CGImage
+        alignmentLayer.hidden = true
+        alignmentLayer.backgroundColor = UIColor.clearColor().CGColor
+        alignmentLayer.frame = CGRectMake(0, 0, 90, 90)
+        
+        invisibleTopView.layer.addSublayer(alignmentLayer)
+        invisibleTopView.frame = self.view.frame
+        
         
         self.view.addSubview(topHiderView)
         self.view.addSubview(bottomHiderView)
-        
+        //self.view.addSubview(invisibleTopView)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         deckPlaceholderView.createStackEffect()
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -85,9 +104,11 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         
         let insetFrame = CGRectInset(self.view.frame, 20.0, 40.0)
         print("insetFrame = \(NSStringFromCGRect(self.view.layer.bounds))")
-        detectorController = LewisAVDetectorController(withparentFrame: insetFrame)
+        detectorController = LewisAVDetectorController(withparentFrame: self.view.frame)
         detectorController.delegate = self
         
+        alignmentCenterPoint = deckPlaceholderView.convertCenterOfSquareToView(self.view)
+        print("AlignmentCenter = \(NSStringFromCGPoint(alignmentCenterPoint))")
         showViewContents()
         print("frame = \(NSStringFromCGRect(self.view.frame))")
     }
@@ -212,10 +233,10 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         deckTapGesture.enabled = false
         
         let preview = detectorController.getPreviewLayerForUse()
-        self.view.layer.addSublayer(preview)
+        //self.view.layer.addSublayer(preview)
         detectorController.startCaptureSession()
         
-        self.view.addSubview(self.imageDisplayView)
+        //self.view.addSubview(self.imageDisplayView)
     }
     
     
@@ -266,6 +287,45 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
             
         })
         
+    }
+    
+    
+    func getCenterForAlignment(CenterPoint center: CGPoint) {
+        //
+        
+        
+        if invisibleTopView.superview == nil {
+            self.view.addSubview(invisibleTopView)
+            alignmentLayer.hidden = false
+        }
+        
+        //Center = 160, 460 (468 is at very edge)
+        //From y = 488 to 389 and x = 265 to 58
+        //y - 79 = OB, y + 30 = OB
+        //x - 102 = ob , x + 105 = ob
+        
+        
+        
+        let controlCenter = CGPointMake(160, 460)
+        let actualShiftAmountY: CGFloat = 20
+        let actualShiftAmountX: CGFloat = 10
+        let xOutOfBounds: CGFloat = 102
+        
+        let xShift = center.x - controlCenter.x
+        let xOffset = (xShift / xOutOfBounds) * actualShiftAmountX
+        
+        var yOffset: CGFloat = 0.0
+        let yShift = center.y - controlCenter.y
+        
+        if yShift > 0 {
+            yOffset = (yShift / 30.0) * actualShiftAmountY
+        } else {
+            yOffset = (yShift / 70.0) * actualShiftAmountY
+        }
+        
+        let adjustedCenter = CGPointMake(controlCenter.x + xOffset, controlCenter.y + yOffset)
+        print("\(NSStringFromCGPoint(adjustedCenter))")
+        alignmentLayer.position = adjustedCenter
     }
 
 }

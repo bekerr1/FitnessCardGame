@@ -65,21 +65,22 @@ protocol Shapeable  {
     associatedtype Shape
     func thisShape() -> Shape
     func place(AtPoint point: CGPoint)
+    func rotateBy(amount: CGFloat)
 }
 
 
-extension CAShapeLayer : Shapeable {
-    
-    typealias Shape = CGPath
-    
-    func thisShape() -> Shape {
-        return self.path!
-    }
-    
-    func place(AtPoint point: CGPoint) {
-        self.position = point
-    }
-}
+//extension CAShapeLayer : Shapeable {
+//    
+//    typealias Shape = CGPath
+//    
+//    func thisShape() -> Shape {
+//        return self.path!
+//    }
+//    
+//    func place(AtPoint point: CGPoint) {
+//        self.position = point
+//    }
+//}
 
 
 extension UIImageView : Shapeable {
@@ -92,6 +93,10 @@ extension UIImageView : Shapeable {
     
     func place(AtPoint point: CGPoint) {
         self.center = point
+    }
+    
+    func rotateBy(amount: CGFloat) {
+        self.transform = CGAffineTransformMakeRotation(amount)
     }
 }
 
