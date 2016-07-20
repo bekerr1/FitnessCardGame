@@ -21,6 +21,19 @@ extension Array {
 
 class FaceRectFilter {
     
+    enum CurrentPushupPosition {
+        case start
+        case up
+        case down
+        case finish
+    }
+    
+    var pushupCycle: CurrentPushupPosition = .start {
+        willSet {
+            lastAction = pushupCycle
+        }
+    }
+    var lastAction: CurrentPushupPosition = .start
     
     var faceRectQueue = DetectionQueue<CGRect>()
     var faceAreaArray = Array<CGFloat>()
@@ -49,6 +62,7 @@ class FaceRectFilter {
     
     var count = 0
     var sum: Float = 0.0
+    var startingMean: Float = 0.0
     init(WithInitialPoints samples: [CGFloat], FromNumberOfValues count: CGFloat) {
         
         initialSamplesCG = samples
@@ -73,8 +87,9 @@ class FaceRectFilter {
         currentSamplePointer = 0
         
         vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
+        startingMean = runningMeanF
         allowedPercentOfMean = runningMeanF * percentOfMean
-        //print("InitialMean: \(runningMeanF), AllowedOffset: \(allowedPercentOfMean)")
+        print("InitialMean: \(runningMeanF), AllowedOffset: \(allowedPercentOfMean)")
         
     }
     
@@ -85,30 +100,41 @@ class FaceRectFilter {
         count += 1
         
         if Float(faceRectArea) < (runningMeanF + allowedPercentOfMean) && Float(faceRectArea) > (runningMeanF - allowedPercentOfMean) {
-            //print("FaceRectArea allowed: \(faceRectArea)")
+            print("FaceRectArea allowed: \(faceRectArea)")
             currentSamplesF[currentSamplePointer] = Float(faceRectArea)
             currentSamplePointer += 1
             currentDeclinedAreas = 0
             
-            if valuesSampledUI < 6 {
+            if valuesSampledUI < 6 && valuesSampledUI != 5 {
                 valuesSampledUI = UInt(currentSamplePointer)
             }
+            
+            if  runningMeanF == startingMean && lastAction == .down {
+                pushupCycle = .up
+            }
+            
+            
+            
+            print(valuesSampledUI)
+            
             
         } else {
             
             //values arent being accepted
             //print("FaceRectArea outside allowed value: \(faceRectArea)")
             currentDeclinedAreas += 1
-            if currentDeclinedAreas == 10 {
-                currentSamplesF = Array(count: Int(valuesSampledUI), repeatedValue: 0)
+            if currentDeclinedAreas == 5 {
+                currentSamplesF = Array(count: Int(valuesTracked), repeatedValue: 0)
                 valuesSampledUI = 0
                 currentSamplePointer = 0
+                runningMeanF = startingMean
             }
         }
         
         //check if waiting for accepted mean values
-        if currentDeclinedAreas >= 10 {
-            
+        if currentDeclinedAreas >= 5 {
+            print("CurrentlyDeclined")
+            pushupCycle = .down
             //dont calculate mean - at this point values sampled = 1 and current samples is an array of all 0's
         } else {
             
@@ -119,30 +145,27 @@ class FaceRectFilter {
         
         
         //reset circular buffer
-        if self.currentSamplePointer == Int(valuesSampledUI) {
+        if self.currentSamplePointer == valuesTracked {
             self.currentSamplePointer = 0
         }
         
+        checkForCompletedCycle()
+        
     }
     
     
-    func calculateStdDev() {
+    
+    func checkForCompletedCycle() {
         
-        
-        
-
+        switch pushupCycle {
+        case .up:
+            print("COUNT PUSHUP")
+            pushupCycle = .start
+        default:
+            break
+        }
     }
     
-//    func computeRunningStdDev() {
-//        
-//        faceAreaArray.foreach {
-//            self.runningStdDev += ($0 - self.runningMean) * ($0 - self.runningMean)
-//        }
-//        runningStdDev /= countOfAreas
-//        runningStdDev = sqrt(runningStdDev)
-//        
-//        print(runningStdDev)
-//    }
 }
 
 

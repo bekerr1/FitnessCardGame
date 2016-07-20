@@ -30,6 +30,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         return result
     }()
     
+    @IBOutlet var gameView: LewisGameView!
     @IBOutlet weak var pushupCountLabel: UILabel!
     @IBOutlet weak var currentCardLabel: UILabel!
     @IBOutlet weak var cardsCompletedLabel: UILabel!
@@ -96,13 +97,14 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         super.viewWillAppear(animated)
         
         deckPlaceholderView.createStackEffect()
-        
+        gameView.configureDecorationLayer()
+        gameView.insertLayerBelow(Layer: currentCardContainer.layer)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        let insetFrame = CGRectInset(self.view.frame, 20.0, 40.0)
+        //let insetFrame = CGRectInset(self.view.frame, 20.0, 40.0)
         print("insetFrame = \(NSStringFromCGRect(self.view.layer.bounds))")
         detectorController = LewisAVDetectorController(withparentFrame: self.view.frame)
         detectorController.delegate = self
@@ -324,7 +326,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         }
         
         let adjustedCenter = CGPointMake(controlCenter.x + xOffset, controlCenter.y + yOffset)
-        print("\(NSStringFromCGPoint(adjustedCenter))")
+        //print("\(NSStringFromCGPoint(adjustedCenter))")
         alignmentLayer.position = adjustedCenter
     }
 
