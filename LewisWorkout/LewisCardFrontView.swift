@@ -12,7 +12,7 @@ import UIKit
 
 class LewisCardFrontView: UIView {
     
-    private var currentCardModel: LewisCard!
+    var currentCardModel: LewisCard!
     var pastCards: [LewisCard] = Array()
     var sideWays: Bool = false
     var cardContents: [UIImageView] = Array()
