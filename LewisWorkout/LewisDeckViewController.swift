@@ -18,7 +18,7 @@ class LewisDeckViewController: UIViewController {
     lazy var cardBackView: LewisCardBackView = {
         print("fromView initialized")
         let aview: LewisCardBackView = LewisCardBackView.init(frame: self.view.bounds)
-        aview.backgroundColor = UIColor.redColor()
+        aview.backgroundColor = UIColor.grayColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
         return aview
     }()
@@ -90,13 +90,18 @@ class LewisDeckViewController: UIViewController {
     func flip() {
         let transitionOptions: UIViewAnimationOptions = [.TransitionFlipFromRight, .ShowHideTransitionViews]
         
-        UIView.transitionWithView(cardBackView, duration: 1.0, options: transitionOptions, animations: {
+        UIView.transitionWithView(self.view, duration: 1.0, options: transitionOptions, animations: {
             self.cardBackView.hidden = true
-            }, completion: nil)
-        
-        UIView.transitionWithView(cardFrontView, duration: 1.0, options: transitionOptions, animations: {
             self.cardFrontView.hidden = false
             }, completion: nil)
+        
+//        UIView.transitionWithView(cardBackView, duration: 1.0, options: transitionOptions, animations: {
+//            self.cardBackView.hidden = true
+//            }, completion: nil)
+//        
+//        UIView.transitionWithView(cardFrontView, duration: 1.0, options: transitionOptions, animations: {
+//            self.cardFrontView.hidden = false
+//            }, completion: nil)
     }
     
     

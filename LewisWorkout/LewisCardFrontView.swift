@@ -15,8 +15,9 @@ class LewisCardFrontView: UIView {
     private var currentCardModel: LewisCard!
     var pastCards: [LewisCard] = Array()
     var sideWays: Bool = false
-    var cardContents: Queue!
-    var layoutModel: ClassicalCardLayout!
+    var cardContents: [UIImageView] = Array()
+    
+    let contentSize: CGSize = CGSizeMake(40, 40)
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,10 +36,10 @@ class LewisCardFrontView: UIView {
         //Layout
         super.layoutSubviews()
         
-        if currentCardModel != nil {
-            
-            var cardLayout = ClassicalCardLayout(WithContents: cardContents)
-            cardLayout.layout(Model: currentCardModel, InsideRect: self.bounds, Sideways: sideWays)
+        if let model = currentCardModel {
+            let queue = ShapeQueue<UIImageView>(WithArray: self.cardContents)
+            var cardLayout = ClassicalCardLayout(WithContents: queue)
+            cardLayout.layout(Model: model, InsideRect: self.bounds, Sideways: sideWays)
         }
         
 
@@ -46,11 +47,11 @@ class LewisCardFrontView: UIView {
     
     func forceLayoutContent() {
         
-        if let model = currentCardModel {
-            
-            var cardLayout = ClassicalCardLayout(WithContents: cardContents)
-            cardLayout.layout(Model: model, InsideRect: self.bounds, Sideways: sideWays)
-        }
+//        if let model = currentCardModel {
+//            
+//            var cardLayout = ClassicalCardLayout(WithContents: cardContents)
+//            cardLayout.layout(Model: model, InsideRect: self.bounds, Sideways: sideWays)
+//        }
         
     }
     
@@ -63,15 +64,35 @@ class LewisCardFrontView: UIView {
         }
         
         currentCardModel = newCard
-        var card = ClassicalCardModel(WithCard: currentCardModel)
-        self.cardContents = card.createModelFromCard()
-                
-        for shape in self.cardContents.queueContents() {
-            self.layer.addSublayer(shape)
+        createViewContentsFromCardModel()
+        
+        for shape in self.cardContents {
+            self.addSubview(shape)
         }
     }
     
     
+    func createViewContentsFromCardModel() {
+        
+        var result = Array<UIImageView>()
+        for _ in 0..<currentCardModel.rank.rawValue {
+            
+            switch currentCardModel.rank {
+            case .Jack, .Queen, .King, .Joker:
+                //Do nothing
+                break
+            default:
+                let imageView = UIImageView(frame: CGRectMake(0, 0, contentSize.width, contentSize.height))
+                imageView.image = currentCardModel.suit.suitImage
+                result.append(imageView)
+                break
+            }
+        }
+    
+        cardContents = result
+    }
+
+
 }
 
 

@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 
-struct ClassicalCardLayout: Layout {
+struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     
     var rectSection: CGSize!
     var offsets: [CGFloat]!
-    var content: Queue
+    var content: ShapeQueue<Shape>
     var sideways: Bool = false
     
     
-    init(WithContents content: Queue) {
+    init(WithContents content: ShapeQueue<Shape>) {
         self.content = content
     }
     
@@ -57,7 +57,7 @@ struct ClassicalCardLayout: Layout {
     }
     
     
-    func row1(model: LewisCard) {
+    mutating func row1(model: LewisCard) {
         
         switch model.rank {
         case .Ace, .Two, .Three:
@@ -73,7 +73,7 @@ struct ClassicalCardLayout: Layout {
         
     }
     
-    func row2(model: LewisCard) {
+    mutating func row2(model: LewisCard) {
         
         switch model.rank {
         case .Two, .Three, .Five, .Seven, .Eight, .Ten:
@@ -89,7 +89,7 @@ struct ClassicalCardLayout: Layout {
 
     }
     
-    func row3(model: LewisCard) {
+    mutating func row3(model: LewisCard) {
         
         switch model.rank {
         case .Three, .Nine:
@@ -105,7 +105,7 @@ struct ClassicalCardLayout: Layout {
 
     }
     
-    func row4(model: LewisCard) {
+    mutating func row4(model: LewisCard) {
         
         switch model.rank {
         case .Eight:
@@ -121,7 +121,7 @@ struct ClassicalCardLayout: Layout {
 
     }
     
-    func row5(model: LewisCard) {
+    mutating func row5(model: LewisCard) {
         
         switch model.rank {
         case .Ace:
@@ -137,7 +137,7 @@ struct ClassicalCardLayout: Layout {
 
     }
     
-    func row6(model: LewisCard) {
+    mutating func row6(model: LewisCard) {
         
         switch model.rank {
         case .Ace:
@@ -174,7 +174,7 @@ struct ClassicalCardLayout: Layout {
     }
     
     
-    func double(atWidth: CGFloat, Height atHeight: CGFloat) {
+    mutating func double(atWidth: CGFloat, Height atHeight: CGFloat) {
         
         if sideways {
             verticalDouble(atWidth, Height: atHeight)
@@ -184,37 +184,40 @@ struct ClassicalCardLayout: Layout {
     }
     
     
-    func horizontalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
+    mutating func horizontalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
         
         let leftShape = content.dequeue()
         let rightShape = content.dequeue()
         
-        leftShape.position = CGPointMake(atWidth - 50, atHeight)
-        rightShape.position = CGPointMake(atWidth + 50, atHeight)
+        leftShape?.place(AtPoint: CGPointMake(atWidth - 50, atHeight))
+        rightShape?.place(AtPoint: CGPointMake(atWidth + 50, atHeight))
         
-        content.enqueue(leftShape)
-        content.enqueue(rightShape)
     }
     
-    func verticalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
+    mutating func verticalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
         
         let leftShape = content.dequeue()
         let rightShape = content.dequeue()
         
-        leftShape.position = CGPointMake(atWidth, atHeight - 50)
-        rightShape.position = CGPointMake(atWidth, atHeight + 50)
+        //rotate 90 deg before place
+        leftShape?.rotateBy(CGFloat(M_PI_2))
+        rightShape?.rotateBy(CGFloat(M_PI_2))
         
-        content.enqueue(leftShape)
-        content.enqueue(rightShape)
+        leftShape?.place(AtPoint: CGPointMake(atWidth, atHeight - 50))
+        rightShape?.place(AtPoint: CGPointMake(atWidth, atHeight + 50))
+        
     }
 
-    func single(atWidth: CGFloat, Height atHeight: CGFloat) {
+    mutating func single(atWidth: CGFloat, Height atHeight: CGFloat) {
         
         let singleShape = content.dequeue()
         
-        singleShape.position = CGPointMake(atWidth, atHeight)
+        if sideways {
+            singleShape?.rotateBy(CGFloat(M_PI_2))
+        }
         
-        content.enqueue(singleShape)
+        singleShape?.place(AtPoint: CGPointMake(atWidth, atHeight))
+        
     }
     
     

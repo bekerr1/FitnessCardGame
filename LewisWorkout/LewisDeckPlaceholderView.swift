@@ -13,7 +13,8 @@ class LewisDeckPlaceholderView: UIView {
     
     var cardSublayers: [CAShapeLayer] = Array()
     var referenceRect: CGRect = CGRect()
-    
+    let squareImage: UIImage = UIImage(named: "squarePNG")!
+    var squareLayer: CALayer = CALayer()
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -54,7 +55,7 @@ class LewisDeckPlaceholderView: UIView {
             shapeLayer.path = shapePath.CGPath
             shapeLayer.strokeColor = UIColor.blackColor().CGColor
             shapeLayer.lineWidth = 1.0
-            shapeLayer.fillColor = UIColor.redColor().CGColor
+            shapeLayer.fillColor = UIColor.grayColor().CGColor
             
             cardSublayers.append(shapeLayer)
             self.layer.addSublayer(shapeLayer)
@@ -62,6 +63,18 @@ class LewisDeckPlaceholderView: UIView {
             xOffset -= 5.0
         }
         
+        squareLayer.contents = squareImage.CGImage
+        squareLayer.frame = CGRectMake(0, 0, 90, 90)
+        squareLayer.backgroundColor = UIColor.clearColor().CGColor
+        squareLayer.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        self.layer.addSublayer(squareLayer)
+        
+    }
+    
+    
+    func convertCenterOfSquareToView(view: UIView) -> CGPoint {
+        
+        return self.convertPoint(squareLayer.position, toView: view)
     }
     
     
