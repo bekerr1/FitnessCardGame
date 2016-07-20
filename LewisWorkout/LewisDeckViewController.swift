@@ -110,7 +110,7 @@ class LewisDeckViewController: UIViewController {
         
         self.cardBackView.hidden = false
         self.cardFrontView.hidden = true
-        self.cardFrontView.currentCardModel = nil
+        //self.cardFrontView.currentCardModel = nil
     }
     
     //MARK: Model stuff
