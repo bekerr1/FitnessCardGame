@@ -19,6 +19,12 @@ extension Array {
     }
 }
 
+protocol PushupDelegate {
+    
+    func pushupCompleted()
+}
+
+
 class FaceRectFilter {
     
     enum CurrentPushupPosition {
@@ -37,7 +43,8 @@ class FaceRectFilter {
     
     var faceRectQueue = DetectionQueue<CGRect>()
     var faceAreaArray = Array<CGFloat>()
-    let rectAnalyzer: FaceRectAnalyzer = FaceRectAnalyzer()
+    
+    var delegate: PushupDelegate?
     
     var initialSamplesCG: [CGFloat]
     var valuesSampledCG: CGFloat
@@ -160,11 +167,11 @@ class FaceRectFilter {
         switch pushupCycle {
         case .up:
             print("COUNT PUSHUP")
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("pushupCompleted", object: nil)
             pushupCycle = .start
             pushupCount += 1
-            if pushupCount == 5 {
-                print("stop")
-            }
+            
         default:
             break
         }
@@ -173,41 +180,41 @@ class FaceRectFilter {
 }
 
 
-class FaceRectAnalyzer {
-    
-    var faceRectQueue = DetectionQueue<CGRect>()
-    
-    init() {}
-    
-    func newRectArrived(rect: CGRect) {
-        
-        faceRectQueue.enqueue(rect)
-        
-    }
-    
-    func engine() {
-        
-        
-        while true {
-            if let rect = faceRectQueue.dequeue() {
-                processRect(rect)
-            }
-            
-        }
-    }
-    
-    
-    func processRect(faceRect: CGRect) {
-        
-        
-        
-
-    }
-}
-
-
-
-
+//class FaceRectAnalyzer {
+//    
+//    var faceRectQueue = DetectionQueue<CGRect>()
+//    
+//    init() {}
+//    
+//    func newRectArrived(rect: CGRect) {
+//        
+//        faceRectQueue.enqueue(rect)
+//        
+//    }
+//    
+//    func engine() {
+//        
+//        
+//        while true {
+//            if let rect = faceRectQueue.dequeue() {
+//                processRect(rect)
+//            }
+//            
+//        }
+//    }
+//    
+//    
+//    func processRect(faceRect: CGRect) {
+//        
+//        
+//        
+//
+//    }
+//}
+//
+//
+//
+//
 
 
 

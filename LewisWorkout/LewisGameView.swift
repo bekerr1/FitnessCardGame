@@ -40,7 +40,7 @@ class LewisGameView: UIView {
 //        decorationLayer.shadowPath = shadowPath.CGPath
         decorationLayer.shadowOpacity = 1.0
         decorationLayer.shadowRadius = 1.0
-        decorationLayer.shadowOffset = CGSizeMake(0.0, 5.0)
+        decorationLayer.shadowOffset = CGSizeMake(0.0, 15.0)
         decorationLayer.masksToBounds = false
         
     }

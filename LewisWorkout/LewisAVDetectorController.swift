@@ -101,10 +101,6 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         return queue
     }()
     
-    var detectPushDown: DetectDown!
-    var detectPushUp: DetectUp!
-    
-    //var faceRectQueue = DetectionQueue<CGRect>()
     var faceRectFilter: FaceRectFilter?
     
     var detectingMax: Bool = false

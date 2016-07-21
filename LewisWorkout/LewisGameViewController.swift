@@ -35,11 +35,15 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     @IBOutlet weak var currentCardLabel: UILabel!
     @IBOutlet weak var cardsCompletedLabel: UILabel!
     
+    @IBOutlet weak var totalCardsCompletedLabel: UILabel!
+    @IBOutlet weak var currentPushupCountLabel: UILabel!
+    @IBOutlet weak var pushupsCompletedLabel: UILabel!
     @IBOutlet weak var stageImageView: UIImageView!
     @IBOutlet weak var labelStackView: UIStackView!
     @IBOutlet weak var currentCardContainer: UIView!
     @IBOutlet weak var deckViewContainer: UIView!
     
+    var deviceOrientation = UIDevice.currentDevice().orientation
     
     var alignmentCenterPoint: CGPoint = CGPointZero
     var alignmentLayer: CALayer = CALayer()
@@ -87,6 +91,8 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         invisibleTopView.layer.addSublayer(alignmentLayer)
         invisibleTopView.frame = self.view.frame
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pushupCompleted(_:)), name: "pushupCompleted", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(orientationChanged(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         self.view.addSubview(topHiderView)
         self.view.addSubview(bottomHiderView)
@@ -111,8 +117,10 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         
         alignmentCenterPoint = deckPlaceholderView.convertCenterOfSquareToView(self.view)
         print("AlignmentCenter = \(NSStringFromCGPoint(alignmentCenterPoint))")
-        showViewContents()
         print("frame = \(NSStringFromCGRect(self.view.frame))")
+        showViewContents()
+        
+        
     }
     
     
@@ -247,8 +255,13 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     func deckTap() {
         print("DeckTapped " + #function)
         
-        self.view.bringSubviewToFront(self.deckViewContainer)
-        tap = true
+        if deviceOrientation != .FaceUp {
+            alertUserOfOrientationError()
+        } else {
+            self.view.bringSubviewToFront(self.deckViewContainer)
+            tap = true
+        }
+        
     }
     
     
@@ -276,7 +289,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         }
     }
     
-    
+    //MARK: Detector protocol
     
     func gotCIImageFromVideoDataOutput(image: CIImage) {
         
@@ -308,7 +321,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         
         
         
-        let controlCenter = CGPointMake(160, 460)
+        let controlCenter = CGPointMake(alignmentCenterPoint.x, alignmentCenterPoint.y - 10)
         let actualShiftAmountY: CGFloat = 20
         let actualShiftAmountX: CGFloat = 10
         let xOutOfBounds: CGFloat = 102
@@ -328,6 +341,36 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         let adjustedCenter = CGPointMake(controlCenter.x + xOffset, controlCenter.y + yOffset)
         //print("\(NSStringFromCGPoint(adjustedCenter))")
         alignmentLayer.position = adjustedCenter
+    }
+    
+    
+    //MARK: NOtifications
+    
+    func pushupCompleted(notification: NSNotification) {
+        print("Pushup Herd from GameVC")
+        
+    }
+    
+    func orientationChanged(notification: NSNotification) {
+        
+        let orientation = UIDevice.currentDevice().orientation
+        print("Orientation Changed To: \(orientation)")
+        deviceOrientation = orientation
+    }
+    
+    
+    //MARK: Alerts
+    
+    func alertUserOfOrientationError() {
+        
+        let alertVC = UIAlertController(title: "Orientation Error", message: "Phone must be laying flat on the ground!", preferredStyle: .Alert)
+        
+        let alertAction = UIAlertAction(title: "Sorry", style: .Default, handler: {(action: UIAlertAction) in
+         //Do nothing for now
+        })
+        
+        alertVC.addAction(alertAction)
+        self.presentViewController(alertVC, animated: false, completion: nil)
     }
 
 }

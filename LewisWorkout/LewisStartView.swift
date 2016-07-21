@@ -88,10 +88,15 @@ class LewisStartView: UIView {
         let bottomCircle = UIBezierPath(arcCenter: CGPointMake(self.frame.width/2, self.frame.height + 280), radius: 400, startAngle: 0, endAngle: 2 * CGFloat(M_PI), clockwise: false)
         
         topCircleShape.path = topCircle.CGPath
-        topCircleShape.fillColor = UIColor.blackColor().colorWithAlphaComponent(0.7).CGColor
+        topCircleShape.fillColor = UIColor.blackColor().colorWithAlphaComponent(0.3).CGColor
         
         bottomCircleShape.path = bottomCircle.CGPath
         bottomCircleShape.fillColor = UIColor.blackColor().CGColor
+        bottomCircleShape.strokeColor = UIColor.init(red: 240, green: 177, blue: 15, alpha: 1.0).CGColor
+        bottomCircleShape.borderColor = UIColor.whiteColor().CGColor
+        bottomCircleShape.strokeStart = 0.0
+        bottomCircleShape.strokeEnd = 1.0
+        bottomCircleShape.lineWidth = 1.0
         
         print(NSStringFromCGPoint(bottomCircleShape.position))
         self.layer.addSublayer(bottomCircleShape)
@@ -266,9 +271,9 @@ class LewisStartView: UIView {
         let pointToEndLower = CGPointMake(0, 100)
         lowerPositionAnimation.toValue = NSValue.init(CGPoint: pointToEndLower)
         lowerPositionAnimation.duration = 0.5
-        bottomCircleShape.position = pointToEndLower
+        //bottomCircleShape.position = pointToEndLower
         
-        bottomCircleShape.addAnimation(lowerPositionAnimation, forKey: "position")
+        //bottomCircleShape.addAnimation(lowerPositionAnimation, forKey: "position")
         
     }
     
