@@ -13,6 +13,7 @@ class LewisGameView: UIView {
     var decorationLayer: CALayer = CALayer()
     let widthOffset: CGFloat = 0
     let heightOffset: CGFloat = 210
+    private let calibrateLabel: UILabel = UILabel()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -43,6 +44,19 @@ class LewisGameView: UIView {
         decorationLayer.shadowOffset = CGSizeMake(0.0, 15.0)
         decorationLayer.masksToBounds = false
         
+    }
+    
+    func configureCalibrateLabel(AtPosition position: CGPoint) {
+        
+        calibrateLabel.frame = CGRectMake(0, 0, 180, 30)
+        calibrateLabel.center = position
+        calibrateLabel.backgroundColor = UIColor.clearColor()
+        calibrateLabel.text = "Slide to Calibrate"
+        calibrateLabel.textColor = UIColor.whiteColor()
+        calibrateLabel.font = UIFont(name: "Chalkduster", size: 13)
+        //calibrateLabel.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * 1.5)
+        
+        self.addSubview(calibrateLabel)
     }
     
     func insertLayerBelow(Layer layer: CALayer) {

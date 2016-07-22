@@ -96,18 +96,20 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alh-6U-JFa">
-                                <rect key="frame" x="40" y="406" width="70" height="134"/>
+                                <rect key="frame" x="100" y="463" width="150" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="fG5-V4-H23"/>
+                                    <constraint firstAttribute="width" constant="150" id="ubs-b5-OD3"/>
+                                </constraints>
                                 <connections>
-                                    <segue destination="DGw-gB-9SS" kind="embed" id="TgA-HF-18f"/>
+                                    <segue destination="DGw-gB-9SS" kind="embed" identifier="calibrateVC" id="TgA-HF-18f"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="alh-6U-JFa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="0DM-zo-Y7v"/>
                             <constraint firstItem="D2Q-A0-d4k" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="5d1-M9-Dg8"/>
-                            <constraint firstItem="alh-6U-JFa" firstAttribute="centerX" secondItem="Ifb-QA-rka" secondAttribute="centerX" id="5e2-Pl-hkv"/>
-                            <constraint firstItem="alh-6U-JFa" firstAttribute="centerY" secondItem="Om7-eu-pyf" secondAttribute="centerY" id="8ZG-bH-nrf"/>
+                            <constraint firstItem="alh-6U-JFa" firstAttribute="centerY" secondItem="Om7-eu-pyf" secondAttribute="centerY" constant="10" id="8ZG-bH-nrf"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ald-L8-rRL"/>
                             <constraint firstItem="Om7-eu-pyf" firstAttribute="top" secondItem="D2Q-A0-d4k" secondAttribute="bottom" constant="30" id="E0N-rC-wdb"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="F85-6L-iou"/>
@@ -115,12 +117,12 @@
                             <constraint firstItem="s2s-8D-kLo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="OYC-j0-8ey"/>
                             <constraint firstAttribute="trailing" secondItem="Ta0-st-GRK" secondAttribute="trailing" id="Pd8-G0-pyM"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="SSZ-Ao-8jc"/>
-                            <constraint firstItem="alh-6U-JFa" firstAttribute="top" secondItem="Ifb-QA-rka" secondAttribute="bottom" constant="41" id="XGu-ca-1Ui"/>
                             <constraint firstItem="Om7-eu-pyf" firstAttribute="top" secondItem="D2Q-A0-d4k" secondAttribute="bottom" constant="30" id="Xql-y3-krm"/>
                             <constraint firstItem="Om7-eu-pyf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="c82-6V-yfy"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Om7-eu-pyf" secondAttribute="bottom" constant="60" id="jkF-QL-ehI"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="raS-1e-QWe"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="sTC-86-9pj"/>
+                            <constraint firstItem="alh-6U-JFa" firstAttribute="trailing" secondItem="Om7-eu-pyf" secondAttribute="leading" constant="30" id="sh5-Ac-Nkv"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="bottom" constant="80" id="uEz-eL-16e"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D2Q-A0-d4k" secondAttribute="trailing" constant="10" id="vKu-GX-tGA"/>
                         </constraints>
@@ -334,19 +336,19 @@
             </objects>
             <point key="canvasLocation" x="-673" y="124"/>
         </scene>
-        <!--View Controller-->
+        <!--Calibrate Control View Controller-->
         <scene sceneID="iFu-jV-1s4">
             <objects>
-                <viewController id="DGw-gB-9SS" sceneMemberID="viewController">
+                <viewController id="DGw-gB-9SS" customClass="LWCalibrateControlViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WS5-9t-q8n">
-                        <rect key="frame" x="0.0" y="0.0" width="70" height="134"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="41"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="foI-1k-cgr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-920" y="132"/>
+            <point key="canvasLocation" x="-902" y="124"/>
         </scene>
     </scenes>
 </document>

@@ -51,8 +51,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     @IBOutlet weak var deckPlaceholderView: LewisDeckPlaceholderView!
     private var deckVC: LewisDeckViewController!
     private var currentCardVC: LewisCardViewController!
-    
-    private let calibrateSlider: LWAnimatedSlider = LWAnimatedSlider(frame: CGRectZero)
+    private var calibrateVC: LWCalibrateControlViewController!
     
     lazy var imageDisplayView: UIImageView = {
         
@@ -93,16 +92,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         invisibleTopView.layer.addSublayer(alignmentLayer)
         invisibleTopView.frame = self.view.frame
         
-        calibrateSlider.frame = CGRect(x: 0, y: 0,
-                                      width: 150, height: 61.0)
-        calibrateSlider.backgroundColor = UIColor(white: 0.1, alpha: 0.9)
-        calibrateSlider.layer.cornerRadius = 10.0
-        calibrateSlider.configLayerFrames()
-        calibrateSlider.layer.borderColor = UIColor.blackColor().CGColor
-        calibrateSlider.layer.borderWidth = 1.0
-        calibrateSlider.horizontal = false
-        //calibrateSlider.translatesAutoresizingMaskIntoConstraints = false
-        
+        calibrateVC.view.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * 0.5)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pushupCompleted(_:)), name: "pushupCompleted", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(orientationChanged(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
@@ -119,6 +109,8 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         
         deckPlaceholderView.createStackEffect()
         gameView.configureDecorationLayer()
+        gameView.configureCalibrateLabel(AtPosition: CGPointMake(calibrateContainerView.frame.origin.x + 10, calibrateContainerView.frame.origin.y - 90))
+        calibrateVC.configCalibrator()
         gameView.insertLayerBelow(Layer: currentCardContainer.layer)
     }
     
@@ -171,12 +163,12 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         
     }
     
-    func createConstraintsForSlider() {
-        
-        calibrateSlider.leadingAnchor.constraintEqualToAnchor(self.view.layoutMarginsGuide.leadingAnchor, constant: 50).active = true
-        calibrateSlider.topAnchor.constraintEqualToAnchor(labelStackView.bottomAnchor, constant: 40).active = true
-    }
-    
+//    func createConstraintsForSlider() {
+//        
+//        calibrateSlider.leadingAnchor.constraintEqualToAnchor(self.view.layoutMarginsGuide.leadingAnchor, constant: 50).active = true
+//        calibrateSlider.topAnchor.constraintEqualToAnchor(labelStackView.bottomAnchor, constant: 40).active = true
+//    }
+//    
     
     //MARK: Actions
     
@@ -307,6 +299,9 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         } else if segue.identifier == "cardSegue" {
             print("card segue")
             currentCardVC = segue.destinationViewController as? LewisCardViewController
+        } else if segue.identifier == "calibrateVC" {
+            print("calibrate segue")
+            calibrateVC = segue.destinationViewController as? LWCalibrateControlViewController
         }
     }
     
