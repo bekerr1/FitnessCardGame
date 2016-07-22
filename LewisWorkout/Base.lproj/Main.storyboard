@@ -95,10 +95,19 @@
                                     <constraint firstAttribute="width" constant="240" id="4aU-tM-Pgv"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alh-6U-JFa">
+                                <rect key="frame" x="40" y="406" width="70" height="134"/>
+                                <connections>
+                                    <segue destination="DGw-gB-9SS" kind="embed" id="TgA-HF-18f"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="alh-6U-JFa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="0DM-zo-Y7v"/>
                             <constraint firstItem="D2Q-A0-d4k" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="5d1-M9-Dg8"/>
+                            <constraint firstItem="alh-6U-JFa" firstAttribute="centerX" secondItem="Ifb-QA-rka" secondAttribute="centerX" id="5e2-Pl-hkv"/>
+                            <constraint firstItem="alh-6U-JFa" firstAttribute="centerY" secondItem="Om7-eu-pyf" secondAttribute="centerY" id="8ZG-bH-nrf"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ald-L8-rRL"/>
                             <constraint firstItem="Om7-eu-pyf" firstAttribute="top" secondItem="D2Q-A0-d4k" secondAttribute="bottom" constant="30" id="E0N-rC-wdb"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="F85-6L-iou"/>
@@ -106,6 +115,7 @@
                             <constraint firstItem="s2s-8D-kLo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="OYC-j0-8ey"/>
                             <constraint firstAttribute="trailing" secondItem="Ta0-st-GRK" secondAttribute="trailing" id="Pd8-G0-pyM"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="SSZ-Ao-8jc"/>
+                            <constraint firstItem="alh-6U-JFa" firstAttribute="top" secondItem="Ifb-QA-rka" secondAttribute="bottom" constant="41" id="XGu-ca-1Ui"/>
                             <constraint firstItem="Om7-eu-pyf" firstAttribute="top" secondItem="D2Q-A0-d4k" secondAttribute="bottom" constant="30" id="Xql-y3-krm"/>
                             <constraint firstItem="Om7-eu-pyf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="c82-6V-yfy"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Om7-eu-pyf" secondAttribute="bottom" constant="60" id="jkF-QL-ehI"/>
@@ -116,6 +126,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="calibrateContainerView" destination="alh-6U-JFa" id="D24-OK-2hs"/>
                         <outlet property="cardsCompletedLabel" destination="Lva-RF-YMf" id="vJn-L2-mlF"/>
                         <outlet property="currentCardContainer" destination="D2Q-A0-d4k" id="pO0-8w-aPu"/>
                         <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="Cui-aC-riz"/>
@@ -322,6 +333,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KKO-CE-3pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-673" y="124"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="iFu-jV-1s4">
+            <objects>
+                <viewController id="DGw-gB-9SS" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WS5-9t-q8n">
+                        <rect key="frame" x="0.0" y="0.0" width="70" height="134"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="foI-1k-cgr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-920" y="132"/>
         </scene>
     </scenes>
 </document>

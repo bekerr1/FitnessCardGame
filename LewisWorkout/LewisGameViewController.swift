@@ -42,7 +42,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     @IBOutlet weak var labelStackView: UIStackView!
     @IBOutlet weak var currentCardContainer: UIView!
     @IBOutlet weak var deckViewContainer: UIView!
-    
+    @IBOutlet weak var calibrateContainerView: UIView!
     var deviceOrientation = UIDevice.currentDevice().orientation
     
     var alignmentCenterPoint: CGPoint = CGPointZero
@@ -52,7 +52,7 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     private var deckVC: LewisDeckViewController!
     private var currentCardVC: LewisCardViewController!
     
-    private let calibrateSlider: LWAnimatedSlider = LWAnimatedSlider()
+    private let calibrateSlider: LWAnimatedSlider = LWAnimatedSlider(frame: CGRectZero)
     
     lazy var imageDisplayView: UIImageView = {
         
@@ -78,8 +78,8 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         deckPlaceholderView.gestureRecognizers = deckGestures
         deckPlaceholderView.referenceRect = deckViewContainer.frame
         
-        let dataTapGesture = UITapGestureRecognizer(target: self, action: #selector(recordData))
-        self.view.gestureRecognizers = [dataTapGesture]
+//        let dataTapGesture = UITapGestureRecognizer(target: self, action: #selector(recordData))
+//        self.view.gestureRecognizers = [dataTapGesture]
         
         labelStackView.alpha = 0.0
         currentCardContainer.alpha = 0.0
@@ -94,20 +94,24 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         invisibleTopView.frame = self.view.frame
         
         calibrateSlider.frame = CGRect(x: 0, y: 0,
-                                      width: 150, height: 41.0)
+                                      width: 150, height: 61.0)
         calibrateSlider.backgroundColor = UIColor(white: 0.1, alpha: 0.9)
         calibrateSlider.layer.cornerRadius = 10.0
         calibrateSlider.configLayerFrames()
         calibrateSlider.layer.borderColor = UIColor.blackColor().CGColor
         calibrateSlider.layer.borderWidth = 1.0
+        calibrateSlider.horizontal = false
+        //calibrateSlider.translatesAutoresizingMaskIntoConstraints = false
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pushupCompleted(_:)), name: "pushupCompleted", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(orientationChanged(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         self.view.addSubview(topHiderView)
         self.view.addSubview(bottomHiderView)
-        self.view.addSubview(calibrateSlider)
         //self.view.addSubview(invisibleTopView)
+        
+        //createConstraintsForSlider()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -165,6 +169,12 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         
         super.init(coder: aDecoder)
         
+    }
+    
+    func createConstraintsForSlider() {
+        
+        calibrateSlider.leadingAnchor.constraintEqualToAnchor(self.view.layoutMarginsGuide.leadingAnchor, constant: 50).active = true
+        calibrateSlider.topAnchor.constraintEqualToAnchor(labelStackView.bottomAnchor, constant: 40).active = true
     }
     
     

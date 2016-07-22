@@ -19,7 +19,16 @@ class LWAnimatedSlider: UIControl {
     
     var animationTime: NSTimeInterval
     var flexableSlider: Bool = true
-    var horizontal: Bool = true
+    var horizontal: Bool? {
+        willSet (newValue) {
+            if (newValue != nil && newValue!) {
+                self.transform = CGAffineTransformIdentity
+            } else if (!newValue!) {
+                self.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * 0.5)
+            }
+            self.setNeedsLayout()
+        }
+    }
     var gradientWhileSliding: Bool = true
     
     var previousLocation: CGPoint?
