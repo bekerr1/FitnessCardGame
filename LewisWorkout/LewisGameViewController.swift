@@ -52,6 +52,8 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
     private var deckVC: LewisDeckViewController!
     private var currentCardVC: LewisCardViewController!
     
+    private let calibrateSlider: LWAnimatedSlider = LWAnimatedSlider()
+    
     lazy var imageDisplayView: UIImageView = {
         
         let aview = UIImageView()
@@ -91,11 +93,20 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         invisibleTopView.layer.addSublayer(alignmentLayer)
         invisibleTopView.frame = self.view.frame
         
+        calibrateSlider.frame = CGRect(x: 0, y: 0,
+                                      width: 150, height: 41.0)
+        calibrateSlider.backgroundColor = UIColor(white: 0.1, alpha: 0.9)
+        calibrateSlider.layer.cornerRadius = 10.0
+        calibrateSlider.configLayerFrames()
+        calibrateSlider.layer.borderColor = UIColor.blackColor().CGColor
+        calibrateSlider.layer.borderWidth = 1.0
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pushupCompleted(_:)), name: "pushupCompleted", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(orientationChanged(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         self.view.addSubview(topHiderView)
         self.view.addSubview(bottomHiderView)
+        self.view.addSubview(calibrateSlider)
         //self.view.addSubview(invisibleTopView)
     }
     
@@ -112,8 +123,8 @@ class LewisGameViewController: UIViewController, DetectorClassProtocol {
         
         //let insetFrame = CGRectInset(self.view.frame, 20.0, 40.0)
         print("insetFrame = \(NSStringFromCGRect(self.view.layer.bounds))")
-        detectorController = LewisAVDetectorController(withparentFrame: self.view.frame)
-        detectorController.delegate = self
+        //detectorController = LewisAVDetectorController(withparentFrame: self.view.frame)
+        //detectorController.delegate = self
         
         alignmentCenterPoint = deckPlaceholderView.convertCenterOfSquareToView(self.view)
         print("AlignmentCenter = \(NSStringFromCGPoint(alignmentCenterPoint))")
