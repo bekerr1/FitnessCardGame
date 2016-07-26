@@ -11,26 +11,16 @@ import QuartzCore
 
 class LWAnimatedSlider: UIControl {
     
-    override var frame: CGRect {
-        didSet {
-            updateSliderLayerPosition()
-        }
-    }
+//    override var frame: CGRect {
+//        didSet {
+//            updateSliderLayerPosition()
+//        }
+//    }
     
     var animationTime: NSTimeInterval
     var flexableSlider: Bool = true
-    var horizontal: Bool? {
-        willSet (newValue) {
-            if (newValue != nil && newValue!) {
-                self.transform = CGAffineTransformIdentity
-            } else if (!newValue!) {
-                self.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * 0.5)
-            }
-            self.setNeedsLayout()
-        }
-    }
-    var gradientWhileSliding: Bool = true
-    
+    var horizontal: Bool?
+    var gradientWhileSliding: Bool = true    
     var previousLocation: CGPoint?
     let maxValue: Double = 1.0
     let minValue: Double = 0.0
@@ -43,9 +33,10 @@ class LWAnimatedSlider: UIControl {
     
     override init(frame: CGRect) {
         animationTime = 0.0
+        horizontal = true
         super.init(frame: frame)
         
-        rectInsetLayer.backgroundColor = UIColor.whiteColor().CGColor
+        rectInsetLayer.backgroundColor = UIColor(white: 0.5, alpha: 0.9).CGColor
         self.layer.addSublayer(rectInsetLayer)
         
         sliderLayer.backgroundColor = UIColor.blackColor().CGColor
@@ -70,7 +61,7 @@ class LWAnimatedSlider: UIControl {
         sliderLayer.frame = sliderStartFrame
         sliderLayer.cornerRadius = 5
         sliderLayer.borderWidth = 0.5
-        sliderLayer.borderColor = UIColor.whiteColor().CGColor
+        sliderLayer.borderColor = UIColor(white: 0.5, alpha: 0.9).CGColor
         
         sliderLayer.configRidges()
         
@@ -94,20 +85,20 @@ class LWAnimatedSlider: UIControl {
     func updateSliderLayerPosition() {
         
         let newSliderPoint = CGFloat(positionForNewValue(NewValue: sliderPosition))
-        //sliderLayer.position = CGPointMake(sliderStartPosition.x + newSliderPoint, sliderStartPosition.y)
          sliderLayer.frame = CGRectMake(sliderStartPosition.x + newSliderPoint - thumbWidth/2.0, sliderStartPosition.y, sliderLayer.frame.width, sliderLayer.frame.height)
         sliderLayer.setNeedsDisplay()
         
     }
     
     var thumbWidth: CGFloat {
-        return CGFloat(bounds.height)
+        return (horizontal!) ? CGFloat(bounds.height) : CGFloat(bounds.width)
     }
     
     func positionForNewValue(NewValue value: Double) -> Double {
         // the sliders movable distance                                //Sliders Position
         print("Value coming in: \(value)")
-        let movableDistance = Double((frame.width - 50))
+        print("\(NSStringFromCGRect(frame))")
+        let movableDistance = (horizontal!) ? Double((frame.width - 50)) : Double((frame.height - 50))
         let distancePlusSliderWid = (maxValue - minValue)
         let returnPosition = (movableDistance * (value - minValue)) / (distancePlusSliderWid) + Double(thumbWidth / 2.0) //movable distance + half slider width
         print("New position: \(returnPosition)")

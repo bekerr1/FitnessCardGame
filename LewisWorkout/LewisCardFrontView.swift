@@ -91,6 +91,7 @@ class LewisCardFrontView: UIView {
     
         cardContents = result
     }
+    
 
 
 }

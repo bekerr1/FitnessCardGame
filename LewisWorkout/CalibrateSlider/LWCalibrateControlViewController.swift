@@ -32,8 +32,9 @@ class LWCalibrateControlViewController: UIViewController {
         calibrateSlider.configLayerFrames()
         calibrateSlider.layer.borderColor = UIColor.blackColor().CGColor
         calibrateSlider.layer.borderWidth = 1.0
-        //calibrateSlider.horizontal = false
-        //calibrateSlider.translatesAutoresizingMaskIntoConstraints = false
+        calibrateSlider.horizontal = false
+        calibrateSlider.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * 0.5)
+        
         
         self.view.addSubview(calibrateSlider)
     }

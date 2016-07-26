@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NTw-wy-xIh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,6 +10,7 @@
         <!--Lewis Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="LewisGameViewController" id="BYZ-38-t0r" customClass="LewisGameViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -95,21 +96,10 @@
                                     <constraint firstAttribute="width" constant="240" id="4aU-tM-Pgv"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alh-6U-JFa">
-                                <rect key="frame" x="100" y="463" width="150" height="41"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="41" id="fG5-V4-H23"/>
-                                    <constraint firstAttribute="width" constant="150" id="ubs-b5-OD3"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="DGw-gB-9SS" kind="embed" identifier="calibrateVC" id="TgA-HF-18f"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="D2Q-A0-d4k" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="5d1-M9-Dg8"/>
-                            <constraint firstItem="alh-6U-JFa" firstAttribute="centerY" secondItem="Om7-eu-pyf" secondAttribute="centerY" constant="10" id="8ZG-bH-nrf"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ald-L8-rRL"/>
                             <constraint firstItem="Om7-eu-pyf" firstAttribute="top" secondItem="D2Q-A0-d4k" secondAttribute="bottom" constant="30" id="E0N-rC-wdb"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="F85-6L-iou"/>
@@ -122,28 +112,27 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Om7-eu-pyf" secondAttribute="bottom" constant="60" id="jkF-QL-ehI"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="raS-1e-QWe"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="sTC-86-9pj"/>
-                            <constraint firstItem="alh-6U-JFa" firstAttribute="trailing" secondItem="Om7-eu-pyf" secondAttribute="leading" constant="30" id="sh5-Ac-Nkv"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="bottom" constant="80" id="uEz-eL-16e"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D2Q-A0-d4k" secondAttribute="trailing" constant="10" id="vKu-GX-tGA"/>
                         </constraints>
+                        <connections>
+                            <outlet property="cardsCompletedLabel" destination="Lva-RF-YMf" id="bML-ZD-m7u"/>
+                            <outlet property="currentCardContainer" destination="D2Q-A0-d4k" id="d45-6C-zQX"/>
+                            <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="6RH-rg-xTK"/>
+                            <outlet property="currentPushupCountLabel" destination="YHO-eh-CbP" id="IYZ-Bb-V6z"/>
+                            <outlet property="deckPlaceholderView" destination="s2s-8D-kLo" id="BfB-BK-aDu"/>
+                            <outlet property="deckViewContainer" destination="Om7-eu-pyf" id="WCk-F2-hJa"/>
+                            <outlet property="labelStackView" destination="Ifb-QA-rka" id="faA-mE-Gnc"/>
+                            <outlet property="pushupCountLabel" destination="jdU-ta-2hG" id="U8k-m9-5Gy"/>
+                            <outlet property="pushupsCompletedLabel" destination="eVs-8n-0f4" id="Cto-lG-myI"/>
+                            <outlet property="stageImageView" destination="Ta0-st-GRK" id="cIm-x8-lqK"/>
+                            <outlet property="totalCardsCompletedLabel" destination="O8X-gn-qG8" id="lOQ-A9-qwc"/>
+                        </connections>
                     </view>
                     <connections>
-                        <outlet property="calibrateContainerView" destination="alh-6U-JFa" id="D24-OK-2hs"/>
-                        <outlet property="cardsCompletedLabel" destination="Lva-RF-YMf" id="vJn-L2-mlF"/>
-                        <outlet property="currentCardContainer" destination="D2Q-A0-d4k" id="pO0-8w-aPu"/>
-                        <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="Cui-aC-riz"/>
-                        <outlet property="currentPushupCountLabel" destination="YHO-eh-CbP" id="FoX-4q-eJq"/>
-                        <outlet property="deckPlaceholderView" destination="s2s-8D-kLo" id="82A-Xf-sD6"/>
-                        <outlet property="deckViewContainer" destination="Om7-eu-pyf" id="dp9-wy-gZz"/>
                         <outlet property="gameView" destination="8bC-Xf-vdC" id="ZqM-UD-S9P"/>
-                        <outlet property="labelStackView" destination="Ifb-QA-rka" id="XJ3-DK-pdE"/>
-                        <outlet property="pushupCountLabel" destination="jdU-ta-2hG" id="l7U-27-fyn"/>
-                        <outlet property="pushupsCompletedLabel" destination="eVs-8n-0f4" id="1OX-nV-MGO"/>
-                        <outlet property="stageImageView" destination="Ta0-st-GRK" id="S87-P2-x0X"/>
-                        <outlet property="totalCardsCompletedLabel" destination="O8X-gn-qG8" id="8WX-Y9-nQX"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-673" y="-354"/>
         </scene>
@@ -335,20 +324,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KKO-CE-3pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-673" y="124"/>
-        </scene>
-        <!--Calibrate Control View Controller-->
-        <scene sceneID="iFu-jV-1s4">
-            <objects>
-                <viewController id="DGw-gB-9SS" customClass="LWCalibrateControlViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WS5-9t-q8n">
-                        <rect key="frame" x="0.0" y="0.0" width="150" height="41"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="foI-1k-cgr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-902" y="124"/>
         </scene>
     </scenes>
 </document>

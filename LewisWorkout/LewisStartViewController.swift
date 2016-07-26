@@ -35,9 +35,8 @@ class LewisStartViewController: UIViewController, TableResponseDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //startView.backgroundColor = UIColor.darkGrayColor()
-        
         startView.configure()
+        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -70,7 +69,7 @@ class LewisStartViewController: UIViewController, TableResponseDelegate {
         
         
         toVC.view.frame = self.view.frame
-        toVC.stageImageView.image = cell.stageImageView.image
+        toVC.gameView.stageImageView.image = cell.stageImageView.image
         
         presentationOrigin = toVC.view.frame
         
