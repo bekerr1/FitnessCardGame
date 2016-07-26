@@ -54,7 +54,7 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         view.addSubview(bottomHiderView)
         
     }
-    
+    //
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("ViewWillAppaerframe = \(NSStringFromCGRect(gameView.frame))")
