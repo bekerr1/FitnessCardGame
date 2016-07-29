@@ -66,8 +66,18 @@ protocol Shapeable  {
     func thisShape() -> Shape
     func place(AtPoint point: CGPoint)
     func rotateBy(amount: CGFloat)
+    func scaleBy(amount: CGFloat)
+    func addNewAnimationToShape(animation: CAAnimation, ForKey key: String)
+    func removeAnimationFromShapeWithKey(key: String)
+    func removeShapeFromSuperView()
 }
 
+struct Shape<T : Shapeable> {
+    var shape: T
+    init(WithShape sh: T) {
+        shape = sh
+    }
+}
 
 //extension CAShapeLayer : Shapeable {
 //    
@@ -97,6 +107,22 @@ extension UIImageView : Shapeable {
     
     func rotateBy(amount: CGFloat) {
         self.transform = CGAffineTransformMakeRotation(amount)
+    }
+    
+    func scaleBy(amount: CGFloat) {
+        self.transform = CGAffineTransformMakeScale(amount, amount)
+    }
+    
+    func addNewAnimationToShape(animation: CAAnimation, ForKey key: String) {
+        self.layer.addAnimation(animation, forKey: key)
+    }
+    
+    func removeAnimationFromShapeWithKey(key: String) {
+        self.layer.removeAnimationForKey(key)
+    }
+    
+    func removeShapeFromSuperView() {
+        self.removeFromSuperview()
     }
 }
 

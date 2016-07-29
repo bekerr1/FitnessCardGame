@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NTw-wy-xIh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -21,55 +22,75 @@
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ta0-st-GRK">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k" customClass="LewisCardView" customModule="LewisWorkout" customModuleProvider="target">
-                                <rect key="frame" x="389" y="93" width="161" height="316"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-eu-pyf">
+                                <rect key="frame" x="220" y="406" width="240" height="134"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="161" id="3N7-Db-U3d"/>
-                                    <constraint firstAttribute="height" constant="316" id="ojn-29-XS1"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="GAb-RM-OUB" kind="embed" identifier="cardSegue" id="Ky8-7b-nsQ"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-eu-pyf">
-                                <rect key="frame" x="180" y="439" width="240" height="104"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="104" id="SYQ-VT-xaZ"/>
-                                    <constraint firstAttribute="width" constant="240" id="fr3-j2-enx"/>
+                                    <constraint firstAttribute="width" constant="240" id="mno-X2-vbQ"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="xBC-Mg-IQR" kind="embed" identifier="deckSegue" id="uTK-Nu-UHD"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2s-8D-kLo" customClass="LewisDeckPlaceholderView" customModule="LewisWorkout" customModuleProvider="target">
-                                <rect key="frame" x="180" y="440" width="240" height="120"/>
+                                <rect key="frame" x="220" y="406" width="240" height="114"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="1hJ-8F-hEp"/>
-                                    <constraint firstAttribute="width" constant="240" id="gNK-r9-QQW"/>
+                                    <constraint firstAttribute="width" constant="240" id="4aU-tM-Pgv"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
-                                <rect key="frame" x="40" y="129" width="59" height="245"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k" customClass="LewisCardView" customModule="LewisWorkout" customModuleProvider="target">
+                                <rect key="frame" x="409" y="60" width="161" height="316"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="161" id="oy2-al-nHJ"/>
+                                    <constraint firstAttribute="height" constant="316" id="ySv-Co-dDh"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="GAb-RM-OUB" kind="embed" identifier="cardSegue" id="Ky8-7b-nsQ"/>
+                                </connections>
+                            </containerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-QA-rka">
+                                <rect key="frame" x="30" y="70" width="90" height="295"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
-                                        <rect key="frame" x="0.0" y="0.0" width="59" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Completed" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-ta-2hG">
+                                        <rect key="frame" x="0.0" y="0.0" width="90" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ZAT-te-AuG"/>
+                                            <constraint firstAttribute="width" constant="90" id="dah-78-4DH"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
-                                        <rect key="frame" x="0.0" y="112" width="59" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVs-8n-0f4">
+                                        <rect key="frame" x="0.0" y="49" width="90" height="50"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Amount" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="oLR-Gu-9DV">
+                                        <rect key="frame" x="0.0" y="98" width="90" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
-                                        <rect key="frame" x="0.0" y="224" width="59" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHO-eh-CbP">
+                                        <rect key="frame" x="0.0" y="147" width="90" height="50"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards Completed" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-RF-YMf">
+                                        <rect key="frame" x="0.0" y="196" width="90" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8X-gn-qG8">
+                                        <rect key="frame" x="0.0" y="245" width="90" height="50"/>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -77,31 +98,37 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="D2Q-A0-d4k" secondAttribute="trailing" constant="30" id="0NA-4H-bF1"/>
-                            <constraint firstItem="Ifb-QA-rka" firstAttribute="centerY" secondItem="D2Q-A0-d4k" secondAttribute="centerY" id="8RG-5o-FEe"/>
-                            <constraint firstItem="Ta0-st-GRK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9BL-cW-Bzk"/>
-                            <constraint firstItem="Ta0-st-GRK" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="A2U-v6-DEL"/>
-                            <constraint firstItem="D2Q-A0-d4k" firstAttribute="bottom" secondItem="Om7-eu-pyf" secondAttribute="top" constant="-30" id="Rf8-aZ-03H"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="bottom" constant="40" id="Sgy-vS-eXS"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Om7-eu-pyf" secondAttribute="bottom" constant="57" id="TEQ-Rp-ar7"/>
-                            <constraint firstItem="s2s-8D-kLo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TF6-SZ-MIY"/>
-                            <constraint firstItem="Om7-eu-pyf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UN2-Q9-DdX"/>
-                            <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Z8Q-Qi-PE8"/>
-                            <constraint firstItem="Ta0-st-GRK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fnV-eJ-dR7"/>
-                            <constraint firstItem="Ta0-st-GRK" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="g4L-rk-2dQ"/>
-                            <constraint firstItem="Ta0-st-GRK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="sge-Kg-fzG"/>
+                            <constraint firstItem="D2Q-A0-d4k" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="5d1-M9-Dg8"/>
+                            <constraint firstItem="Ta0-st-GRK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ald-L8-rRL"/>
+                            <constraint firstItem="s2s-8D-kLo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="386" id="Clo-mR-2Hq"/>
+                            <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="F85-6L-iou"/>
+                            <constraint firstItem="s2s-8D-kLo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="OYC-j0-8ey"/>
+                            <constraint firstAttribute="trailing" secondItem="Ta0-st-GRK" secondAttribute="trailing" id="Pd8-G0-pyM"/>
+                            <constraint firstItem="Ifb-QA-rka" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="SSZ-Ao-8jc"/>
+                            <constraint firstItem="Om7-eu-pyf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="c82-6V-yfy"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Om7-eu-pyf" secondAttribute="bottom" constant="60" id="jkF-QL-ehI"/>
+                            <constraint firstItem="Ta0-st-GRK" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="raS-1e-QWe"/>
+                            <constraint firstItem="Ta0-st-GRK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="sTC-86-9pj"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="bottom" constant="80" id="uEz-eL-16e"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="D2Q-A0-d4k" secondAttribute="trailing" constant="10" id="vKu-GX-tGA"/>
                         </constraints>
+                        <connections>
+                            <outlet property="cardContainerTopLayoutGuideConstraint" destination="5d1-M9-Dg8" id="lww-zG-U2O"/>
+                            <outlet property="cardsCompletedLabel" destination="Lva-RF-YMf" id="bML-ZD-m7u"/>
+                            <outlet property="currentCardContainer" destination="D2Q-A0-d4k" id="d45-6C-zQX"/>
+                            <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="6RH-rg-xTK"/>
+                            <outlet property="currentPushupCountLabel" destination="YHO-eh-CbP" id="IYZ-Bb-V6z"/>
+                            <outlet property="deckPlaceholderView" destination="s2s-8D-kLo" id="BfB-BK-aDu"/>
+                            <outlet property="deckViewContainer" destination="Om7-eu-pyf" id="WCk-F2-hJa"/>
+                            <outlet property="labelStackView" destination="Ifb-QA-rka" id="faA-mE-Gnc"/>
+                            <outlet property="pushupCountLabel" destination="jdU-ta-2hG" id="U8k-m9-5Gy"/>
+                            <outlet property="pushupsCompletedLabel" destination="eVs-8n-0f4" id="Cto-lG-myI"/>
+                            <outlet property="stageImageView" destination="Ta0-st-GRK" id="cIm-x8-lqK"/>
+                            <outlet property="totalCardsCompletedLabel" destination="O8X-gn-qG8" id="lOQ-A9-qwc"/>
+                        </connections>
                     </view>
                     <connections>
-                        <outlet property="cardsCompletedLabel" destination="Lva-RF-YMf" id="vJn-L2-mlF"/>
-                        <outlet property="currentCardContainer" destination="D2Q-A0-d4k" id="pO0-8w-aPu"/>
-                        <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="Cui-aC-riz"/>
-                        <outlet property="deckPlaceholderView" destination="s2s-8D-kLo" id="82A-Xf-sD6"/>
-                        <outlet property="deckViewContainer" destination="Om7-eu-pyf" id="dp9-wy-gZz"/>
                         <outlet property="gameView" destination="8bC-Xf-vdC" id="ZqM-UD-S9P"/>
-                        <outlet property="labelStackView" destination="Ifb-QA-rka" id="XJ3-DK-pdE"/>
-                        <outlet property="pushupCountLabel" destination="jdU-ta-2hG" id="l7U-27-fyn"/>
-                        <outlet property="stageImageView" destination="Ta0-st-GRK" id="S87-P2-x0X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -116,10 +143,9 @@
                         <viewControllerLayoutGuide type="top" id="xK9-uJ-uLM"/>
                         <viewControllerLayoutGuide type="bottom" id="zAc-P3-Ii3"/>
                     </layoutGuides>
-                    <view key="view" hidden="YES" contentMode="scaleToFill" id="XN5-Q5-zRR" customClass="LewisCardFrontView" customModule="LewisWorkout" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR" customClass="LewisCardFrontView" customModule="LewisWorkout" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="161" height="316"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="cardFrontView" destination="XN5-Q5-zRR" id="nV0-Ug-vYZ"/>
@@ -148,7 +174,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NTF-jD-KnN">
-                                <rect key="frame" x="0.0" y="106" width="600" height="388"/>
+                                <rect key="frame" x="0.0" y="95" width="600" height="410"/>
                                 <connections>
                                     <segue destination="IdP-Yu-CAl" kind="embed" identifier="LWStageTableSegue" id="Ffr-jB-iFy"/>
                                 </connections>
@@ -174,7 +200,7 @@
                             <constraint firstItem="8zS-rC-ads" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" id="MjN-pK-Jd7"/>
                             <constraint firstItem="8zS-rC-ads" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="QBN-5g-4J3"/>
                             <constraint firstItem="NTF-jD-KnN" firstAttribute="centerX" secondItem="KMf-QG-F5D" secondAttribute="centerX" id="eMv-fJ-PNk"/>
-                            <constraint firstItem="NTF-jD-KnN" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" constant="-212" id="m0y-ul-ubi"/>
+                            <constraint firstItem="NTF-jD-KnN" firstAttribute="height" secondItem="KMf-QG-F5D" secondAttribute="height" constant="-190" id="m0y-ul-ubi"/>
                         </constraints>
                         <connections>
                             <outlet property="blurVisualView" destination="8zS-rC-ads" id="6qM-ab-l0r"/>
@@ -228,7 +254,7 @@
             <objects>
                 <tableViewController id="IdP-Yu-CAl" customClass="LewisStartTableViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="1" sectionFooterHeight="1" id="67H-VS-5bt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="388"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="410"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -288,7 +314,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ga8-bc-CGD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HY8-cx-Im7">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="104"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="134"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>

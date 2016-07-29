@@ -111,8 +111,8 @@ struct LewisCard {
         }
         
         static let validRanks: [Rank] = [
-            .Ace, .Two, .Three, .Four,
-            .Five, .Six, .Seven, .Eight
+            .Ace, .Two//, .Three, .Four,
+            //.Five, .Six, .Seven, .Eight
             //.Nine, .Ten, .Jack, .Queen,
             //.King, .Joker
         ]

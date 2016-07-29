@@ -12,7 +12,7 @@ import UIKit
 
 class LewisCardFrontView: UIView {
     
-    private var currentCardModel: LewisCard!
+    var currentCardModel: LewisCard!
     var pastCards: [LewisCard] = Array()
     var sideWays: Bool = false
     var cardContents: [UIImageView] = Array()
@@ -71,6 +71,15 @@ class LewisCardFrontView: UIView {
         }
     }
     
+    func clearContentsFromScreen() {
+        
+        for suit in cardContents {
+            suit.removeFromSuperview()
+        }
+        
+        cardContents = Array()
+    }
+    
     
     func createViewContentsFromCardModel() {
         
@@ -91,6 +100,7 @@ class LewisCardFrontView: UIView {
     
         cardContents = result
     }
+    
 
 
 }

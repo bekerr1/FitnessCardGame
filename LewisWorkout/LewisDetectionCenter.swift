@@ -19,6 +19,12 @@ extension Array {
     }
 }
 
+protocol PushupDelegate {
+    
+    func pushupCompleted()
+}
+
+
 class FaceRectFilter {
     
     enum CurrentPushupPosition {
@@ -37,7 +43,8 @@ class FaceRectFilter {
     
     var faceRectQueue = DetectionQueue<CGRect>()
     var faceAreaArray = Array<CGFloat>()
-    let rectAnalyzer: FaceRectAnalyzer = FaceRectAnalyzer()
+    
+    var delegate: PushupDelegate?
     
     var initialSamplesCG: [CGFloat]
     var valuesSampledCG: CGFloat
@@ -60,7 +67,7 @@ class FaceRectFilter {
     var runningSum: CGFloat = 0.0
     var runningStdDev: CGFloat = 0.0
     
-    var count = 0
+    var pushupCount = 0
     var sum: Float = 0.0
     var startingMean: Float = 0.0
     init(WithInitialPoints samples: [CGFloat], FromNumberOfValues count: CGFloat) {
@@ -89,7 +96,7 @@ class FaceRectFilter {
         vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
         startingMean = runningMeanF
         allowedPercentOfMean = runningMeanF * percentOfMean
-        print("InitialMean: \(runningMeanF), AllowedOffset: \(allowedPercentOfMean)")
+        //print("InitialMean: \(runningMeanF), AllowedOffset: \(allowedPercentOfMean)")
         
     }
     
@@ -97,11 +104,11 @@ class FaceRectFilter {
         
         
         let faceRectArea = rect.size.height * rect.size.width
-        count += 1
+        
         
         if Float(faceRectArea) < (runningMeanF + allowedPercentOfMean) && Float(faceRectArea) > (runningMeanF - allowedPercentOfMean) {
-            print("FaceRectArea allowed: \(faceRectArea)")
-            currentSamplesF[currentSamplePointer] = Float(faceRectArea)
+            //print("FaceRectArea allowed: \(faceRectArea)")
+            //currentSamplesF[currentSamplePointer] = Float(faceRectArea)
             currentSamplePointer += 1
             currentDeclinedAreas = 0
             
@@ -115,7 +122,7 @@ class FaceRectFilter {
             
             
             
-            print(valuesSampledUI)
+            //print(valuesSampledUI)
             
             
         } else {
@@ -124,7 +131,7 @@ class FaceRectFilter {
             //print("FaceRectArea outside allowed value: \(faceRectArea)")
             currentDeclinedAreas += 1
             if currentDeclinedAreas == 5 {
-                currentSamplesF = Array(count: Int(valuesTracked), repeatedValue: 0)
+                //currentSamplesF = Array(count: Int(valuesTracked), repeatedValue: 0)
                 valuesSampledUI = 0
                 currentSamplePointer = 0
                 runningMeanF = startingMean
@@ -133,7 +140,7 @@ class FaceRectFilter {
         
         //check if waiting for accepted mean values
         if currentDeclinedAreas >= 5 {
-            print("CurrentlyDeclined")
+            //print("CurrentlyDeclined")
             pushupCycle = .down
             //dont calculate mean - at this point values sampled = 1 and current samples is an array of all 0's
         } else {
@@ -160,7 +167,11 @@ class FaceRectFilter {
         switch pushupCycle {
         case .up:
             print("COUNT PUSHUP")
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("pushupCompleted", object: nil)
             pushupCycle = .start
+            pushupCount += 1
+            
         default:
             break
         }
@@ -169,41 +180,41 @@ class FaceRectFilter {
 }
 
 
-class FaceRectAnalyzer {
-    
-    var faceRectQueue = DetectionQueue<CGRect>()
-    
-    init() {}
-    
-    func newRectArrived(rect: CGRect) {
-        
-        faceRectQueue.enqueue(rect)
-        
-    }
-    
-    func engine() {
-        
-        
-        while true {
-            if let rect = faceRectQueue.dequeue() {
-                processRect(rect)
-            }
-            
-        }
-    }
-    
-    
-    func processRect(faceRect: CGRect) {
-        
-        
-        
-
-    }
-}
-
-
-
-
+//class FaceRectAnalyzer {
+//    
+//    var faceRectQueue = DetectionQueue<CGRect>()
+//    
+//    init() {}
+//    
+//    func newRectArrived(rect: CGRect) {
+//        
+//        faceRectQueue.enqueue(rect)
+//        
+//    }
+//    
+//    func engine() {
+//        
+//        
+//        while true {
+//            if let rect = faceRectQueue.dequeue() {
+//                processRect(rect)
+//            }
+//            
+//        }
+//    }
+//    
+//    
+//    func processRect(faceRect: CGRect) {
+//        
+//        
+//        
+//
+//    }
+//}
+//
+//
+//
+//
 
 
 
