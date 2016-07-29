@@ -109,6 +109,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
     var deleteDataFileOnNewInstance: Bool = true
     var faceFound: Bool = false
     var calibrated: Bool = false
+    var needAlignment: Bool = false
     
     let parentFrame: CGRect
     
@@ -368,7 +369,11 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
             let faceRectArea = faceRect.size.height * faceRect.size.width
             
             let faceRectCenter = CGPointMake(faceRect.origin.x + CGRectGetWidth(faceRect)/2, faceRect.origin.y + CGRectGetHeight(faceRect)/2);
-            delegate.getCenterForAlignment(CenterPoint: faceRectCenter)
+            
+            if needAlignment {
+                delegate.getCenterForAlignment(CenterPoint: faceRectCenter)
+            }
+            
             
             if !faceFound {
                 faceRectAreasForAverage.append(faceRectArea)

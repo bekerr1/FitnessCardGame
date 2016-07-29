@@ -94,14 +94,6 @@ class LewisDeckViewController: UIViewController {
             self.cardBackView.hidden = true
             self.cardFrontView.hidden = false
             }, completion: nil)
-        
-//        UIView.transitionWithView(cardBackView, duration: 1.0, options: transitionOptions, animations: {
-//            self.cardBackView.hidden = true
-//            }, completion: nil)
-//        
-//        UIView.transitionWithView(cardFrontView, duration: 1.0, options: transitionOptions, animations: {
-//            self.cardFrontView.hidden = false
-//            }, completion: nil)
     }
     
     
@@ -116,7 +108,6 @@ class LewisDeckViewController: UIViewController {
     //MARK: Model stuff
     
     func randomCardFromDeck() -> LewisCard {
-        
         return deckModel.pickRandomCard()
     }
 

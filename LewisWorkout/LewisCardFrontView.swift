@@ -71,6 +71,15 @@ class LewisCardFrontView: UIView {
         }
     }
     
+    func clearContentsFromScreen() {
+        
+        for suit in cardContents {
+            suit.removeFromSuperview()
+        }
+        
+        cardContents = Array()
+    }
+    
     
     func createViewContentsFromCardModel() {
         

@@ -18,11 +18,13 @@ import UIKit
 protocol GameViewCallBackDelegate {
     func deviceIsOriented() -> Bool
     func cardAnimationComplete()
+    func cardComplete()
     func startPreviewSession()
     func getShape(AtIndex index: Int) -> UIImageView
     func getShapeCenter(ForShape shape: UIImageView, InView view: UIView) -> CGPoint
     func currentCardBeingDisplayed() -> LewisCard
     func cardAboutToBeShown() -> LewisCard
+    func stopPreviewSession()
 }
 
 
@@ -39,9 +41,16 @@ class LewisGameView: UIView, DetectorClassProtocol {
     @IBOutlet weak var stageImageView: UIImageView!
     @IBOutlet weak var labelStackView: UIStackView!
     @IBOutlet weak var currentCardContainer: UIView!
+    var emptySpringCard: UIView = UIView()
+    var placeholderEmptyCard: UIView = UIView()
     @IBOutlet weak var deckViewContainer: UIView!
     @IBOutlet weak var deckPlaceholderView: LewisDeckPlaceholderView!
     private var calibrateSlider: LWAnimatedSlider = LWAnimatedSlider()
+    var decorationView: UIView = {
+        let result = UIView()
+        result.backgroundColor = UIColor.clearColor()
+        return result
+    }()
     var invisibleTopView: UIView = {
         let result = UIView()
         result.backgroundColor = UIColor.clearColor()
@@ -65,23 +74,57 @@ class LewisGameView: UIView, DetectorClassProtocol {
     @IBOutlet weak var currentCardLabel: UILabel!
     @IBOutlet weak var cardsCompletedLabel: UILabel!
     @IBOutlet weak var totalCardsCompletedLabel: UILabel!
-    var totalCardsCompletedCount: Int = 0
+    var totalCardsCompletedCount: Int {
+        willSet (newValue) {
+            totalCardsCompletedLabel.text = "\(newValue)"
+        }
+        didSet (newValue) {
+            
+        }
+    }
     @IBOutlet weak var currentPushupCountLabel: UILabel!
-    var currentPushupCount: Int = 0
+    var currentPushupAnimatingLabel: UILabel = UILabel()
+    var currentPushupCount: Int {
+        willSet (newValue) {
+           currentPushupCountLabel.text = "\(newValue)"
+        }
+        didSet (newValue) {
+            
+        }
+    }
     @IBOutlet weak var pushupsCompletedLabel: UILabel!
-    var totalPushupsCompletedCount: Int = 0
+    var totalPushupsCompletedCount: Int {
+        willSet (newValue) {
+            pushupsCompletedLabel.text = "\(newValue)"
+        }
+        didSet (newValue) {
+            
+        }
+    }
     //GESTURES
     var deckTapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
     
     
+    @IBOutlet weak var cardContainerTopLayoutGuideConstraint: NSLayoutConstraint!
     //MARK: Initialization
     required init?(coder aDecoder: NSCoder) {
+        print("coder init in game view")
+        totalPushupsCompletedCount = 0
+        currentPushupCount = 0
+        totalCardsCompletedCount = 0
+        
         super.init(coder: aDecoder)
+        
         
         
     }
     
     override init(frame: CGRect) {
+        print("frame init in game view")
+        totalPushupsCompletedCount = 0
+        currentPushupCount = 0
+        totalCardsCompletedCount = 0
+
         super.init(frame: frame)
     }
     
@@ -104,25 +147,56 @@ class LewisGameView: UIView, DetectorClassProtocol {
         deckPlaceholderView.createStackEffect()
         configureAlignment()
         prepareView()
+        configureEmptyCardViews()
+        configureAnimationLabels()
     }
     
     func prepareView() {
         labelStackView.alpha = 0.0
         currentCardContainer.alpha = 0.0
         deckViewContainer.alpha = 0.0
+        decorationView.alpha = 0.0
+        currentCardContainer.hidden = true
     }
     
     func configureShadowLayer() {
         print("Game view frame: \(NSStringFromCGRect(self.frame))")
         
-        shadowLayer.frame = CGRectMake(0, 0, self.frame.width - widthOffset, self.frame.height - heightOffset)
-        shadowLayer.position = CGPointMake(self.frame.width/2, self.frame.height/2 - 75)
-        shadowLayer.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5).CGColor
-        shadowLayer.shadowOpacity = 1.0
-        shadowLayer.shadowRadius = 1.0
-        shadowLayer.shadowOffset = CGSizeMake(0.0, 15.0)
-        shadowLayer.masksToBounds = false
-        self.layer.insertSublayer(shadowLayer, below: currentCardContainer.layer)
+        decorationView.layer.frame = CGRectMake(0, 0, self.frame.width - widthOffset, self.frame.height - heightOffset)
+        decorationView.layer.position = CGPointMake(self.frame.width/2, self.frame.height/2 - 75)
+        decorationView.layer.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5).CGColor
+        decorationView.layer.shadowOpacity = 1.0
+        decorationView.layer.shadowRadius = 1.0
+        decorationView.layer.shadowOffset = CGSizeMake(0.0, 15.0)
+        decorationView.layer.masksToBounds = false
+    
+        insertSubview(decorationView, belowSubview: deckPlaceholderView)
+        
+    }
+    
+    func configureEmptyCardViews() {
+        
+        placeholderEmptyCard.frame = currentCardContainer.frame
+        placeholderEmptyCard.backgroundColor = UIColor.whiteColor()
+        placeholderEmptyCard.layer.cornerRadius = LewisGeometricConstants.cornerRadius
+        placeholderEmptyCard.hidden = true
+        
+        emptySpringCard.frame = currentCardContainer.frame
+        emptySpringCard.center = CGPointMake(currentCardContainer.center.x + frame.width, currentCardContainer.center.y)
+        emptySpringCard.backgroundColor = UIColor.whiteColor()
+        emptySpringCard.layer.cornerRadius = LewisGeometricConstants.cornerRadius
+        
+        insertSubview(placeholderEmptyCard, belowSubview: decorationView)
+        insertSubview(emptySpringCard, aboveSubview: placeholderEmptyCard)
+        
+    }
+    
+    func configureAnimationLabels() {
+        
+        currentPushupAnimatingLabel.frame = currentPushupCountLabel.frame
+        currentPushupAnimatingLabel.font = currentPushupCountLabel.font
+        currentPushupAnimatingLabel.backgroundColor = UIColor.clearColor()
+        currentPushupAnimatingLabel.textColor = UIColor.whiteColor()
         
     }
     
@@ -174,36 +248,48 @@ class LewisGameView: UIView, DetectorClassProtocol {
             self.labelStackView.alpha = 1.0
             self.currentCardContainer.alpha = 1.0
             self.deckViewContainer.alpha = 1.0
-            
+            self.decorationView.alpha = 1.0
         })
         
     }
     
     func resetForNextAnimation(WithFrame fr: CGRect) {
         
-        self.bringSubviewToFront(self.deckPlaceholderView)
+        //self.bringSubviewToFront(self.deckPlaceholderView)
+        self.insertSubview(deckPlaceholderView, aboveSubview: deckViewContainer)
         self.deckViewContainer.transform = CGAffineTransformIdentity
         self.deckViewContainer.frame = fr
+        self.deckViewContainer.hidden = false
     }
     
     
     //MARK: NOtifications
     
     func pushupCompleted(notification: NSNotification) {
-        print("Pushup Herd from GameVC")
+        print("Pushup Herd in Gameview")
         let currentCard = callBack!.currentCardBeingDisplayed()
-        if currentCard.rank.rawValue != currentPushupCount {
-            //If the pushup count doesnt match rank, keep doing pushups
-            pushupActions()
-        } else {
-            //Do all actions to get ready for the next card
-            currentCardCompleted()
-        }
+        dispatch_async(dispatch_get_main_queue(), {
+            if currentCard.rank.rawValue != self.currentPushupCount {
+                //If the pushup count doesnt match rank, keep doing pushups
+                self.pushupActions()
+            } else {
+                //Do all actions to get ready for the next card
+                self.currentCardCompleted()
+            }
+            
+        })
         
     }
-
-
-
+    
+    func getAnimationPathFromPoints(StartPoint start: CGPoint, EndPoint end: CGPoint) -> CGMutablePath {
+        
+        let path = CGPathCreateMutable()
+        let controlPoint = CGPointMake((end.x + 100) , ((start.y - end.y)/2) + end.y)
+        CGPathMoveToPoint(path, nil, start.x, start.y)
+        CGPathAddQuadCurveToPoint(path, nil, controlPoint.x, controlPoint.y, end.x, end.y)
+        
+        return path
+    }
 }
 
 
@@ -240,17 +326,13 @@ extension LewisGameView {
                         self.deckViewContainer.transform = finalT
                         
                         }, completion: {(complete: Bool) -> () in
-                            print("First Transform animation completed")
-                            UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseOut, animations: {
-                                self.currentCardContainer.hidden = false
-                                self.deckViewContainer.hidden = true
-                                
-                                }, completion: {(complete: Bool) -> () in
-                                    print("Second Transform animation completed")
-                                    self.resetForNextAnimation(WithFrame: originalFrame)
-                                    self.callBack!.cardAnimationComplete()
-                                    self.callBack!.startPreviewSession()
-                            })
+                            print("Second Transform animation completed")
+                            self.currentCardContainer.hidden = false
+                            self.deckViewContainer.hidden = true
+                            self.resetForNextAnimation(WithFrame: originalFrame)
+                            self.callBack!.cardAnimationComplete()
+                            self.callBack!.startPreviewSession()
+                            
                     })
                 } else {
                     self.deckViewContainer.transform = finalT
@@ -295,6 +377,89 @@ extension LewisGameView {
     
     
     
+    //Auto layout was forcing this view to snap back into place, need to set the constrait.active to false and add it back after view has been hidden
+    func animateCardUnderLayer() {
+        print("3D transform")
+        let currentCardSavedCenter = currentCardContainer.center
+        let animatedCardSavedCenter = emptySpringCard.center
+        self.placeholderEmptyCard.center = currentCardSavedCenter
+        self.cardContainerTopLayoutGuideConstraint.constant = 600
+        
+        let lift = CGAffineTransformMakeScale(1.3, 1.3)
+        //ANIMATE CARD OFFSCREEN
+        UIView.animateKeyframesWithDuration(2.0, delay: 0.0, options: [], animations: {
+            //scale view up ("lift up")
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 1/2, animations: {
+                self.currentCardContainer.transform = lift
+            })
+            //animate out of view - so other view and come in and pretend to be it
+            UIView.addKeyframeWithRelativeStartTime(0.1, relativeDuration: 1, animations: {
+                self.layoutIfNeeded()
+            })
+            
+            }, completion: {(complete: Bool) in
+                if complete {
+                    print("complete")
+                    self.currentCardContainer.hidden = true
+                    self.currentCardContainer.transform = CGAffineTransformIdentity
+                    self.cardContainerTopLayoutGuideConstraint.constant = 40
+                    self.layoutIfNeeded()
+                }
+        })
+        
+        //ANIMATE DUMMY UNDER DECORATION VIEW
+        UIView.animateWithDuration(2.0, delay: 2.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.BeginFromCurrentState], animations: {
+            
+            self.emptySpringCard.center = currentCardSavedCenter
+            
+            }, completion: {(complete: Bool) in
+                self.placeholderEmptyCard.hidden = false
+                self.emptySpringCard.hidden = true
+                self.emptySpringCard.center = animatedCardSavedCenter
+                self.emptySpringCard.hidden = false
+        })
+    }
+    
+    
+    func animateCurrentAmountToTotalCompleted() {
+        
+        let savedPosition = currentPushupAnimatingLabel.layer.position
+        currentPushupAnimatingLabel.text = currentPushupCountLabel.text
+        totalCardsCompletedCount += 1
+        var startPoint = labelStackView.convertPoint(currentPushupCountLabel.center, toView: self)
+        var endPoint = labelStackView.convertPoint(pushupsCompletedLabel.center, toView: self)
+        startPoint.x += 40
+        endPoint.x += 60
+//        endPoint.x += 10
+        
+        insertSubview(currentPushupAnimatingLabel, belowSubview: labelStackView)
+        let animationPath = getAnimationPathFromPoints(StartPoint: startPoint, EndPoint: endPoint)
+        
+        /*
+            I wasnt sure if i should put the animation insie a view animation becuase:
+                https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CoreAnimation_guide/CreatingBasicAnimations/CreatingBasicAnimations.html#//apple_ref/doc/uid/TP40004514-CH3-SW16
+            I wrapped animation inside transaction and it seems to work fine.  It is a view backed layer im animating though, which is the reason for my confusion
+        */
+        
+        CATransaction.begin()
+        let labelAnimation = CAKeyframeAnimation(keyPath: "position")
+        labelAnimation.path = animationPath
+        labelAnimation.duration = 2.0
+        self.currentPushupAnimatingLabel.layer.position = endPoint
+        CATransaction.setCompletionBlock({
+            self.currentPushupAnimatingLabel.removeFromSuperview()
+            self.currentPushupAnimatingLabel.layer.position = savedPosition
+            self.totalPushupsCompletedCount += self.currentPushupCount
+            self.currentPushupCount = 0
+            
+        })
+        
+        self.currentPushupAnimatingLabel.layer.addAnimation(labelAnimation, forKey: "position")
+        CATransaction.commit()
+
+        
+    }
+    
     
 }
 
@@ -310,7 +475,8 @@ extension LewisGameView {
         print("DeckTapped " + #function)
         
         if callBack!.deviceIsOriented() {
-            self.bringSubviewToFront(self.deckViewContainer)
+            
+            self.insertSubview(deckViewContainer, aboveSubview: deckPlaceholderView)
         }
     }
     
@@ -349,21 +515,21 @@ extension LewisGameView {
             self.animateSuit(Suit: currentSuit, ToPosition: suitNewCenter)
             
             //add a count to pushups this card
-            self.currentPushupCountLabel.text = "\(self.currentPushupCount)"
+            //self.currentPushupCountLabel.text = "\(self.currentPushupCount)"
+            print("suitCenterInSuperVIew: \(NSStringFromCGPoint(suitCenter)), SuitDesiredNewCenterInSuperView: \(NSStringFromCGPoint(suitNewCenter)), SuitActualNewCenterInSuperView: \(NSStringFromCGPoint(currentSuit.center))")
+            
+            let currentCard = self.callBack!.currentCardBeingDisplayed()
+            if currentCard.rank.rawValue != self.currentPushupCount {
+                //If the pushup count doesnt match rank, keep doing pushups
+                
+            } else {
+                //Do all actions to get ready for the next card
+                self.currentCardCompleted()
+            }
+
             
         })
         
-        //
-        print("suitCenterInSuperVIew: \(NSStringFromCGPoint(suitCenter)), SuitDesiredNewCenterInSuperView: \(NSStringFromCGPoint(suitNewCenter)), SuitActualNewCenterInSuperView: \(NSStringFromCGPoint(currentSuit.center))")
-        
-        let currentCard = callBack!.currentCardBeingDisplayed()
-        if currentCard.rank.rawValue != currentPushupCount {
-            //If the pushup count doesnt match rank, keep doing pushups
-            
-        } else {
-            //Do all actions to get ready for the next card
-            currentCardCompleted()
-        }
     }
 
 }
@@ -378,41 +544,19 @@ extension LewisGameView {
     
     func currentCardCompleted() {
         print("running Completion cycle")
-        //animateCardUnderLayer()
-        addCurrentAmountToTotalCompleted()
-        //incrementCardsCompleted()
-        //resetViewForNextCard()
+        callBack!.cardComplete()
+        removeAlignment()
+        callBack!.stopPreviewSession()
+        animateCardUnderLayer()
+        animateCurrentAmountToTotalCompleted()
+        resetViewForNextCard()
     }
     
-    
-    
-    func addCurrentAmountToTotalCompleted() {
+    func resetViewForNextCard() {
         
         
     }
     
-    
-    func animateCardUnderLayer() {
-        print("3D transform")
-        //let transformAnim = CABasicAnimation(keyPath: "rotation")
-        
-        let threeDtransform = CATransform3DMakeRotation(CGFloat(M_PI) * 0.2, 4.0, 4.0, 1.2)
-        
-        
-        UIView.animateKeyframesWithDuration(3.0, delay: 0.0, options: [.BeginFromCurrentState, .Repeat], animations: {
-            
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 2/3, animations: {
-                //self.currentCardVC.view.layer.transform = threeDtransform
-                self.currentCardContainer.layer.transform = threeDtransform
-            })
-            
-            UIView.addKeyframeWithRelativeStartTime(2/3, relativeDuration: 1/3, animations: {
-                //self.currentCardVC.view.layer.transform = CATransform3DIdentity
-                self.currentCardContainer.layer.transform = CATransform3DIdentity
-            })
-            }, completion: nil)
-        
-    }
     
 }
 
@@ -474,3 +618,75 @@ extension LewisGameView {
         
     }
 }
+
+
+
+
+
+//MARK: Alignment code
+extension LewisGameView {
+    
+    func removeAlignment() {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.invisibleTopView.removeFromSuperview()
+        })
+        
+    }
+    
+}
+
+
+
+
+
+
+
+//MARK: Trash bin for depreicated Code/code i may get back to or may not - to be deleted
+extension LewisGameView {
+    
+    //        UIView.animateKeyframesWithDuration(3.0, delay: 0.0, options: [.BeginFromCurrentState, .Repeat], animations: {
+    //            //Animate transform to simulate lifting of card
+    ////            UIView.addKeyframeWithRelativeStartTime(1/3, relativeDuration: 1/6, animations: {
+    ////                self.currentCardContainer.layer.transform = threeDtransform
+    ////            })
+    //
+    //            //animate card back to simulate putting card under shadow
+    //            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 2/3, animations: {
+    //                //self.currentCardVC.view.layer.transform = threeDtransform
+    //                //self.currentCardContainer.layer.transform = threeDtransform
+    //                self.currentCardContainer.center = tempCenter
+    //            })
+    //
+    //
+    //            //set card layer below shadow layer
+    //
+    //
+    //            //animate transform back to normal and a little shunkin to simulate depth
+    //
+    //
+    //
+    //            //animate card back to center
+    //            UIView.addKeyframeWithRelativeStartTime(2/3, relativeDuration: 1/3, animations: {
+    //                //self.currentCardVC.view.layer.transform = CATransform3DIdentity
+    //                //self.currentCardContainer.layer.transform = CATransform3DIdentity
+    //                self.currentCardContainer.center = savedCenter
+    //            })
+    //            }, completion: nil)
+    
+    //        currentCardContainer.layer.anchorPoint = CGPointMake(0.5, 0.0)
+    //        let transform = CABasicAnimation(keyPath: "transform")
+    //        transform.fromValue = NSValue.init(CATransform3D: CATransform3DIdentity)
+    //        transform.toValue = NSValue.init(CATransform3D: threeDtransform)
+    //        transform.duration = 3.0
+    //        transform.additive = true
+    //        currentCardContainer.layer.addAnimation(transform, forKey: "layerTransform")
+    //        currentCardContainer.layer.transform = threeDtransform
+    
+    //        UIView.animateWithDuration(3.0, delay: 0.0, options: .BeginFromCurrentState, animations: {
+    //            self.currentCardContainer.layer.transform = threeDtransform
+    //            self.currentCardContainer.center = tempCenter
+    //            }, completion: nil)
+
+    
+}
+

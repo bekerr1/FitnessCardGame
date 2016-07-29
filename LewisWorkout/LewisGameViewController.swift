@@ -36,6 +36,8 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
     private var tap: Bool = false
     private var detectorController: LewisAVDetectorController!
     
+    
+    
     //MARK: Initialize
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +56,8 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         view.addSubview(bottomHiderView)
         
     }
-    //
+    
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("ViewWillAppaerframe = \(NSStringFromCGRect(gameView.frame))")
@@ -71,7 +74,6 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         
     }
 
-    
     override func viewDidLayoutSubviews() {
         print("subviews layed")
         
@@ -89,29 +91,16 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
     
     
     func setCardVCViewToAnimated() {
         //Get the deckVC's current deck model and set it to the cardVC's deck model
-        currentCardVC.view.hidden = true
+        
         currentCardVC.setViewToNewCard(deckVC.cardFrontView.currentCardModel)
     }
     
     
-    
-    
-    func startPreviewSession() {
-        
-        let preview = detectorController.getPreviewLayerForUse()
-        //self.view.layer.addSublayer(preview)
-        detectorController.startCaptureSession()
-    }
-    
-    
-
     
     //MARK: Prepare for Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -151,8 +140,34 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         self.presentViewController(alertVC, animated: false, completion: nil)
     }
     
+
+}
+
+
+
+
+//MARK: Capture Session
+extension LewisGameViewController {
     
-    //MARK: Callbacks From View
+    func startPreviewSession() {
+        
+        let preview = detectorController.getPreviewLayerForUse()
+        //self.view.layer.addSublayer(preview)
+        detectorController.startCaptureSession()
+    }
+    
+    func stopPreviewSession() {
+        
+        detectorController.stopCaptureSession()
+    }
+}
+
+
+
+
+
+//MARK: View Callbacks
+extension LewisGameViewController {
     func deviceIsOriented() -> Bool {
         
         if deviceOrientation != .FaceUp {
@@ -160,17 +175,19 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
             return false
         } else {
             tap = true
+            detectorController.needAlignment = true
             return true
         }
     }
     
     func cardAnimationComplete() {
-        
-        self.deckVC.view.hidden = true
         self.deckVC.resetTransitionViews()
-        currentCardVC.view.hidden = false
+        self.deckVC.cardFrontView.clearContentsFromScreen()
     }
     
+    func cardComplete() {
+        detectorController.needAlignment = false
+    }
     
     func getShape(AtIndex index: Int) -> UIImageView {
         return currentCardVC.shapeAtIndex(Index: index)
@@ -189,8 +206,18 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
     }
     
 
-
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Tried to add view programatically but couldnt get it to follow constraits i wanted
