@@ -24,15 +24,25 @@ protocol PushupDelegate {
     func pushupCompleted()
 }
 
+enum CurrentPushupPosition {
+    case start
+    case up
+    case down
+    case finish
+}
 
-class FaceRectFilter {
+
+class DetectionNotification {
     
-    enum CurrentPushupPosition {
-        case start
-        case up
-        case down
-        case finish
+    init() {}
+    
+    func notifyOfPushup() {
+        NSNotificationCenter.defaultCenter().postNotificationName("pushupCompleted", object: nil)
     }
+}
+
+struct FaceRectFilter {
+    
     
     var pushupCycle: CurrentPushupPosition = .start {
         willSet {
@@ -55,11 +65,13 @@ class FaceRectFilter {
     
     var valuesTracked: Int = 5
     var valuesSampledUI: UInt
+    
     var runningMeanCG: CGFloat = 0.0
     var runningMeanF: Float = 0.0
     
     var allowedPercentOfMean: Float = 0.0
     let percentOfMean: Float = 0.30
+    
     var allowedPercentOfMeanCG: CGFloat = 0.0
     let percentOfMeanCG: CGFloat = 0.30
     
@@ -70,6 +82,9 @@ class FaceRectFilter {
     var pushupCount = 0
     var sum: Float = 0.0
     var startingMean: Float = 0.0
+    
+    var confidence: DetectionConfidence?
+    
     init(WithInitialPoints samples: [CGFloat], FromNumberOfValues count: CGFloat) {
         
         initialSamplesCG = samples
@@ -100,83 +115,120 @@ class FaceRectFilter {
         
     }
     
-    func newRectArrived(rect: CGRect) {
+    mutating func newRectArrived(rect: CGRect) {
         
         
         let faceRectArea = rect.size.height * rect.size.width
         
-        
-        if Float(faceRectArea) < (runningMeanF + allowedPercentOfMean) && Float(faceRectArea) > (runningMeanF - allowedPercentOfMean) {
-            //print("FaceRectArea allowed: \(faceRectArea)")
-            //currentSamplesF[currentSamplePointer] = Float(faceRectArea)
-            currentSamplePointer += 1
-            currentDeclinedAreas = 0
-            
-            if valuesSampledUI < 6 && valuesSampledUI != 5 {
-                valuesSampledUI = UInt(currentSamplePointer)
-            }
-            
-            if  runningMeanF == startingMean && lastAction == .down {
-                pushupCycle = .up
-            }
-            
-            
-            
-            //print(valuesSampledUI)
-            
-            
-        } else {
-            
-            //values arent being accepted
-            //print("FaceRectArea outside allowed value: \(faceRectArea)")
-            currentDeclinedAreas += 1
-            if currentDeclinedAreas == 5 {
-                //currentSamplesF = Array(count: Int(valuesTracked), repeatedValue: 0)
-                valuesSampledUI = 0
-                currentSamplePointer = 0
-                runningMeanF = startingMean
-            }
+        if checkIfAreaIsInRange(Area: faceRectArea) {
+            confidence?.addToConfidence(NewArea: faceRectArea, ForMotion: pushupCycle)
         }
         
-        //check if waiting for accepted mean values
-        if currentDeclinedAreas >= 5 {
-            //print("CurrentlyDeclined")
-            pushupCycle = .down
-            //dont calculate mean - at this point values sampled = 1 and current samples is an array of all 0's
-        } else {
-            
-            vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
+        vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
+        
+        if currentSamplePointer == valuesTracked {
+            currentSamplePointer = 0
         }
         
-        //print("runningMean: \(runningMeanF)")
-        
-        
-        //reset circular buffer
-        if self.currentSamplePointer == valuesTracked {
-            self.currentSamplePointer = 0
-        }
-        
-        checkForCompletedCycle()
+        //checkForCompletedCycle()
         
     }
     
     
     
-    func checkForCompletedCycle() {
+    mutating func checkIfAreaIsInRange(Area faceRectArea: CGFloat) -> Bool {
         
-        switch pushupCycle {
-        case .up:
-            print("COUNT PUSHUP")
-            
-            NSNotificationCenter.defaultCenter().postNotificationName("pushupCompleted", object: nil)
-            pushupCycle = .start
-            pushupCount += 1
-            
-        default:
+        if pushupCycle == .start {
+            if  Float(faceRectArea) > (runningMeanF - allowedPercentOfMean) {
+                print("FaceRectArea allowed: \(faceRectArea)")
+                currentSamplesF[currentSamplePointer] = Float(faceRectArea)
+                currentSamplePointer += 1
+                if confidence == nil {
+                    confidence = DetectionConfidence(WithFirstArea: faceRectArea)
+                }
+                return true
+            }
+        } else if pushupCycle == .down {
+            if Float(faceRectArea) < (runningMeanF + allowedPercentOfMean) {
+                print("FaceRectArea allowed: \(faceRectArea)")
+                currentSamplesF[currentSamplePointer] = Float(faceRectArea)
+                currentSamplePointer += 1
+                if confidence == nil {
+                    confidence = DetectionConfidence(WithFirstArea: faceRectArea)
+                }
+                return true
+            }
+        }
+        
+     return false
+    }
+    
+}
+
+
+
+
+struct DetectionConfidence {
+    
+    
+    var confidenceInDetection: Int = 0
+    var thisArea: CGFloat = 0.0
+    var lastArea: CGFloat = 0.0
+    var firstAreaAccepted: CGFloat = 0.0
+    let lowConfidence: Int = 5
+    let weakChange: CGFloat = 10000
+    let mediumConfidence: Int = 15
+    let highConfidence: Int = 20
+    let strongChange: CGFloat = 20000
+    let tolerance: CGFloat = 0.75
+    
+    init(WithFirstArea area: CGFloat) {
+        firstAreaAccepted = area
+    }
+    
+    mutating func addToConfidence(NewArea faceArea: CGFloat, ForMotion motion: CurrentPushupPosition) {
+        
+        lastArea = thisArea
+        thisArea = faceArea
+        
+        switch motion {
+        case .down:
+            if thisArea < lastArea {
+                confidenceInDetection += 1
+            } else {
+                confidenceInDetection -= 1
+            }
             break
+        case .start:
+            if thisArea > lastArea {
+                confidenceInDetection += 1
+            } else {
+                confidenceInDetection -= 1
+            }
+            break
+        default:
+            print("default")
         }
+        
     }
     
+    
+    mutating func checkConfidence() {
+        
+        switch confidenceInDetection {
+        case highConfidence:
+            
+            break
+            
+        case mediumConfidence:
+            break
+            
+        case lowConfidence:
+            break
+        default:
+            print("default")
+        }
+    }
 }
 
 
@@ -261,7 +313,39 @@ class FaceRectFilter {
 
 
 
+//    mutating func checkForCompletedCycle() {
+//
+//        switch pushupCycle {
+//        case .up:
+//            print("COUNT PUSHUP")
+//
+//            NSNotificationCenter.defaultCenter().postNotificationName("pushupCompleted", object: nil)
+//            pushupCycle = .start
+//            pushupCount += 1
+//
+//        default:
+//            break
+//        }
+//    }
 
+
+
+
+
+
+//} else {
+//    
+//    //values arent being accepted
+//    //print("FaceRectArea outside allowed value: \(faceRectArea)")
+//    currentDeclinedAreas += 1
+//    if currentDeclinedAreas == 5 {
+//        //currentSamplesF = Array(count: Int(valuesTracked), repeatedValue: 0)
+//        valuesSampledUI = 0
+//        currentSamplePointer = 0
+//        runningMeanF = startingMean
+//    }
+//}
+//
 
 
 
