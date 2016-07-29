@@ -13,7 +13,7 @@
  
  */
 import UIKit
-
+//
 //MARK: Callback Protocol
 protocol GameViewCallBackDelegate {
     func deviceIsOriented() -> Bool
