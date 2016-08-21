@@ -54,20 +54,15 @@ class LWCardViewController: UIViewController {
     }
     
     func setViewToNewCard(card: LWCard) {
-        
         self.view.backgroundColor = UIColor.whiteColor()
         cardFrontView.newCardToView(card, Sideways: false)
-        cardFrontView.forceLayoutContent()
     }
     
     func shapeAtIndex(Index dex: Int) -> UIImageView {
-        
-        //let shape = Shape(WithShape: cardFrontView.cardContents[dex] as! T)
         return cardFrontView.cardContents[dex]
     }
     
     func getPointFromView(view: UIView, InView toView: UIView) -> CGPoint {
-        
         return cardFrontView.convertPoint(view.center, toView: toView)
     }
     

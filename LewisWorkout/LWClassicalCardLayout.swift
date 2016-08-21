@@ -9,12 +9,20 @@
 import Foundation
 import UIKit
 
+protocol Layout {
+    
+    mutating func layout(rect: CGRect)
+    //mutating func layout(Model model: LWCard, InsideRect rect: CGRect, Sideways side: Bool)
+    mutating func layout(Model model: LWCard, InsideRect rect: CGRect)
+    
+}
+
 struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     
     var rectSection: CGSize!
     var offsets: [CGFloat]!
     var content: ShapeQueue<Shape>
-    var sideways: Bool = false
+    //var sideways: Bool = false
     
     
     init(WithContents content: ShapeQueue<Shape>) {
@@ -23,10 +31,10 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     
     //MARK: Layout protocol
 
-    mutating func layout(Model model: LWCard, InsideRect rect: CGRect, Sideways side: Bool) {
+    mutating func layout(Model model: LWCard, InsideRect rect: CGRect) {
         //Layout using contents directed by model
         
-        self.sideways = side
+        //self.sideways = side
         self.rectSection = rectSections(model, WithRect: rect.size)
         self.offsets = placementPointOffsets(model)
         
@@ -165,22 +173,25 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     
     func heightForRow(row: Int) -> CGFloat {
         
-        return (sideways) ? rectSection.height : rectSection.height * offsets[row - 1]
+        //return (sideways) ? rectSection.height : rectSection.height * offsets[row - 1]
+        return rectSection.height * offsets[row - 1]
     }
     
     func widthForRow(row: Int) -> CGFloat {
         
-        return (sideways) ? rectSection.width * offsets[row - 1] :rectSection.width
+        //return (sideways) ? rectSection.width * offsets[row - 1] :rectSection.width
+        return rectSection.width
     }
     
     
     mutating func double(atWidth: CGFloat, Height atHeight: CGFloat) {
         
-        if sideways {
-            verticalDouble(atWidth, Height: atHeight)
-        } else {
-            horizontalDouble(atWidth, Height: atHeight)
-        }
+//        if sideways {
+//            verticalDouble(atWidth, Height: atHeight)
+//        } else {
+//            horizontalDouble(atWidth, Height: atHeight)
+//        }
+        horizontalDouble(atWidth, Height: atHeight)
     }
     
     
@@ -212,10 +223,10 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         
         let singleShape = content.dequeue()
         
-        if sideways {
-            singleShape?.rotateBy(CGFloat(M_PI_2))
-        }
-        
+//        if sideways {
+//            singleShape?.rotateBy(CGFloat(M_PI_2))
+//        }
+//        
         singleShape?.place(AtPoint: CGPointMake(atWidth, atHeight))
         
     }
@@ -248,7 +259,8 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     func rectSections(model: LWCard, WithRect rectSize: CGSize) -> CGSize {
         
         if model.rank.rawValue < 9 {
-            return (sideways) ? CGSizeMake(rectSize.width / 6, rectSize.height / 2) : CGSizeMake(rectSize.width / 2, rectSize.height / 6)
+            //return (sideways) ? CGSizeMake(rectSize.width / 6, rectSize.height / 2) : CGSizeMake(rectSize.width / 2, rectSize.height / 6)
+            return CGSizeMake(rectSize.width / 2, rectSize.height / 6)
         } else if model.rank.rawValue == 9 || model.rank.rawValue == 10  {
             return CGSizeMake(rectSize.width/2, rectSize.height/8)
         } else {

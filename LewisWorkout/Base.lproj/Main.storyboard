@@ -32,7 +32,7 @@
                                     <segue destination="xBC-Mg-IQR" kind="embed" identifier="deckSegue" id="uTK-Nu-UHD"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2s-8D-kLo" customClass="LWDeckPlaceholderView" customModule="LewisWorkout" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2s-8D-kLo" customClass="LWDeckPlaceholderView" customModule="LewisWorkout" customModuleProvider="target">
                                 <rect key="frame" x="220" y="406" width="240" height="114"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
