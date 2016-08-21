@@ -21,167 +21,246 @@ extension Array {
 
 protocol PushupDelegate {
     
-    func pushupCompleted()
+    func motionCompleted()
 }
 
 
-class FaceRectFilter {
+
+struct DetectionConfidence {
     
-    enum CurrentPushupPosition {
-        case start
-        case up
-        case down
-        case finish
-    }
-    
-    var pushupCycle: CurrentPushupPosition = .start {
-        willSet {
-            lastAction = pushupCycle
+    var confidenceInDetection: CGFloat = 0
+    var firstAreaAccepted: CGFloat = 0.0
+    var currentArea: CGFloat? {
+        willSet (newValue) {
+            changeInArea = newValue! - firstAreaAccepted
         }
     }
-    var lastAction: CurrentPushupPosition = .start
+    var changeInArea: CGFloat?
     
-    var faceRectQueue = DetectionQueue<CGRect>()
+    let lowConfidence: CGFloat = 2
+    let weakChange: CGFloat = 3000
+    let mediumConfidence: CGFloat = 5
+    let highConfidence: CGFloat = 10
+    let strongChange: CGFloat = 8000
+    let tolerance: CGFloat = 1.0
+    
+    init(WithFirstArea area: CGFloat) {
+        print("Creating new confidence with first Area: \(area)")
+        firstAreaAccepted = area
+    }
+    
+    mutating func addToConfidence(NewArea faceArea: CGFloat) {
+        confidenceInDetection += 1
+        currentArea = faceArea
+        print("added to confidence, confidence now at: \(confidenceInDetection) and change in area now at: \(changeInArea)")
+    }
+    
+    
+    mutating func checkConfidence(ForMotion position: PushupPosition) -> Bool {
+        
+        //if high confidence or medium confidence, change can be linient and still pass
+//        if confidenceInDetection >= (highConfidence * tolerance) && lenientChange(ForMotion: position)  {
+//            return true
+//        } else if confidenceInDetection >= (mediumConfidence * tolerance) && lenientChange(ForMotion: position) {
+//            return true
+//            //when confidence is low, must have a confident change to pass
+//        } else if confidenceInDetection >= (lowConfidence * tolerance) && confidentChange(ForMotion: position) {
+//            return true
+//        } else if confidentChange(ForMotion: position) {
+//            return true
+//        } else {
+//            //not enough proof to complete current motion
+//        }
+//        return false
+        if confidentChange(ForMotion: position) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
+    func lenientChange(ForMotion position: PushupPosition) -> Bool {
+        if confidentChange(ForMotion: position) {
+            return true
+        } else {
+            switch position {
+            case .up:
+                //up code
+                return (changeInArea > weakChange) ? true : false
+                
+            case .down:
+                //downcode
+                return (changeInArea < -weakChange) ? true : false
+                
+//            default:
+//                print("default")
+            }
+        }
+    }
+    
+    func confidentChange(ForMotion position: PushupPosition) -> Bool {
+        print("change in area: \(changeInArea)")
+        switch position {
+        case .up:
+            //up code
+            return (changeInArea > (strongChange * tolerance)) ? true : false
+            
+        case .down:
+            //downcode
+            return (changeInArea < -(strongChange * tolerance)) ? true : false
+            
+//        default:
+//            print("default")
+        }
+    }
+}
+
+
+
+
+struct FaceRectFilter {
+    
     var faceAreaArray = Array<CGFloat>()
-    
+    var lastAreaFromPreviousMotion: CGFloat = 0.0
     var delegate: PushupDelegate?
-    
-    var initialSamplesCG: [CGFloat]
-    var valuesSampledCG: CGFloat
+    var currentMotion: PushupPosition
     var currentSamplesF: [Float]
-    
+    var runningMeanF: Float = 0.0
+    var lastValue: CGFloat
     var currentSamplePointer: Int = 0
     var currentDeclinedAreas: Int = 0
-    
-    var valuesTracked: Int = 5
     var valuesSampledUI: UInt
-    var runningMeanCG: CGFloat = 0.0
-    var runningMeanF: Float = 0.0
+    let upperPercent: CGFloat = 1.30
+    let lowerPercent: CGFloat = 0.70
+    var confidence: DetectionConfidence?
     
-    var allowedPercentOfMean: Float = 0.0
-    let percentOfMean: Float = 0.30
-    var allowedPercentOfMeanCG: CGFloat = 0.0
-    let percentOfMeanCG: CGFloat = 0.30
     
-    var countOfAreas: CGFloat = 0.0
-    var runningSum: CGFloat = 0.0
-    var runningStdDev: CGFloat = 0.0
-    
-    var pushupCount = 0
-    var sum: Float = 0.0
-    var startingMean: Float = 0.0
-    init(WithInitialPoints samples: [CGFloat], FromNumberOfValues count: CGFloat) {
+    init(WithInitialPoints samples: [Float], FromNumberOfValues count: UInt, CurrentMotion motion: PushupPosition) {
         
-        initialSamplesCG = samples
-        valuesSampledCG = count
-        currentSamplesF = Array()
-        valuesSampledUI = 0
-        
-        initialSamplesCG.foreach {
-            self.runningMeanCG += $0
-        }
-        runningMeanCG /= valuesSampledCG
-        
-        allowedPercentOfMeanCG = runningMeanCG * percentOfMeanCG
-    }
-    
-    init(WithInitialPoints samples: [Float], FromNumberOfValues count: UInt) {
-        
-        currentSamplesF = Array(samples[0..<valuesTracked])
+        currentMotion = motion
+        currentSamplesF = samples
         valuesSampledUI = UInt(currentSamplesF.count)
-        initialSamplesCG = Array()
-        valuesSampledCG = 0.0
         currentSamplePointer = 0
         
         vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
-        startingMean = runningMeanF
-        allowedPercentOfMean = runningMeanF * percentOfMean
-        //print("InitialMean: \(runningMeanF), AllowedOffset: \(allowedPercentOfMean)")
+        
+        lastValue = CGFloat(runningMeanF)
+        
+        print("InitialMean: \(runningMeanF), AllowedOffset between: \(CGFloat(runningMeanF) * upperPercent), \(CGFloat(runningMeanF) * lowerPercent)")
         
     }
     
-    func newRectArrived(rect: CGRect) {
+    
+    mutating func newAreaArrived(area: CGFloat) {
         
         
-        let faceRectArea = rect.size.height * rect.size.width
+        if checkIfAreaIsInRange(Area: area) {
+            confidence?.addToConfidence(NewArea: area)
+        }
+        
+        vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
+        
+        if currentSamplePointer == Int(valuesSampledUI) {
+            currentSamplePointer = 0
+        }
+        
+        guard var nonnilconfidence = confidence else {
+            return
+        }
+        
+        if nonnilconfidence.checkConfidence(ForMotion: currentMotion) {
+            delegate?.motionCompleted()
+            lastAreaFromPreviousMotion = nonnilconfidence.currentArea!
+            confidence = nil
+        }
+    }
+    
+    mutating func newAreaArrived(area: CGFloat, Operation operate: (Float, Float) -> Bool, Condition condition: (Float, Float) -> Bool) {
         
         
-        if Float(faceRectArea) < (runningMeanF + allowedPercentOfMean) && Float(faceRectArea) > (runningMeanF - allowedPercentOfMean) {
-            //print("FaceRectArea allowed: \(faceRectArea)")
-            //currentSamplesF[currentSamplePointer] = Float(faceRectArea)
+        if checkIfAreaIsInRange(Area: area, Operation: operate, Condition: condition) {
+            confidence?.addToConfidence(NewArea: area)
+        }
+        
+        vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
+        
+        if currentSamplePointer == Int(valuesSampledUI) {
+            currentSamplePointer = 0
+        }
+        
+        guard var nonnilconfidence = confidence else {
+            return
+        }
+        
+        if nonnilconfidence.checkConfidence(ForMotion: currentMotion) {
+            delegate?.motionCompleted()
+            lastAreaFromPreviousMotion = nonnilconfidence.currentArea!
+            confidence = nil
+        }
+    }
+
+
+    
+    mutating func checkIfAreaIsInRange(Area faceRectArea: CGFloat, Operation operate: (Float, Float) -> Bool, Condition condition: (Float, Float) -> Bool) -> Bool {
+        
+        var percentOfMean: Float = 0.0
+        var minMaxValue: Float = 0.0
+        var conditioner: Float = 0.0
+        
+        if operate(1, 0) {
+            percentOfMean = Float(lowerPercent)
+            minMaxValue = currentSamplesF[0]
+            conditioner = Float(upperPercent)
+        } else {
+            percentOfMean = Float(upperPercent)
+            minMaxValue = Float(lastAreaFromPreviousMotion)
+            conditioner = Float(lowerPercent)
+        }
+        
+        
+        if operate(Float(faceRectArea), Float(lastValue)) && operate(Float(faceRectArea), minMaxValue) && condition(Float(faceRectArea), Float(lastValue) * conditioner) {
+            print("FaceRectArea allowed: \(faceRectArea)")
+            currentSamplesF[currentSamplePointer] = Float(faceRectArea)
             currentSamplePointer += 1
-            currentDeclinedAreas = 0
+            lastValue = faceRectArea
             
-            if valuesSampledUI < 6 && valuesSampledUI != 5 {
-                valuesSampledUI = UInt(currentSamplePointer)
+            if confidence == nil {
+                confidence = DetectionConfidence(WithFirstArea: (lastAreaFromPreviousMotion > 0.0) ? lastAreaFromPreviousMotion : CGFloat(runningMeanF))
             }
-            
-            if  runningMeanF == startingMean && lastAction == .down {
-                pushupCycle = .up
-            }
-            
-            
-            
-            //print(valuesSampledUI)
-            
-            
+            return true
         } else {
-            
-            //values arent being accepted
-            //print("FaceRectArea outside allowed value: \(faceRectArea)")
-            currentDeclinedAreas += 1
-            if currentDeclinedAreas == 5 {
-                //currentSamplesF = Array(count: Int(valuesTracked), repeatedValue: 0)
-                valuesSampledUI = 0
-                currentSamplePointer = 0
-                runningMeanF = startingMean
-            }
+            print("FaceRectArea not allowed: \(faceRectArea)")
         }
-        
-        //check if waiting for accepted mean values
-        if currentDeclinedAreas >= 5 {
-            //print("CurrentlyDeclined")
-            pushupCycle = .down
-            //dont calculate mean - at this point values sampled = 1 and current samples is an array of all 0's
-        } else {
-            
-            vDSP_meanv(&currentSamplesF, 1, &runningMeanF, valuesSampledUI)
-        }
-        
-        //print("runningMean: \(runningMeanF)")
-        
-        
-        //reset circular buffer
-        if self.currentSamplePointer == valuesTracked {
-            self.currentSamplePointer = 0
-        }
-        
-        checkForCompletedCycle()
-        
+        return false
     }
     
     
-    
-    func checkForCompletedCycle() {
+    mutating func checkIfAreaIsInRange(Area faceRectArea: CGFloat) -> Bool {
         
-        switch pushupCycle {
-        case .up:
-            print("COUNT PUSHUP")
+        //if Float(faceRectArea) < (runningMeanF * upperPercentOfMean) && Float(faceRectArea) > (runningMeanF * lowerPercentOfMean)
+        if faceRectArea < (lastValue * upperPercent) && faceRectArea > (lastValue * lowerPercent) {
+            print("FaceRectArea allowed: \(faceRectArea)")
+            currentSamplesF[currentSamplePointer] = Float(faceRectArea)
+            currentSamplePointer += 1
+            lastValue = faceRectArea
             
-            NSNotificationCenter.defaultCenter().postNotificationName("pushupCompleted", object: nil)
-            pushupCycle = .start
-            pushupCount += 1
-            
-        default:
-            break
+            if confidence == nil {
+                confidence = DetectionConfidence(WithFirstArea: (lastAreaFromPreviousMotion > 0.0) ? lastAreaFromPreviousMotion : CGFloat(currentSamplesF[0]))
+            }
+            return true
+        } else {
+            print("FaceRectArea not allowed: \(faceRectArea)")
         }
+        return false
     }
-    
 }
 
 
+
+
 //class FaceRectAnalyzer {
-//    
+//
 //    var faceRectQueue = DetectionQueue<CGRect>()
 //    
 //    init() {}
@@ -261,7 +340,61 @@ class FaceRectFilter {
 
 
 
+//    mutating func checkForCompletedCycle() {
+//
+//        switch pushupCycle {
+//        case .up:
+//            print("COUNT PUSHUP")
+//
+//            NSNotificationCenter.defaultCenter().postNotificationName("pushupCompleted", object: nil)
+//            pushupCycle = .start
+//            pushupCount += 1
+//
+//        default:
+//            break
+//        }
+//    }
 
+
+
+//        lastArea = thisArea
+//        thisArea = faceArea
+//
+//        switch motion {
+//        case .down:
+//            if thisArea < lastArea {
+//                confidenceInDetection += 1
+//            } else {
+//                confidenceInDetection -= 1
+//            }
+//            break
+//        case .start:
+//            if thisArea > lastArea {
+//                confidenceInDetection += 1
+//            } else {
+//                confidenceInDetection -= 1
+//            }
+//            break
+//        default:
+//            print("default")
+//        }
+
+
+
+
+//} else {
+//    
+//    //values arent being accepted
+//    //print("FaceRectArea outside allowed value: \(faceRectArea)")
+//    currentDeclinedAreas += 1
+//    if currentDeclinedAreas == 5 {
+//        //currentSamplesF = Array(count: Int(valuesTracked), repeatedValue: 0)
+//        valuesSampledUI = 0
+//        currentSamplePointer = 0
+//        runningMeanF = startingMean
+//    }
+//}
+//
 
 
 

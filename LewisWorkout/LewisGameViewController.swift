@@ -49,7 +49,6 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         gameView.viewGestures()
         gameView.setupFrameDependentElements()
         
-        NSNotificationCenter.defaultCenter().addObserver(gameView, selector: #selector(gameView.pushupCompleted(_:)), name: "pushupCompleted", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(orientationChanged(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         view.addSubview(topHiderView)
