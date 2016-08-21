@@ -11,15 +11,15 @@ import XCTest
 
 class LewisWorkoutTests: XCTestCase {
     
-    var singleDeck: LewisDeck!
-    var multiDeck: LewisDeck!
+    var singleDeck: LWDeck!
+    var multiDeck: LWDeck!
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        singleDeck = LewisDeck()
-        multiDeck = LewisDeck(withNumberOfDecks: 2)
+        singleDeck = LWDeck()
+        multiDeck = LWDeck(withNumberOfDecks: 2)
         
     }
     

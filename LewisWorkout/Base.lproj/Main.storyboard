@@ -22,7 +22,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ta0-st-GRK">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-eu-pyf">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-eu-pyf">
                                 <rect key="frame" x="220" y="406" width="240" height="134"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -102,6 +102,7 @@
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ald-L8-rRL"/>
                             <constraint firstItem="s2s-8D-kLo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="386" id="Clo-mR-2Hq"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="F85-6L-iou"/>
+                            <constraint firstItem="Om7-eu-pyf" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="top" id="LsF-kH-jeY"/>
                             <constraint firstItem="s2s-8D-kLo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="OYC-j0-8ey"/>
                             <constraint firstAttribute="trailing" secondItem="Ta0-st-GRK" secondAttribute="trailing" id="Pd8-G0-pyM"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="SSZ-Ao-8jc"/>
@@ -143,7 +144,7 @@
                         <viewControllerLayoutGuide type="top" id="xK9-uJ-uLM"/>
                         <viewControllerLayoutGuide type="bottom" id="zAc-P3-Ii3"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR" customClass="LewisCardFrontView" customModule="LewisWorkout" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR" customClass="LWCardFrontView" customModule="LewisWorkout" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="161" height="316"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
