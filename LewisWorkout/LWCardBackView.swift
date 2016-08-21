@@ -1,5 +1,5 @@
 //
-//  LewisCardBackView.swift
+//  LWCardBackView.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 6/18/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LewisCardBackView: UIView {
+class LWCardBackView: UIView {
     
     
     

@@ -1,5 +1,5 @@
 //
-//  LewisCardViewController.swift
+//  LWCardViewController.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 6/1/16.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class LewisCardViewController: UIViewController {
+class LWCardViewController: UIViewController {
 
     
-    @IBOutlet var cardFrontView: LewisCardFrontView!
+    @IBOutlet var cardFrontView: LWCardFrontView!
     
     
     required init(coder aDecoder: NSCoder) {
@@ -53,7 +53,7 @@ class LewisCardViewController: UIViewController {
         
     }
     
-    func setViewToNewCard(card: LewisCard) {
+    func setViewToNewCard(card: LWCard) {
         
         self.view.backgroundColor = UIColor.whiteColor()
         cardFrontView.newCardToView(card, Sideways: false)

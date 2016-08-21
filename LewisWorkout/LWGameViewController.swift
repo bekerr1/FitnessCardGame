@@ -1,5 +1,5 @@
 //
-//  LewisGameViewController.swift
+//  LWGameViewController.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 5/29/16.
@@ -11,7 +11,7 @@ import UIKit
 
 
 
-class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
+class LWGameViewController: UIViewController, GameViewCallBackDelegate {
     
     //MARK: Properties
     //Subviews used in transition
@@ -28,13 +28,13 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         
     }()
     //Main View
-    @IBOutlet var gameView: LewisGameView!
+    @IBOutlet var gameView: LWGameView!
     var deviceOrientation = UIDevice.currentDevice().orientation
     //View controllers
-    private var deckVC: LewisDeckViewController!
-    private var currentCardVC: LewisCardViewController!
+    private var deckVC: LWDeckViewController!
+    private var currentCardVC: LWCardViewController!
     private var tap: Bool = false
-    private var detectorController: LewisAVDetectorController!
+    private var detectorController: LWAVDetectorController!
     
     
     
@@ -67,7 +67,7 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         super.viewDidAppear(animated)
         print("ViewDidAppearframe = \(NSStringFromCGRect(self.view.frame))")
         
-        detectorController = LewisAVDetectorController(withparentFrame: self.view.frame)
+        detectorController = LWAVDetectorController(withparentFrame: self.view.frame)
         detectorController.delegate = gameView
         gameView.showContents()
         
@@ -106,10 +106,10 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
         
         if segue.identifier == "deckSegue" {
             print("deck segue")
-            deckVC = segue.destinationViewController as? LewisDeckViewController
+            deckVC = segue.destinationViewController as? LWDeckViewController
         } else if segue.identifier == "cardSegue" {
             print("card segue")
-            currentCardVC = segue.destinationViewController as? LewisCardViewController
+            currentCardVC = segue.destinationViewController as? LWCardViewController
         } else if segue.identifier == "calibrateVC" {
             print("calibrate segue")
             //calibrateVC = segue.destinationViewController as? LWCalibrateControlViewController
@@ -146,7 +146,7 @@ class LewisGameViewController: UIViewController, GameViewCallBackDelegate {
 
 
 //MARK: Capture Session
-extension LewisGameViewController {
+extension LWGameViewController {
     
     func startPreviewSession() {
         
@@ -166,7 +166,7 @@ extension LewisGameViewController {
 
 
 //MARK: View Callbacks
-extension LewisGameViewController {
+extension LWGameViewController {
     func deviceIsOriented() -> Bool {
         
         if deviceOrientation != .FaceUp {
@@ -196,11 +196,11 @@ extension LewisGameViewController {
         return currentCardVC.getPointFromView(shape, InView: view)
     }
     
-    func currentCardBeingDisplayed() -> LewisCard {
+    func currentCardBeingDisplayed() -> LWCard {
         return currentCardVC.cardFrontView.currentCardModel
     }
     
-    func cardAboutToBeShown() -> LewisCard {
+    func cardAboutToBeShown() -> LWCard {
         return deckVC.cardFrontView.currentCardModel
     }
     

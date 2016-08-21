@@ -1,5 +1,5 @@
 //
-//  LewisDeckPlaceholderView.swift
+//  LWDeckPlaceholderView.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 6/21/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LewisDeckPlaceholderView: UIView {
+class LWDeckPlaceholderView: UIView {
     
     
     var cardSublayers: [CAShapeLayer] = Array()

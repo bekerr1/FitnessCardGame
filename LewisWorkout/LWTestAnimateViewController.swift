@@ -1,5 +1,5 @@
 //
-//  LewisTestAnimateViewController.swift
+//  LWTestAnimateViewController.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 7/18/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LewisTestAnimateViewController: UIViewController {
+class LWTestAnimateViewController: UIViewController {
 
     @IBOutlet weak var backgroundImage: UIImageView!
 }

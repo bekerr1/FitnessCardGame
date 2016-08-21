@@ -1,5 +1,5 @@
 //
-//  LewisDeckViewController.swift
+//  LWDeckViewController.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 5/31/16.
@@ -8,24 +8,24 @@
 
 import UIKit
 
-class LewisDeckViewController: UIViewController {
+class LWDeckViewController: UIViewController {
     
     //MARK: Properties
     
     var switchTransitions: Bool = true
-    var deckModel: LewisDeck
+    var deckModel: LWDeck
     
-    lazy var cardBackView: LewisCardBackView = {
+    lazy var cardBackView: LWCardBackView = {
         print("fromView initialized")
-        let aview: LewisCardBackView = LewisCardBackView.init(frame: self.view.bounds)
+        let aview: LWCardBackView = LWCardBackView.init(frame: self.view.bounds)
         aview.backgroundColor = UIColor.grayColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
         return aview
     }()
     
-    lazy var cardFrontView: LewisCardFrontView = {
+    lazy var cardFrontView: LWCardFrontView = {
         print("toView initialized")
-        let aview: LewisCardFrontView = LewisCardFrontView.init(frame: self.view.bounds)
+        let aview: LWCardFrontView = LWCardFrontView.init(frame: self.view.bounds)
         aview.backgroundColor = UIColor.whiteColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
         return aview
@@ -35,7 +35,7 @@ class LewisDeckViewController: UIViewController {
     //MARK: Initialize/ViewCalls
     
     required init?(coder aDecoder: NSCoder) {
-        self.deckModel = LewisDeck()
+        self.deckModel = LWDeck()
         super.init(coder: aDecoder)
     }
     
@@ -107,7 +107,7 @@ class LewisDeckViewController: UIViewController {
     
     //MARK: Model stuff
     
-    func randomCardFromDeck() -> LewisCard {
+    func randomCardFromDeck() -> LWCard {
         return deckModel.pickRandomCard()
     }
 

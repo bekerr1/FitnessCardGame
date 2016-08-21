@@ -155,10 +155,10 @@
             </objects>
             <point key="canvasLocation" x="-200.5" y="-354"/>
         </scene>
-        <!--Lewis Start View Controller-->
+        <!--Start View Controller-->
         <scene sceneID="9aG-mp-Jt8">
             <objects>
-                <viewController id="NTw-wy-xIh" customClass="LewisStartViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="NTw-wy-xIh" customClass="LWStartViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CHn-15-HPA"/>
                         <viewControllerLayoutGuide type="bottom" id="t6I-1c-XCO"/>

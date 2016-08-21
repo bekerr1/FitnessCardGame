@@ -1,5 +1,5 @@
 //
-//  LewisGamePresentationController.swift
+//  LWGamePresentationController.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 7/18/16.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-class LewisGamePresentationController: UIPresentationController {
+class LWGamePresentationController: UIPresentationController {
     
     
     override init(presentedViewController: UIViewController, presentingViewController: UIViewController) {

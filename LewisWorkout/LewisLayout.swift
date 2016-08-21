@@ -13,7 +13,7 @@ import UIKit
 protocol Layout {
     
     mutating func layout(rect: CGRect)
-    mutating func layout(Model model: LewisCard, InsideRect rect: CGRect, Sideways side: Bool)
+    mutating func layout(Model model: LWCard, InsideRect rect: CGRect, Sideways side: Bool)
     
 }
 

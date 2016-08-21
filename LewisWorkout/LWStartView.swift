@@ -1,5 +1,5 @@
 //
-//  LewisStartView.swift
+//  LWStartView.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 7/10/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LewisStartView: UIView {
+class LWStartView: UIView {
     
     let labelHeightOffset: CGFloat = 90
     let labelDistance: CGFloat = 50
@@ -298,7 +298,7 @@ class LewisStartView: UIView {
 
 // MARK: programmedAnimation extension
 
-extension LewisStartView {
+extension LWStartView {
     
     func programmedAnimation() {
 

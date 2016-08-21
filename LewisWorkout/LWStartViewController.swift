@@ -1,5 +1,5 @@
 //
-//  LewisStartViewController.swift
+//  LWStartViewController.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 7/10/16.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-extension LewisStartViewController : UIViewControllerTransitioningDelegate {
+extension LWStartViewController : UIViewControllerTransitioningDelegate {
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
@@ -25,9 +25,9 @@ extension LewisStartViewController : UIViewControllerTransitioningDelegate {
 //    }
 }
 
-class LewisStartViewController: UIViewController, TableResponseDelegate {
+class LWStartViewController: UIViewController, TableResponseDelegate {
     
-    @IBOutlet var startView: LewisStartView!
+    @IBOutlet var startView: LWStartView!
     @IBOutlet weak var containerView: UIView!
     private let tapPresentAnimation = TapPresentAnimationController()
     private var presentationOrigin = CGRectZero
@@ -55,12 +55,12 @@ class LewisStartViewController: UIViewController, TableResponseDelegate {
         print("view dissapeared")
     }
     
-    func createViewWithCellContents(cell: LewisStartTableViewCell, ContentOffset offset: CGFloat) {
+    func createViewWithCellContents(cell: LWStartTableViewCell, ContentOffset offset: CGFloat) {
         //
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let toVC: LewisGameViewController = storyboard.instantiateViewControllerWithIdentifier("LewisGameViewController") as! LewisGameViewController
-        let tempVC: LewisTestAnimateViewController = storyboard.instantiateViewControllerWithIdentifier("TestViewController") as! LewisTestAnimateViewController
+        let toVC: LWGameViewController = storyboard.instantiateViewControllerWithIdentifier("LWGameViewController") as! LWGameViewController
+        let tempVC: LWTestAnimateViewController = storyboard.instantiateViewControllerWithIdentifier("TestViewController") as! LWTestAnimateViewController
         
         let actualPoint = containerView.convertPoint(cell.frame.origin, toView: self.view)
         print("\(NSStringFromCGPoint(actualPoint))")
@@ -94,7 +94,7 @@ class LewisStartViewController: UIViewController, TableResponseDelegate {
     }
     
     
-    func prepareVCForTransition(FirstViewController tempVC: UIViewController, SecondViewController blackVC: UIViewController, ViewControllerToPresent presentVC: LewisGameViewController) {
+    func prepareVCForTransition(FirstViewController tempVC: UIViewController, SecondViewController blackVC: UIViewController, ViewControllerToPresent presentVC: LWGameViewController) {
         
         UIView.animateWithDuration(1.0, animations: { _ in
             

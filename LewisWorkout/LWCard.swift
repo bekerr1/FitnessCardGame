@@ -1,5 +1,5 @@
 //
-//  LewisCard.swift
+//  LWCard.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 6/6/16.
@@ -10,7 +10,7 @@ import UIKit
 
 
 
-struct LewisCard {
+struct LWCard {
     
     //MARK: Types
     
@@ -58,10 +58,10 @@ struct LewisCard {
         }
         
         static let validSuits: [Suit] = [
-            //.Diamond,
-            .Heart
-            //.Club,
-            //.Spade
+            .Diamond,
+            .Heart,
+            .Club,
+            .Spade
         ]
         
         
@@ -113,10 +113,10 @@ struct LewisCard {
         }
         
         static let validRanks: [Rank] = [
-            .Ace, .Two//, .Three, .Four,
-            //.Five, .Six, .Seven, .Eight
-            //.Nine, .Ten, .Jack, .Queen,
-            //.King, .Joker
+            .Ace, .Two, .Three, .Four,
+            .Five, .Six, .Seven, .Eight,
+            .Nine, .Ten, .Jack, .Queen,
+            .King, .Joker
         ]
         
     }
@@ -141,7 +141,7 @@ struct LewisCard {
 
 //import UIKit
 //
-//class LewisCard: NSObject, Suitable, Rankable {
+//class LWCard: NSObject, Suitable, Rankable {
 //    
 //    var suit: String
 //    var rank: Int

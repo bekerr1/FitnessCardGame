@@ -1,5 +1,5 @@
 //
-//  LewisCardFrontView.swift
+//  LWCardFrontView.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 6/18/16.
@@ -10,10 +10,10 @@ import UIKit
 
 
 
-class LewisCardFrontView: UIView {
+class LWCardFrontView: UIView {
     
-    var currentCardModel: LewisCard!
-    var pastCards: [LewisCard] = Array()
+    var currentCardModel: LWCard!
+    var pastCards: [LWCard] = Array()
     var sideWays: Bool = false
     var cardContents: [UIImageView] = Array()
     
@@ -55,7 +55,7 @@ class LewisCardFrontView: UIView {
         
     }
     
-    func newCardToView(newCard: LewisCard, Sideways side: Bool) {
+    func newCardToView(newCard: LWCard, Sideways side: Bool) {
         
         self.sideWays = side
         
@@ -107,7 +107,7 @@ class LewisCardFrontView: UIView {
 
 
 
-//    func newCardToView(newCard: LewisCard, Sideways side: Bool) {
+//    func newCardToView(newCard: LWCard, Sideways side: Bool) {
 //
 //        sideWays = side
 //        clearCurrentOrientation()

@@ -24,7 +24,7 @@ class TapPresentAnimationController: NSObject, UIViewControllerAnimatedTransitio
         
     
         guard let containerView = transitionContext.containerView(),
-            let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? LewisGameViewController else {
+            let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? LWGameViewController else {
             return
         }
         

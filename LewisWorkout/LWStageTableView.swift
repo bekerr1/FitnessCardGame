@@ -1,5 +1,5 @@
 //
-//  LewisStageTableView.swift
+//  LWStageTableView.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 7/10/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LewisStageTableView: UITableView, UITableViewDelegate {
+class LWStageTableView: UITableView, UITableViewDelegate {
     
     
     //var differentStages: [UIImage] = Array()

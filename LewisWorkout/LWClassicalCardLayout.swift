@@ -23,7 +23,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     
     //MARK: Layout protocol
 
-    mutating func layout(Model model: LewisCard, InsideRect rect: CGRect, Sideways side: Bool) {
+    mutating func layout(Model model: LWCard, InsideRect rect: CGRect, Sideways side: Bool) {
         //Layout using contents directed by model
         
         self.sideways = side
@@ -57,7 +57,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     }
     
     
-    mutating func row1(model: LewisCard) {
+    mutating func row1(model: LWCard) {
         
         switch model.rank {
         case .Ace, .Two, .Three:
@@ -73,7 +73,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         
     }
     
-    mutating func row2(model: LewisCard) {
+    mutating func row2(model: LWCard) {
         
         switch model.rank {
         case .Two, .Three, .Five, .Seven, .Eight, .Ten:
@@ -89,7 +89,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
 
     }
     
-    mutating func row3(model: LewisCard) {
+    mutating func row3(model: LWCard) {
         
         switch model.rank {
         case .Three, .Nine:
@@ -105,7 +105,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
 
     }
     
-    mutating func row4(model: LewisCard) {
+    mutating func row4(model: LWCard) {
         
         switch model.rank {
         case .Eight:
@@ -121,7 +121,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
 
     }
     
-    mutating func row5(model: LewisCard) {
+    mutating func row5(model: LWCard) {
         
         switch model.rank {
         case .Ace:
@@ -137,7 +137,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
 
     }
     
-    mutating func row6(model: LewisCard) {
+    mutating func row6(model: LWCard) {
         
         switch model.rank {
         case .Ace:
@@ -224,7 +224,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     
     //MARK: Utilities for where to place each shape
     
-    func placementPointOffsets(model: LewisCard) -> [CGFloat] {
+    func placementPointOffsets(model: LWCard) -> [CGFloat] {
         
         switch model.rank.rowsForRank {
         case 1:
@@ -245,7 +245,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         }
     }
     
-    func rectSections(model: LewisCard, WithRect rectSize: CGSize) -> CGSize {
+    func rectSections(model: LWCard, WithRect rectSize: CGSize) -> CGSize {
         
         if model.rank.rawValue < 9 {
             return (sideways) ? CGSizeMake(rectSize.width / 6, rectSize.height / 2) : CGSizeMake(rectSize.width / 2, rectSize.height / 6)

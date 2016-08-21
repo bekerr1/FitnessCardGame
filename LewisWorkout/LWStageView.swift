@@ -1,5 +1,5 @@
 //
-//  LewisStageView.swift
+//  LWStageView.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 7/12/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LewisStageView: UIView {
+class LWStageView: UIView {
     
     
     var stageImage: UIImageView!
@@ -40,11 +40,11 @@ class LewisStageView: UIView {
 
 
 
-extension LewisStageView {
-    func loadFromNibNamed(nibNamed: String, bundle : NSBundle? = nil) -> LewisStageView? {
+extension LWStageView {
+    func loadFromNibNamed(nibNamed: String, bundle : NSBundle? = nil) -> LWStageView? {
         return UINib(
             nibName: nibNamed,
             bundle: bundle
-            ).instantiateWithOwner(self, options: nil)[0] as? LewisStageView
+            ).instantiateWithOwner(self, options: nil)[0] as? LWStageView
     }
 }

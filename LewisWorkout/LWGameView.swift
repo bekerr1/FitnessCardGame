@@ -1,5 +1,5 @@
 //
-//  LewisGameView.swift
+//  LWGameView.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 7/20/16.
@@ -22,8 +22,8 @@ protocol GameViewCallBackDelegate {
     func startPreviewSession()
     func getShape(AtIndex index: Int) -> UIImageView
     func getShapeCenter(ForShape shape: UIImageView, InView view: UIView) -> CGPoint
-    func currentCardBeingDisplayed() -> LewisCard
-    func cardAboutToBeShown() -> LewisCard
+    func currentCardBeingDisplayed() -> LWCard
+    func cardAboutToBeShown() -> LWCard
     func stopPreviewSession()
 }
 
@@ -34,7 +34,7 @@ enum PushupPosition {
 }
 
 
-class LewisGameView: UIView, DetectorClassProtocol, PushupDelegate {
+class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     
     //MARK: Properties
     var callBack: GameViewCallBackDelegate?
@@ -50,7 +50,7 @@ class LewisGameView: UIView, DetectorClassProtocol, PushupDelegate {
     var emptySpringCard: UIView = UIView()
     var placeholderEmptyCard: UIView = UIView()
     @IBOutlet weak var deckViewContainer: UIView!
-    @IBOutlet weak var deckPlaceholderView: LewisDeckPlaceholderView!
+    @IBOutlet weak var deckPlaceholderView: LWDeckPlaceholderView!
     private var calibrateSlider: LWAnimatedSlider = LWAnimatedSlider()
     var decorationView: UIView = {
         let result = UIView()
@@ -304,7 +304,7 @@ class LewisGameView: UIView, DetectorClassProtocol, PushupDelegate {
 
 
 //MARK: Animations
-extension LewisGameView {
+extension LWGameView {
     
     
     func animationStart() {
@@ -476,7 +476,7 @@ extension LewisGameView {
 
 
 //MARK: Gestures
-extension LewisGameView {
+extension LWGameView {
     
     func deckTap() {
         print("DeckTapped " + #function)
@@ -495,7 +495,7 @@ extension LewisGameView {
 
 
 //MARK: View Reacting to Pushups
-extension LewisGameView {
+extension LWGameView {
     
     func simulatePushup() {
         pushupActions()
@@ -565,7 +565,7 @@ extension LewisGameView {
 
 
 //MARK: Card Completion Cycle
-extension LewisGameView {
+extension LWGameView {
     
     func currentCardCompleted() {
         print("running Completion cycle")
@@ -591,7 +591,7 @@ extension LewisGameView {
 
 
 //MARK: detection protocol
-extension LewisGameView {
+extension LWGameView {
     
     func getCenterForAlignment(CenterPoint center: CGPoint) {
         
@@ -673,7 +673,7 @@ extension LewisGameView {
 
 
 //MARK: Alignment code
-extension LewisGameView {
+extension LWGameView {
     
     func removeAlignment() {
         dispatch_async(dispatch_get_main_queue(), {
@@ -691,7 +691,7 @@ extension LewisGameView {
 
 
 //MARK: Trash bin for depreicated Code/code i may get back to or may not - to be deleted
-extension LewisGameView {
+extension LWGameView {
     
     //        UIView.animateKeyframesWithDuration(3.0, delay: 0.0, options: [.BeginFromCurrentState, .Repeat], animations: {
     //            //Animate transform to simulate lifting of card

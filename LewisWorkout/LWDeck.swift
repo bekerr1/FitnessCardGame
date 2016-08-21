@@ -1,5 +1,5 @@
 //
-//  LewisDeck.swift
+//  LWDeck.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 6/6/16.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-class LewisDeck: NSObject {
+class LWDeck: NSObject {
     
-    let initialCardCount = LewisCard.Rank.validRanks.count * LewisCard.Suit.validSuits.count
-    var deck: [LewisCard] = {
+    let initialCardCount = LWCard.Rank.validRanks.count * LWCard.Suit.validSuits.count
+    var deck: [LWCard] = {
         
-        var d: [LewisCard] = Array()
+        var d: [LWCard] = Array()
         var jokerCount: Int = 0
         
-        for rank in LewisCard.Rank.validRanks {
-            for suit in LewisCard.Suit.validSuits {
+        for rank in LWCard.Rank.validRanks {
+            for suit in LWCard.Suit.validSuits {
                 
-                if rank == LewisCard.Rank.Joker {
+                if rank == LWCard.Rank.Joker {
                     
                     if jokerCount < 2 {
-                        let newCard: LewisCard = LewisCard(WithSuit: LewisCard.Suit.Joker, Rank: LewisCard.Rank.Joker)
+                        let newCard: LWCard = LWCard(WithSuit: LWCard.Suit.Joker, Rank: LWCard.Rank.Joker)
                         jokerCount += 1
                         d.append(newCard)
                     } else {
@@ -31,7 +31,7 @@ class LewisDeck: NSObject {
                     
                 } else {
                     
-                    let newCard: LewisCard = LewisCard(WithSuit: suit, Rank: rank)
+                    let newCard: LWCard = LWCard(WithSuit: suit, Rank: rank)
                     d.append(newCard)
                 }
             }
@@ -67,7 +67,7 @@ class LewisDeck: NSObject {
     }
     
     
-    func pickRandomCard() -> LewisCard {
+    func pickRandomCard() -> LWCard {
         //should check this to see if the conversions slow things down alot
         let randCardIndex = Int(arc4random_uniform(UInt32(cardCount)))
         return deck[randCardIndex]
@@ -78,21 +78,21 @@ class LewisDeck: NSObject {
 
 
 
-//class LewisDeck: NSObject {
+//class LWDeck: NSObject {
 //    
-//    let initialCardCount = LewisCard.validRank().count * LewisCard.validSuit().count
-//    var deck: [LewisCard] = {
+//    let initialCardCount = LWCard.validRank().count * LWCard.validSuit().count
+//    var deck: [LWCard] = {
 //        
-//        var d: [LewisCard] = Array()
+//        var d: [LWCard] = Array()
 //        var jokerCount: Int = 0
 //        
-//        for rank in LewisCard.validRank() {
-//            for suit in LewisCard.validSuit() {
+//        for rank in LWCard.validRank() {
+//            for suit in LWCard.validSuit() {
 //                
 //                if rank == 14 {
 //                    
 //                    if jokerCount < 2 {
-//                        let newCard: LewisCard = LewisCard(withSuit: "Joker", rank: 14, color: "Joker")
+//                        let newCard: LWCard = LWCard(withSuit: "Joker", rank: 14, color: "Joker")
 //                        jokerCount += 1
 //                        d.append(newCard)
 //                    } else {
@@ -101,7 +101,7 @@ class LewisDeck: NSObject {
 //                    
 //                } else {
 //                    
-//                    let newCard: LewisCard = LewisCard(withSuit: suit, rank: rank, color: "")
+//                    let newCard: LWCard = LWCard(withSuit: suit, rank: rank, color: "")
 //                    d.append(newCard)
 //                }
 //                

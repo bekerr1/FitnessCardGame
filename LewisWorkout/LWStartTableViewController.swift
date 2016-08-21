@@ -9,14 +9,14 @@
 import UIKit
 
 
-class LewisStartTableViewCell: UITableViewCell {
+class LWStartTableViewCell: UITableViewCell {
     @IBOutlet weak var stageLabel: UILabel!
     @IBOutlet weak var stageImageView: UIImageView!
 }
 
 protocol TableResponseDelegate {
     
-    func createViewWithCellContents(cell: LewisStartTableViewCell, ContentOffset offset: CGFloat)
+    func createViewWithCellContents(cell: LWStartTableViewCell, ContentOffset offset: CGFloat)
 }
 
 
@@ -49,7 +49,7 @@ class LewisStartTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        if let stageCell = cell as? LewisStartTableViewCell {
+        if let stageCell = cell as? LWStartTableViewCell {
             if indexPath.row == 0 {
                 stageCell.stageImageView.image = UIImage(named: "menuItem - 1")
                 stageCell.stageLabel.text = "Football"
@@ -104,7 +104,7 @@ class LewisStartTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //
-        let cellSelected: LewisStartTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! LewisStartTableViewCell
+        let cellSelected: LWStartTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! LWStartTableViewCell
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: false)
         
         delegate?.createViewWithCellContents(cellSelected, ContentOffset: self.tableView.contentOffset.y)

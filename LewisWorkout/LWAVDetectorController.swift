@@ -1,5 +1,5 @@
 //
-//  LewisAVDetectorController.swift
+//  LWAVDetectorController.swift
 //  LewisWorkout
 //
 //  Created by brendan kerr on 6/1/16.
@@ -34,7 +34,7 @@ protocol DetectorClassProtocol {
 }
 
 
-class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+class LWAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     //MARK: Properties
     var detectionCount = 0
@@ -337,7 +337,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         }
         
         let prevLayerGravity = previewLayer.videoGravity
-        let previewBox = LewisAVDetectorController.videoPreviewBoxForGravity(prevLayerGravity, frameSize: parentFrame.size, aperatureSize: videoBox.size)
+        let previewBox = LWAVDetectorController.videoPreviewBoxForGravity(prevLayerGravity, frameSize: parentFrame.size, aperatureSize: videoBox.size)
         
         
         for feature in features {
