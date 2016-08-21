@@ -7,15 +7,15 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Lewis Game View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="LewisGameViewController" id="BYZ-38-t0r" customClass="LewisGameViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LewisGameViewController" id="BYZ-38-t0r" customClass="LWGameViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="LewisGameView" customModule="LewisWorkout" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="LWGameView" customModule="LewisWorkout" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -32,14 +32,14 @@
                                     <segue destination="xBC-Mg-IQR" kind="embed" identifier="deckSegue" id="uTK-Nu-UHD"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2s-8D-kLo" customClass="LewisDeckPlaceholderView" customModule="LewisWorkout" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2s-8D-kLo" customClass="LWDeckPlaceholderView" customModule="LewisWorkout" customModuleProvider="target">
                                 <rect key="frame" x="220" y="406" width="240" height="114"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="4aU-tM-Pgv"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k" customClass="LewisCardView" customModule="LewisWorkout" customModuleProvider="target">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k" customClass="LWCardView">
                                 <rect key="frame" x="409" y="60" width="161" height="316"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -135,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="-673" y="-354"/>
         </scene>
-        <!--Lewis Card View Controller-->
+        <!--Card View Controller-->
         <scene sceneID="XGd-Aw-ehp">
             <objects>
-                <viewController id="GAb-RM-OUB" customClass="LewisCardViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="GAb-RM-OUB" customClass="LWCardViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xK9-uJ-uLM"/>
                         <viewControllerLayoutGuide type="bottom" id="zAc-P3-Ii3"/>
@@ -163,7 +163,7 @@
                         <viewControllerLayoutGuide type="top" id="CHn-15-HPA"/>
                         <viewControllerLayoutGuide type="bottom" id="t6I-1c-XCO"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="KMf-QG-F5D" customClass="LewisStartView" customModule="LewisWorkout" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="KMf-QG-F5D" customClass="LWStartView" customModule="LewisWorkout" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -216,10 +216,10 @@
             </objects>
             <point key="canvasLocation" x="-1461" y="-1200"/>
         </scene>
-        <!--Lewis Test Animate View Controller-->
+        <!--Test Animate View Controller-->
         <scene sceneID="4Gp-YR-VAA">
             <objects>
-                <viewController storyboardIdentifier="TestViewController" id="1U7-pc-pdC" customClass="LewisTestAnimateViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TestViewController" id="1U7-pc-pdC" customClass="LWTestAnimateViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dYx-Gc-0LG"/>
                         <viewControllerLayoutGuide type="bottom" id="L9L-TN-jOE"/>
@@ -249,16 +249,16 @@
             </objects>
             <point key="canvasLocation" x="-127" y="-1241"/>
         </scene>
-        <!--Lewis Start Table View Controller-->
+        <!--Start Table View Controller-->
         <scene sceneID="5Nq-aE-Ylf">
             <objects>
-                <tableViewController id="IdP-Yu-CAl" customClass="LewisStartTableViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="IdP-Yu-CAl" customClass="LWStartTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="1" sectionFooterHeight="1" id="67H-VS-5bt">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="410"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationLevel="10" indentationWidth="10" reuseIdentifier="LewisCell" id="Rja-vi-JKb" customClass="LewisStartTableViewCell" customModule="LewisWorkout" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationLevel="10" indentationWidth="10" reuseIdentifier="LewisCell" id="Rja-vi-JKb" customClass="LWStartTableViewCell" customModule="LewisWorkout" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1" width="600" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rja-vi-JKb" id="7a1-b9-5FA">
@@ -305,10 +305,10 @@
             </objects>
             <point key="canvasLocation" x="-1461" y="-437"/>
         </scene>
-        <!--Lewis Deck View Controller-->
+        <!--Deck View Controller-->
         <scene sceneID="baL-rS-syu">
             <objects>
-                <viewController id="xBC-Mg-IQR" customClass="LewisDeckViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xBC-Mg-IQR" customClass="LWDeckViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t3k-xS-sma"/>
                         <viewControllerLayoutGuide type="bottom" id="ga8-bc-CGD"/>
@@ -321,7 +321,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KKO-CE-3pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-673" y="124"/>
+            <point key="canvasLocation" x="-673" y="209"/>
         </scene>
     </scenes>
 </document>
