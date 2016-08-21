@@ -30,6 +30,7 @@ protocol DetectorClassProtocol {
     
     func gotCIImageFromVideoDataOutput(image: CIImage)
     func getCenterForAlignment(CenterPoint center: CGPoint)
+    func newFaceArea(area: CGFloat)
 }
 
 
@@ -45,7 +46,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
     var oldFaceRectArea: CGFloat = 0.0
     var faceRectArea: CGFloat = 0.0
     var faceRectAreasForAverage: [CGFloat] = Array()
-    var faceRectAreasForAccelerate: [Float] = Array()
+    
     
     let faceDetector: CIDetector
     
@@ -101,7 +102,6 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
         return queue
     }()
     
-    var faceRectFilter: FaceRectFilter?
     
     var detectingMax: Bool = false
     var previewLayerActive: Bool = false
@@ -370,19 +370,18 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
             
             let faceRectCenter = CGPointMake(faceRect.origin.x + CGRectGetWidth(faceRect)/2, faceRect.origin.y + CGRectGetHeight(faceRect)/2);
             
+            //Alignment for face graphic
             if needAlignment {
                 delegate.getCenterForAlignment(CenterPoint: faceRectCenter)
             }
             
-            
-            if !faceFound {
-                faceRectAreasForAverage.append(faceRectArea)
-                faceRectAreasForAccelerate.append(Float(faceRectArea))
-            } else {
-                faceRectFilter?.newRectArrived(faceRect)
+            //areas for detection center
+            if facesFound % 1 == 0 {
+                delegate.newFaceArea(faceRectArea)
             }
+            
 
-
+            
             var featureLayer = CALayer()
             
             while featureLayer.name != "FaceLayer" && currentSublayer < sublayersCount {
@@ -414,7 +413,7 @@ class LewisAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferD
     func calibrateForFacesFound() {
         
 
-        faceRectFilter = FaceRectFilter(WithInitialPoints: faceRectAreasForAccelerate, FromNumberOfValues: UInt(faceRectAreasForAccelerate.count))
+        
         //print("Got a mean from \(facesFound) faces, Mean: \(initialMean)")
     }
     

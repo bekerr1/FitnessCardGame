@@ -28,7 +28,13 @@ protocol GameViewCallBackDelegate {
 }
 
 
-class LewisGameView: UIView, DetectorClassProtocol {
+enum PushupPosition {
+    case down
+    case up
+}
+
+
+class LewisGameView: UIView, DetectorClassProtocol, PushupDelegate {
     
     //MARK: Properties
     var callBack: GameViewCallBackDelegate?
@@ -104,6 +110,10 @@ class LewisGameView: UIView, DetectorClassProtocol {
     //GESTURES
     var deckTapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
     
+    //Model
+    var faceRectAreasForAccelerate: [Float] = Array()
+    var faceRectFilter: FaceRectFilter?
+    var currentPosition: PushupPosition?
     
     @IBOutlet weak var cardContainerTopLayoutGuideConstraint: NSLayoutConstraint!
     //MARK: Initialization
@@ -114,9 +124,6 @@ class LewisGameView: UIView, DetectorClassProtocol {
         totalCardsCompletedCount = 0
         
         super.init(coder: aDecoder)
-        
-        
-        
     }
     
     override init(frame: CGRect) {
@@ -265,21 +272,21 @@ class LewisGameView: UIView, DetectorClassProtocol {
     
     //MARK: NOtifications
     
-    func pushupCompleted(notification: NSNotification) {
-        print("Pushup Herd in Gameview")
-        let currentCard = callBack!.currentCardBeingDisplayed()
-        dispatch_async(dispatch_get_main_queue(), {
-            if currentCard.rank.rawValue != self.currentPushupCount {
-                //If the pushup count doesnt match rank, keep doing pushups
-                self.pushupActions()
-            } else {
-                //Do all actions to get ready for the next card
-                self.currentCardCompleted()
-            }
-            
-        })
-        
-    }
+//    func pushupCompleted(notification: NSNotification) {
+//        print("Pushup Herd in Gameview")
+//        let currentCard = callBack!.currentCardBeingDisplayed()
+//        dispatch_async(dispatch_get_main_queue(), {
+//            if currentCard.rank.rawValue != self.currentPushupCount {
+//                //If the pushup count doesnt match rank, keep doing pushups
+//                self.pushupActions()
+//            } else {
+//                //Do all actions to get ready for the next card
+//                self.currentCardCompleted()
+//            }
+//            
+//        })
+//        
+//    }
     
     func getAnimationPathFromPoints(StartPoint start: CGPoint, EndPoint end: CGPoint) -> CGMutablePath {
         
@@ -531,7 +538,25 @@ extension LewisGameView {
         })
         
     }
-
+    
+    //MARK: Pushup Delegate
+    func pushupCompleted() {
+        faceRectFilter = nil
+        pushupActions()
+    }
+    
+    func motionCompleted() {
+        
+        if currentPosition == .up {
+            print("\(currentPosition) motion completed")
+            currentPosition = .down
+            faceRectFilter?.currentMotion = currentPosition!
+        } else if currentPosition == .down {
+            print("\(currentPosition) motion completed")
+            currentPosition = .up
+            pushupCompleted()
+        }
+    }
 }
 
 
@@ -550,6 +575,7 @@ extension LewisGameView {
         animateCardUnderLayer()
         animateCurrentAmountToTotalCompleted()
         resetViewForNextCard()
+        
     }
     
     func resetViewForNextCard() {
@@ -615,6 +641,29 @@ extension LewisGameView {
             self.imageDisplayView.image = newImage
             
         })
+        
+    }
+    
+    //Called from a queue other than main queue
+    func newFaceArea(area: CGFloat) {
+        
+        if faceRectAreasForAccelerate.count > 4 {
+            if faceRectFilter == nil {
+                currentPosition = .up
+                faceRectFilter = FaceRectFilter(WithInitialPoints: faceRectAreasForAccelerate, FromNumberOfValues: UInt(faceRectAreasForAccelerate.count), CurrentMotion: currentPosition!)
+                faceRectFilter?.delegate = self
+            } else {
+                if currentPosition == .up {
+                    faceRectFilter?.newAreaArrived(area, Operation: >, Condition: <)
+                } else {
+                    faceRectFilter?.newAreaArrived(area, Operation: <, Condition: >)
+                }
+                //faceRectFilter?.newAreaArrived(area)
+            }
+        } else {
+            faceRectAreasForAccelerate.append(Float(area))
+        }
+        
         
     }
 }
