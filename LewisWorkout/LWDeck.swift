@@ -67,10 +67,17 @@ class LWDeck: NSObject {
     }
     
     
-    func pickRandomCard() -> LWCard {
+    func pickRandomCard(WithReplacement replace: Bool) -> LWCard {
         //should check this to see if the conversions slow things down alot
-        let randCardIndex = Int(arc4random_uniform(UInt32(cardCount)))
-        return deck[randCardIndex]
+        let randCardIndex = Int(arc4random_uniform(UInt32(cardCount - 1)))
+        let returnCard = deck[randCardIndex]
+        if replace {
+           //Do nothing, card stays in deck
+        } else {
+            deck.removeAtIndex(randCardIndex)
+            cardCount -= 1
+        }
+        return returnCard
     }
     
     

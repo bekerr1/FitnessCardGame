@@ -22,20 +22,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ta0-st-GRK">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Om7-eu-pyf">
-                                <rect key="frame" x="220" y="406" width="240" height="134"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="mno-X2-vbQ"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="xBC-Mg-IQR" kind="embed" identifier="deckSegue" id="uTK-Nu-UHD"/>
-                                </connections>
-                            </containerView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2s-8D-kLo" customClass="LWDeckPlaceholderView" customModule="LewisWorkout" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2s-8D-kLo" customClass="LWDeckPlaceholderView" customModule="LewisWorkout" customModuleProvider="target">
                                 <rect key="frame" x="220" y="406" width="240" height="114"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="114" id="0U6-xo-smP"/>
                                     <constraint firstAttribute="width" constant="240" id="4aU-tM-Pgv"/>
                                 </constraints>
                             </view>
@@ -102,15 +93,11 @@
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ald-L8-rRL"/>
                             <constraint firstItem="s2s-8D-kLo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="386" id="Clo-mR-2Hq"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="F85-6L-iou"/>
-                            <constraint firstItem="Om7-eu-pyf" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="top" id="LsF-kH-jeY"/>
                             <constraint firstItem="s2s-8D-kLo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="OYC-j0-8ey"/>
                             <constraint firstAttribute="trailing" secondItem="Ta0-st-GRK" secondAttribute="trailing" id="Pd8-G0-pyM"/>
                             <constraint firstItem="Ifb-QA-rka" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="SSZ-Ao-8jc"/>
-                            <constraint firstItem="Om7-eu-pyf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-80" id="c82-6V-yfy"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Om7-eu-pyf" secondAttribute="bottom" constant="60" id="jkF-QL-ehI"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="raS-1e-QWe"/>
                             <constraint firstItem="Ta0-st-GRK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="sTC-86-9pj"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s2s-8D-kLo" secondAttribute="bottom" constant="80" id="uEz-eL-16e"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D2Q-A0-d4k" secondAttribute="trailing" constant="10" id="vKu-GX-tGA"/>
                         </constraints>
                         <connections>
@@ -120,7 +107,6 @@
                             <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="6RH-rg-xTK"/>
                             <outlet property="currentPushupCountLabel" destination="YHO-eh-CbP" id="IYZ-Bb-V6z"/>
                             <outlet property="deckPlaceholderView" destination="s2s-8D-kLo" id="BfB-BK-aDu"/>
-                            <outlet property="deckViewContainer" destination="Om7-eu-pyf" id="WCk-F2-hJa"/>
                             <outlet property="labelStackView" destination="Ifb-QA-rka" id="faA-mE-Gnc"/>
                             <outlet property="pushupCountLabel" destination="jdU-ta-2hG" id="U8k-m9-5Gy"/>
                             <outlet property="pushupsCompletedLabel" destination="eVs-8n-0f4" id="Cto-lG-myI"/>
@@ -154,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EsW-Rz-cBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-200.5" y="-354"/>
+            <point key="canvasLocation" x="-200.5" y="-508"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="9aG-mp-Jt8">
@@ -305,24 +291,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aLw-N0-uvN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1461" y="-437"/>
-        </scene>
-        <!--Deck View Controller-->
-        <scene sceneID="baL-rS-syu">
-            <objects>
-                <viewController id="xBC-Mg-IQR" customClass="LWDeckViewController" customModule="LewisWorkout" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="t3k-xS-sma"/>
-                        <viewControllerLayoutGuide type="bottom" id="ga8-bc-CGD"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="HY8-cx-Im7">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="134"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KKO-CE-3pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-673" y="209"/>
         </scene>
     </scenes>
 </document>

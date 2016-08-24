@@ -12,6 +12,8 @@ class LWDeckViewController: UIViewController {
     
     //MARK: Properties
     
+    let resetQueue: dispatch_queue_t?
+    
     var switchTransitions: Bool = true
     var deckModel: LWDeck
     
@@ -36,7 +38,15 @@ class LWDeckViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         self.deckModel = LWDeck()
+        resetQueue = dispatch_queue_create("com.LewisWorkout.ResetQueue", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0))
         super.init(coder: aDecoder)
+    }
+    
+    
+    init() {
+        self.deckModel = LWDeck()
+        resetQueue = dispatch_queue_create("com.LewisWorkout.ResetQueue", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0))
+        super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {
@@ -44,8 +54,6 @@ class LWDeckViewController: UIViewController {
         print("deck init in deckVC")
         
         self.view.clipsToBounds = true
-        
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -54,23 +62,22 @@ class LWDeckViewController: UIViewController {
         
         self.view.addSubview(cardFrontView)
         self.view.addSubview(cardBackView)
-
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         print("view appeared in deckVC")
-        
-        //generateNewCardForViewing()
-        
-        
     }
     
     override func viewDidLayoutSubviews() {
         print("subviews layed in deckVC")
-        
-        
     }
+    
+//    override func loadView() {
+//        print("Deck LoadView Called")
+//        self.view = UIView.init(frame: CGRectMake(0, 0, LewisGeometricConstants.deckContainerWidth, LewisGeometricConstants.deckContainerHeight))
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -79,11 +86,8 @@ class LWDeckViewController: UIViewController {
     
     //MARK: animations
     
-    func deckTapTransitionTo() {
-
-        generateNewCardForViewing()
+    func deckTapAnimation() {
         flip()
-        //animateTransition()
     }
     
     
@@ -96,27 +100,39 @@ class LWDeckViewController: UIViewController {
             }, completion: nil)
     }
     
+    ///Called when all deck animations are completed
+    func resetForCompletedAnimation() {
+        resetTransitionViews()
+        cardFrontView.clearContentsFromScreen()
+    }
     
+    func resetForCompletedAnimations() {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.resetTransitionViews()
+            self.cardFrontView.clearContentsFromScreen()
+            self.generateNewCardForViewing()
+        })
+    }
     
-    func resetTransitionViews() {
+    private func resetTransitionViews() {
         
         self.cardBackView.hidden = false
         self.cardFrontView.hidden = true
-        //self.cardFrontView.currentCardModel = nil
     }
     
     //MARK: Model stuff
     
-    func randomCardFromDeck() -> LWCard {
-        return deckModel.pickRandomCard()
+    private func randomCardFromDeck() -> LWCard {
+        return deckModel.pickRandomCard(WithReplacement: false)
     }
 
-    
+    ///Generates a random card model from the deck and sets that model to the cardFrontView view model
     func generateNewCardForViewing() {
         
         let card = randomCardFromDeck()
         print("\(card.suit), \(card.rank)")
-        cardFrontView.newCardToView(card, Sideways: true)
+        cardFrontView.newCardToView(card)
     }
     
     

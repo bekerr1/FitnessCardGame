@@ -58,10 +58,10 @@ struct LWCard {
         }
         
         static let validSuits: [Suit] = [
-            .Diamond,
-            .Heart,
-            .Club,
-            .Spade
+            .Diamond
+            //.Heart,
+            //.Club,
+            //.Spade
         ]
         
         
@@ -115,8 +115,8 @@ struct LWCard {
         static let validRanks: [Rank] = [
             .Ace, .Two, .Three, .Four,
             .Five, .Six, .Seven, .Eight,
-            .Nine, .Ten, .Jack, .Queen,
-            .King, .Joker
+            .Nine, .Ten //.Jack, .Queen,
+            //.King, .Joker
         ]
         
     }

@@ -16,7 +16,7 @@ class LWCardFrontView: UIView {
     var pastCards: [LWCard] = Array()
     //var sideWays: Bool = false
     var cardContents: [UIImageView] = Array()
-    let labelFrameWidth: CGFloat = 50
+    let labelFrameWidth: CGFloat = 40
     let labelFrameHeight: CGFloat = 100
     let cardTopLabel: UILabel!
     let cardBottomLabel: UILabel!
@@ -25,47 +25,51 @@ class LWCardFrontView: UIView {
     
     
     required init?(coder aDecoder: NSCoder) {
-        
-        
+
         cardTopLabel = UILabel(frame: CGRectZero)
         cardTopLabel.backgroundColor = UIColor.yellowColor()
-        cardTopLabel.frame = CGRectMake(0, 0, labelFrameWidth, labelFrameHeight)
+        cardTopLabel.textAlignment = .Center
+        cardTopLabel.font = UIFont(name: "Menlo-Bold", size: 25)
+        cardTopLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius
         
         cardBottomLabel = UILabel(frame: CGRectZero)
         cardBottomLabel.backgroundColor = UIColor.yellowColor()
-        cardBottomLabel.frame = CGRectMake(frame.width - labelFrameWidth, frame.height - labelFrameHeight, labelFrameWidth, labelFrameHeight)
+        cardBottomLabel.textAlignment = .Center
+        cardBottomLabel.font = UIFont(name: "Menlo-Bold", size: 25)
+        cardBottomLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius
         
         super.init(coder: aDecoder)
+        
+        cardTopLabel.frame = CGRectMake(0, 0, labelFrameWidth, labelFrameHeight)
+        cardBottomLabel.frame = CGRectMake(frame.width - labelFrameWidth, frame.height - labelFrameHeight, labelFrameWidth, labelFrameHeight)
+        
         self.layer.cornerRadius = LewisGeometricConstants.cornerRadius
     }
     
-    //Not used, initialized from storyboard
-//    override init(frame: CGRect) {
-//        
-//        super.init(frame: frame)
-//        self.layer.cornerRadius = LewisGeometricConstants.cornerRadius
-//    }
+    
+    override init(frame: CGRect) {
+        
+        cardTopLabel = UILabel(frame: CGRectZero)
+        cardTopLabel.backgroundColor = UIColor.yellowColor()
+        
+        cardBottomLabel = UILabel(frame: CGRectZero)
+        cardBottomLabel.backgroundColor = UIColor.yellowColor()
+        
+        super.init(frame: frame)
+        
+        cardTopLabel.frame = CGRectMake(0, 0, labelFrameWidth, labelFrameHeight)
+        cardBottomLabel.frame = CGRectMake(frame.width - labelFrameWidth, frame.height - labelFrameHeight, labelFrameWidth, labelFrameHeight)
+        
+        self.layer.cornerRadius = LewisGeometricConstants.cornerRadius
+    }
     
     override func layoutSubviews() {
         //Layout
         super.layoutSubviews()
-        
-//        if let model = currentCardModel {
-//            let queue = ShapeQueue<UIImageView>(WithArray: self.cardContents)
-//            var cardLayout = ClassicalCardLayout(WithContents: queue)
-//            cardLayout.layout(Model: model, InsideRect: self.bounds)
-//        }
-        
-
     }
     
     
-    func newCardToView(newCard: LWCard, Sideways side: Bool) {
-        
-        
-        if side {
-            transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-        }
+    func newCardToView(newCard: LWCard) {
         
         if currentCardModel != nil {
             pastCards.append(currentCardModel)
@@ -74,6 +78,7 @@ class LWCardFrontView: UIView {
         currentCardModel = newCard
         createViewContentsFromCardModel()
         addShapesToView()
+        addLabelsToView()
         
         if let model = currentCardModel {
             layoutUsingModel(CardModel: model)
@@ -97,11 +102,18 @@ class LWCardFrontView: UIView {
         }
     }
     
+    func addLabelsToView() {
+        addSubview(cardTopLabel)
+        addSubview(cardBottomLabel)
+    }
+    
     func layoutUsingModel(CardModel model: LWCard) {
         
-            let queue = ShapeQueue<UIImageView>(WithArray: self.cardContents)
-            var cardLayout = ClassicalCardLayout(WithContents: queue)
-            cardLayout.layout(Model: model, InsideRect: self.bounds)
+        let queue = ShapeQueue<UIImageView>(WithArray: cardContents)
+        var cardLayout = ClassicalCardLayout(WithContents: queue)
+        print("Laying out contents inside \(NSStringFromCGRect(frame))")
+        cardLayout.layoutShapes(Model: model, InsideRect: bounds)
+        cardLayout.layoutIDLabels(TopLabel: cardTopLabel, BottomLabel: cardBottomLabel, TotalRect: bounds)
         
     }
     
@@ -109,20 +121,36 @@ class LWCardFrontView: UIView {
     func createViewContentsFromCardModel() {
         
         var result = Array<UIImageView>()
-        for _ in 0..<currentCardModel.rank.rawValue {
+        
             
             switch currentCardModel.rank {
             case .Jack, .Queen, .King, .Joker:
+                
                 //Change label
+                var labelString: String = String()
+                for character in currentCardModel.rank.cardRank.characters {
+                    labelString.append(character)
+                    labelString.appendContentsOf("\n")
+                }
+                print(labelString)
+                cardTopLabel.text = labelString
+                cardBottomLabel.text = labelString
+                
                 break
             default:
-                let imageView = UIImageView(frame: CGRectMake(0, 0, contentSize.width, contentSize.height))
-                imageView.image = currentCardModel.suit.suitImage
-                result.append(imageView)
+                
+                let numberLabelString = currentCardModel.rank.cardRank + "\n" + currentCardModel.suit.suitString
+                cardTopLabel.text = numberLabelString
+                cardBottomLabel.text = numberLabelString
+                
+                for _ in 0..<currentCardModel.rank.rawValue {
+                    let imageView = UIImageView(frame: CGRectMake(0, 0, contentSize.width, contentSize.height))
+                    imageView.image = currentCardModel.suit.suitImage
+                    result.append(imageView)
+                    
+                }
                 break
-            }
         }
-    
         cardContents = result
     }
     
@@ -345,3 +373,8 @@ class LWCardFrontView: UIView {
 //        }
 
 
+//        if let model = currentCardModel {
+//            let queue = ShapeQueue<UIImageView>(WithArray: self.cardContents)
+//            var cardLayout = ClassicalCardLayout(WithContents: queue)
+//            cardLayout.layout(Model: model, InsideRect: self.bounds)
+//        }

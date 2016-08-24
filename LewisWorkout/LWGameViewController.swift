@@ -31,6 +31,7 @@ class LWGameViewController: UIViewController, GameViewCallBackDelegate {
     @IBOutlet var gameView: LWGameView!
     var deviceOrientation = UIDevice.currentDevice().orientation
     //View controllers
+    private var deckViewContainerController: LWDeckViewContainerController!
     private var deckVC: LWDeckViewController!
     private var currentCardVC: LWCardViewController!
     private var tap: Bool = false
@@ -43,16 +44,29 @@ class LWGameViewController: UIViewController, GameViewCallBackDelegate {
         super.viewDidLoad()
         print("ViewdidLoad on gameVC")
         print("ViewDidLoadframe = \(NSStringFromCGRect(gameView.frame))")
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        //DeckVC is the childVC of deckViewContainerController. DeckVC is added as a child and gameView.deckViewContainer is set to the container's view.  This is so the container view can be animated and manipulated and the contents inside can also change independently
+        deckVC = LWDeckViewController()
+        deckViewContainerController = LWDeckViewContainerController()
+        print("setting view container")
+        if let deck = deckVC {
+            print("setting deckVC to container as child")
+            deckViewContainerController.displayContentController(ViewController: deck)
+        }
+        gameView.deckViewContainer = deckViewContainerController.view
+        gameView.deckViewContainer.frame = CGRectMake(0, 0, LewisGeometricConstants.deckContainerWidth, LewisGeometricConstants.deckContainerHeight)
         
         gameView.callBack = self
         gameView.viewGestures()
         gameView.setupFrameDependentElements()
         
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(orientationChanged(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         view.addSubview(topHiderView)
         view.addSubview(bottomHiderView)
+        view.addSubview(gameView.deckViewContainer)
         
     }
     
@@ -69,7 +83,10 @@ class LWGameViewController: UIViewController, GameViewCallBackDelegate {
         
         detectorController = LWAVDetectorController(withparentFrame: self.view.frame)
         detectorController.delegate = gameView
+        loadDeckVCContentsAndLayout()
         gameView.showContents()
+        gameView.testTransform()
+        
         
     }
 
@@ -78,9 +95,10 @@ class LWGameViewController: UIViewController, GameViewCallBackDelegate {
         
         if self.tap {
             
-            deckVC.deckTapTransitionTo()
+            deckVC.deckTapAnimation()
             setCardVCViewToAnimated()
-            gameView.animationStart()
+            //gameView.animationStart()
+            gameView.testNewAnimationStart()
             tap = false
         }
     }
@@ -92,13 +110,15 @@ class LWGameViewController: UIViewController, GameViewCallBackDelegate {
     
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
     
+    //MARK: Getting views contents ready for display
+    func loadDeckVCContentsAndLayout() {
+        deckVC.generateNewCardForViewing()
+    }
     
     func setCardVCViewToAnimated() {
         //Get the deckVC's current deck model and set it to the cardVC's deck model
-        
         currentCardVC.setViewToNewCard(deckVC.cardFrontView.currentCardModel)
     }
-    
     
     
     //MARK: Prepare for Segue
@@ -156,7 +176,6 @@ extension LWGameViewController {
     }
     
     func stopPreviewSession() {
-        
         detectorController.stopCaptureSession()
     }
 }
@@ -180,8 +199,7 @@ extension LWGameViewController {
     }
     
     func cardAnimationComplete() {
-        self.deckVC.resetTransitionViews()
-        self.deckVC.cardFrontView.clearContentsFromScreen()
+        deckVC.resetForCompletedAnimations()
     }
     
     func cardComplete() {

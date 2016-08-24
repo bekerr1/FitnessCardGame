@@ -43,13 +43,16 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     let heightOffset: CGFloat = 210
     private let calibrateLabel: UILabel = UILabel()
     var alignmentCenterPoint: CGPoint = CGPointZero
+    var deckViewContainerFinalCenter: CGPoint?
+    var deckViewContainerFinalSize: CGSize?
     //Subviews
     @IBOutlet weak var stageImageView: UIImageView!
     @IBOutlet weak var labelStackView: UIStackView!
     @IBOutlet weak var currentCardContainer: UIView!
     var emptySpringCard: UIView = UIView()
     var placeholderEmptyCard: UIView = UIView()
-    @IBOutlet weak var deckViewContainer: UIView!
+    ///set to the view of LWDeckViewContainerController
+    var deckViewContainer: UIView!
     @IBOutlet weak var deckPlaceholderView: LWDeckPlaceholderView!
     private var calibrateSlider: LWAnimatedSlider = LWAnimatedSlider()
     var decorationView: UIView = {
@@ -80,12 +83,10 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     @IBOutlet weak var currentCardLabel: UILabel!
     @IBOutlet weak var cardsCompletedLabel: UILabel!
     @IBOutlet weak var totalCardsCompletedLabel: UILabel!
+    //StackViewPropertyLogic
     var totalCardsCompletedCount: Int {
         willSet (newValue) {
             totalCardsCompletedLabel.text = "\(newValue)"
-        }
-        didSet (newValue) {
-            
         }
     }
     @IBOutlet weak var currentPushupCountLabel: UILabel!
@@ -94,23 +95,17 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
         willSet (newValue) {
            currentPushupCountLabel.text = "\(newValue)"
         }
-        didSet (newValue) {
-            
-        }
     }
     @IBOutlet weak var pushupsCompletedLabel: UILabel!
     var totalPushupsCompletedCount: Int {
         willSet (newValue) {
             pushupsCompletedLabel.text = "\(newValue)"
         }
-        didSet (newValue) {
-            
-        }
     }
     //GESTURES
     var deckTapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
     
-    //Model
+    //View Model (does this belong in the controller??)
     var faceRectAreasForAccelerate: [Float] = Array()
     var faceRectFilter: FaceRectFilter?
     var currentPosition: PushupPosition?
@@ -156,6 +151,25 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
         prepareView()
         configureEmptyCardViews()
         configureAnimationLabels()
+        
+    }
+    
+    func testTransform() {
+        //deckViewContainer.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+        //deckViewContainer.transform = CGAffineTransformMakeScale(0.8, 0.8)
+        //print("\(NSStringFromCGSize(deckPlaceholderView.frame.size))")
+        //deckViewContainer.frame.size = currentCardContainer.frame.size
+        //deckViewContainer.frame.size = deckPlaceholderView.frame.size
+        deckViewContainer.center = deckPlaceholderView.center
+        deckViewContainer.center.y += 10.0
+        let concatTransforms = CGAffineTransformConcat(CGAffineTransformMakeRotation(CGFloat(M_PI_2)), CGAffineTransformMakeScale(0.7, 0.7))
+        deckViewContainer.transform = concatTransforms //CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+        
+        if let sv = deckViewContainer.superview {
+            print("DeckViewContainer has superview \(sv)")
+            print(NSStringFromCGRect(deckViewContainer.frame))
+            //deckViewContainer.backgroundColor = UIColor.redColor()
+        }
     }
     
     func prepareView() {
@@ -165,6 +179,7 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
         decorationView.alpha = 0.0
         currentCardContainer.hidden = true
     }
+    
     
     func configureShadowLayer() {
         print("Game view frame: \(NSStringFromCGRect(self.frame))")
@@ -257,6 +272,7 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
             self.deckViewContainer.alpha = 1.0
             self.decorationView.alpha = 1.0
         })
+        self.insertSubview(deckPlaceholderView, aboveSubview: deckViewContainer)
         
     }
     
@@ -270,23 +286,6 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     }
     
     
-    //MARK: NOtifications
-    
-//    func pushupCompleted(notification: NSNotification) {
-//        print("Pushup Herd in Gameview")
-//        let currentCard = callBack!.currentCardBeingDisplayed()
-//        dispatch_async(dispatch_get_main_queue(), {
-//            if currentCard.rank.rawValue != self.currentPushupCount {
-//                //If the pushup count doesnt match rank, keep doing pushups
-//                self.pushupActions()
-//            } else {
-//                //Do all actions to get ready for the next card
-//                self.currentCardCompleted()
-//            }
-//            
-//        })
-//        
-//    }
     
     func getAnimationPathFromPoints(StartPoint start: CGPoint, EndPoint end: CGPoint) -> CGMutablePath {
         
@@ -297,6 +296,7 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
         
         return path
     }
+    
 }
 
 
@@ -343,6 +343,51 @@ extension LWGameView {
                     })
                 } else {
                     self.deckViewContainer.transform = finalT
+                    self.callBack!.startPreviewSession()
+                }
+        })
+    }
+    
+    func testNewAnimationStart() {
+        
+        //let originalFrame = self.deckViewContainer.frame
+        
+        UIView.animateWithDuration(1.0, animations: {
+            
+            //self.deckViewContainer.frame.size = CGSizeMake(self.currentCardContainer.frame.size.height, self.currentCardContainer.frame.size.width)
+            //self.deckViewContainer.frame.size = self.deckViewContainerFinalSize!
+            //self.deckViewContainer.center = self.currentCardContainer.center
+            self.deckViewContainer.center = self.currentCardContainer.center
+            //self.deckViewContainer.transform = CGAffineTransformRotate(self.deckViewContainer.transform, CGFloat(M_PI * 1.5))
+            self.deckViewContainer.transform = CGAffineTransformIdentity
+            
+            }, completion: {(complete: Bool) -> () in
+                print("animation 1 completed.")
+                
+        })
+        
+        //let finalT = CGAffineTransformConcat(CGAffineTransformMakeScale(1.0, 1.0), CGAffineTransformMakeRotation(CGFloat(M_PI * 1.5)))
+        UIView.animateWithDuration(0.3, delay: 0.4, options: [.BeginFromCurrentState], animations: {
+            self.deckViewContainer.transform = CGAffineTransformScale(self.deckViewContainer.transform, 1.3, 1.3);
+            
+            }, completion: {(complete: Bool) in
+                
+                if complete {
+                    UIView.animateWithDuration(0.5, delay: 0.0, options: [.BeginFromCurrentState], animations: {
+                        self.deckViewContainer.transform = CGAffineTransformIdentity
+                        
+                        }, completion: {(complete: Bool) -> () in
+                            print("Second Transform animation completed")
+                            self.currentCardContainer.hidden = false
+                            self.deckViewContainer.hidden = true
+                            //self.resetForNextAnimation(WithFrame: originalFrame)
+                            self.callBack!.cardAnimationComplete()
+                            self.callBack!.startPreviewSession()
+                            
+                    })
+                } else {
+                    self.deckViewContainer.transform = CGAffineTransformIdentity
+                    self.callBack!.cardAnimationComplete()
                     self.callBack!.startPreviewSession()
                 }
         })
@@ -538,7 +583,7 @@ extension LWGameView {
         })
         
     }
-    
+    //this should be in controller
     //MARK: Pushup Delegate
     func pushupCompleted() {
         faceRectFilter = nil
@@ -589,7 +634,7 @@ extension LWGameView {
 
 
 
-
+//This should be in controller
 //MARK: detection protocol
 extension LWGameView {
     
@@ -674,7 +719,7 @@ extension LWGameView {
 
 //MARK: Alignment code
 extension LWGameView {
-    
+    ///Removes face graphic for user face alignment
     func removeAlignment() {
         dispatch_async(dispatch_get_main_queue(), {
             self.invisibleTopView.removeFromSuperview()
@@ -692,6 +737,25 @@ extension LWGameView {
 
 //MARK: Trash bin for depreicated Code/code i may get back to or may not - to be deleted
 extension LWGameView {
+    
+    
+    //MARK: NOtifications
+    
+    //    func pushupCompleted(notification: NSNotification) {
+    //        print("Pushup Herd in Gameview")
+    //        let currentCard = callBack!.currentCardBeingDisplayed()
+    //        dispatch_async(dispatch_get_main_queue(), {
+    //            if currentCard.rank.rawValue != self.currentPushupCount {
+    //                //If the pushup count doesnt match rank, keep doing pushups
+    //                self.pushupActions()
+    //            } else {
+    //                //Do all actions to get ready for the next card
+    //                self.currentCardCompleted()
+    //            }
+    //
+    //        })
+    //        
+    //    }
     
     //        UIView.animateKeyframesWithDuration(3.0, delay: 0.0, options: [.BeginFromCurrentState, .Repeat], animations: {
     //            //Animate transform to simulate lifting of card

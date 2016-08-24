@@ -55,7 +55,7 @@ class LWCardViewController: UIViewController {
     
     func setViewToNewCard(card: LWCard) {
         self.view.backgroundColor = UIColor.whiteColor()
-        cardFrontView.newCardToView(card, Sideways: false)
+        cardFrontView.newCardToView(card)
     }
     
     func shapeAtIndex(Index dex: Int) -> UIImageView {

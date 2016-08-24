@@ -15,4 +15,7 @@ struct LewisGeometricConstants {
     
     static let suitSizeWidth: CGFloat = 80.0
     static let suitSizeHeight: CGFloat = 80.0
+    
+    static let deckContainerWidth: CGFloat = 161
+    static let deckContainerHeight: CGFloat = 316
 }

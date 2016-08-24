@@ -9,19 +9,20 @@
 import Foundation
 import UIKit
 
-protocol Layout {
-    
-    mutating func layout(rect: CGRect)
-    //mutating func layout(Model model: LWCard, InsideRect rect: CGRect, Sideways side: Bool)
-    mutating func layout(Model model: LWCard, InsideRect rect: CGRect)
-    
+protocol ClassicCardLayout {
+    mutating func layoutShapes(Model model: LWCard, InsideRect rect: CGRect)
+    mutating func layoutIDLabels(TopLabel label1: UILabel, BottomLabel label2: UILabel, TotalRect rect: CGRect)
 }
 
-struct ClassicalCardLayout<Shape: Shapeable>: Layout {
+struct ClassicalCardLayout<Shape: Shapeable>: ClassicCardLayout {
     
     var rectSection: CGSize!
+    var originShiftX: CGFloat!
+    var originShiftY: CGFloat!
     var offsets: [CGFloat]!
     var content: ShapeQueue<Shape>
+    let doubleSeperation: CGFloat = 35
+    var baseHeight: CGFloat!
     //var sideways: Bool = false
     
     
@@ -31,12 +32,20 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     
     //MARK: Layout protocol
 
-    mutating func layout(Model model: LWCard, InsideRect rect: CGRect) {
+    mutating func layoutIDLabels(TopLabel label1: UILabel, BottomLabel label2: UILabel, TotalRect rect: CGRect) {
+        
+        
+    }
+    
+    mutating func layoutShapes(Model model: LWCard, InsideRect rect: CGRect) {
         //Layout using contents directed by model
         
         //self.sideways = side
-        self.rectSection = rectSections(model, WithRect: rect.size)
-        self.offsets = placementPointOffsets(model)
+        rectSection = rectSections(model, WithRect: rect.size)
+        offsets = placementPointOffsets(model)
+        originShiftX = rect.origin.x
+        originShiftY = rect.origin.y
+        baseHeight = rectBaseHeight(FromHeight: rect.height)
         
         switch model.rank.rowsForRank {
             
@@ -65,7 +74,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     }
     
     
-    mutating func row1(model: LWCard) {
+    private mutating func row1(model: LWCard) {
         
         switch model.rank {
         case .Ace, .Two, .Three:
@@ -81,7 +90,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         
     }
     
-    mutating func row2(model: LWCard) {
+    private mutating func row2(model: LWCard) {
         
         switch model.rank {
         case .Two, .Three, .Five, .Seven, .Eight, .Ten:
@@ -97,7 +106,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
 
     }
     
-    mutating func row3(model: LWCard) {
+    private mutating func row3(model: LWCard) {
         
         switch model.rank {
         case .Three, .Nine:
@@ -113,7 +122,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
 
     }
     
-    mutating func row4(model: LWCard) {
+    private mutating func row4(model: LWCard) {
         
         switch model.rank {
         case .Eight:
@@ -129,13 +138,13 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
 
     }
     
-    mutating func row5(model: LWCard) {
+    private mutating func row5(model: LWCard) {
         
         switch model.rank {
-        case .Ace:
+        case .Ten:
             single(widthForRow(5), Height: heightForRow(5))
             break
-        case .Ace:
+        case .Eight, .Nine:
             double(widthForRow(5), Height: heightForRow(5))
             break
         default:
@@ -145,13 +154,10 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
 
     }
     
-    mutating func row6(model: LWCard) {
+    private mutating func row6(model: LWCard) {
         
         switch model.rank {
-        case .Ace:
-            single(widthForRow(6), Height: heightForRow(6))
-            break
-        case .Ace:
+        case .Ten:
             double(widthForRow(6), Height: heightForRow(6))
             break
         default:
@@ -162,50 +168,32 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
     }
     
     
-    mutating func layout(rect: CGRect) {
-        
-        
-        
-
+    
+    private func heightForRow(row: Int) -> CGFloat {
+        return rectSection.height * offsets[row - 1] + baseHeight //+ originShiftY
+    }
+    
+    private func widthForRow(row: Int) -> CGFloat {
+        return rectSection.width //+ originShiftX
     }
     
     
-    
-    func heightForRow(row: Int) -> CGFloat {
-        
-        //return (sideways) ? rectSection.height : rectSection.height * offsets[row - 1]
-        return rectSection.height * offsets[row - 1]
-    }
-    
-    func widthForRow(row: Int) -> CGFloat {
-        
-        //return (sideways) ? rectSection.width * offsets[row - 1] :rectSection.width
-        return rectSection.width
-    }
-    
-    
-    mutating func double(atWidth: CGFloat, Height atHeight: CGFloat) {
-        
-//        if sideways {
-//            verticalDouble(atWidth, Height: atHeight)
-//        } else {
-//            horizontalDouble(atWidth, Height: atHeight)
-//        }
+    private mutating func double(atWidth: CGFloat, Height atHeight: CGFloat) {
         horizontalDouble(atWidth, Height: atHeight)
     }
     
     
-    mutating func horizontalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
+    private mutating func horizontalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
         
         let leftShape = content.dequeue()
         let rightShape = content.dequeue()
         
-        leftShape?.place(AtPoint: CGPointMake(atWidth - 50, atHeight))
-        rightShape?.place(AtPoint: CGPointMake(atWidth + 50, atHeight))
+        leftShape?.place(AtPoint: CGPointMake(atWidth - doubleSeperation, atHeight))
+        rightShape?.place(AtPoint: CGPointMake(atWidth + doubleSeperation, atHeight))
         
     }
     
-    mutating func verticalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
+    private mutating func verticalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
         
         let leftShape = content.dequeue()
         let rightShape = content.dequeue()
@@ -214,28 +202,22 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         leftShape?.rotateBy(CGFloat(M_PI_2))
         rightShape?.rotateBy(CGFloat(M_PI_2))
         
-        leftShape?.place(AtPoint: CGPointMake(atWidth, atHeight - 50))
-        rightShape?.place(AtPoint: CGPointMake(atWidth, atHeight + 50))
+        leftShape?.place(AtPoint: CGPointMake(atWidth, atHeight - doubleSeperation))
+        rightShape?.place(AtPoint: CGPointMake(atWidth, atHeight + doubleSeperation))
         
     }
 
-    mutating func single(atWidth: CGFloat, Height atHeight: CGFloat) {
+    private mutating func single(atWidth: CGFloat, Height atHeight: CGFloat) {
         
         let singleShape = content.dequeue()
-        
-//        if sideways {
-//            singleShape?.rotateBy(CGFloat(M_PI_2))
-//        }
-//        
         singleShape?.place(AtPoint: CGPointMake(atWidth, atHeight))
-        
     }
     
     
     
     //MARK: Utilities for where to place each shape
     
-    func placementPointOffsets(model: LWCard) -> [CGFloat] {
+    private func placementPointOffsets(model: LWCard) -> [CGFloat] {
         
         switch model.rank.rowsForRank {
         case 1:
@@ -256,16 +238,20 @@ struct ClassicalCardLayout<Shape: Shapeable>: Layout {
         }
     }
     
-    func rectSections(model: LWCard, WithRect rectSize: CGSize) -> CGSize {
+    private func rectSections(model: LWCard, WithRect rectSize: CGSize) -> CGSize {
         
-        if model.rank.rawValue < 9 {
-            //return (sideways) ? CGSizeMake(rectSize.width / 6, rectSize.height / 2) : CGSizeMake(rectSize.width / 2, rectSize.height / 6)
-            return CGSizeMake(rectSize.width / 2, rectSize.height / 6)
-        } else if model.rank.rawValue == 9 || model.rank.rawValue == 10  {
+        if model.rank.rawValue < 10 {
+            
+            return CGSizeMake(rectSize.width / 2, rectSize.height / 8)
+        } else if model.rank.rawValue == 10  {
             return CGSizeMake(rectSize.width/2, rectSize.height/8)
         } else {
             return CGSizeZero
         }
+    }
+    
+    private func rectBaseHeight(FromHeight rectHeight: CGFloat) -> CGFloat {
+        return rectHeight / 8
     }
 
     
