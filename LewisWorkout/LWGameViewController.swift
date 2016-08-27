@@ -12,7 +12,7 @@ import UIKit
 
 
 class LWGameViewController: UIViewController, GameViewCallBackDelegate {
-    
+let DEVICE_TESTING = 1
     //MARK: Properties
     //Subviews used in transition
     var topHiderView: UIView = {
@@ -80,9 +80,10 @@ class LWGameViewController: UIViewController, GameViewCallBackDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         print("ViewDidAppearframe = \(NSStringFromCGRect(self.view.frame))")
-        
+//#if DEVICE_TESTING
         detectorController = LWAVDetectorController(withparentFrame: self.view.frame)
         detectorController.delegate = gameView
+//#endif
         loadDeckVCContentsAndLayout()
         gameView.showContents()
         gameView.testTransform()
@@ -111,12 +112,14 @@ class LWGameViewController: UIViewController, GameViewCallBackDelegate {
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder)}
     
     //MARK: Getting views contents ready for display
+    
+    ///Calls generateNewCardForViewing on LWDeckViewController. Should only be used on initialization.
     func loadDeckVCContentsAndLayout() {
         deckVC.generateNewCardForViewing()
     }
     
+    ///Gives the currentCardVC (card that the users interacts with) the deckVC's cardFrontView cardModel so when animation is complete the deckVC can be configure for the next card and the CurrentCardVC can interact with the user.
     func setCardVCViewToAnimated() {
-        //Get the deckVC's current deck model and set it to the cardVC's deck model
         currentCardVC.setViewToNewCard(deckVC.cardFrontView.currentCardModel)
     }
     
@@ -169,14 +172,17 @@ class LWGameViewController: UIViewController, GameViewCallBackDelegate {
 extension LWGameViewController {
     
     func startPreviewSession() {
-        
-        let preview = detectorController.getPreviewLayerForUse()
+//#if DEVICE_TESTING
+        //let preview = detectorController.getPreviewLayerForUse()
         //self.view.layer.addSublayer(preview)
         detectorController.startCaptureSession()
+//#endif
     }
     
     func stopPreviewSession() {
+//#if DEVICE_TESTING
         detectorController.stopCaptureSession()
+//#endif
     }
 }
 
@@ -187,7 +193,7 @@ extension LWGameViewController {
 //MARK: View Callbacks
 extension LWGameViewController {
     func deviceIsOriented() -> Bool {
-        
+//#if DEVICE_TESTING
         if deviceOrientation != .FaceUp {
             alertUserOfOrientationError()
             return false
@@ -196,6 +202,13 @@ extension LWGameViewController {
             detectorController.needAlignment = true
             return true
         }
+//#endif
+        //return true
+    }
+    
+    ///Checks if the deckVC instance's cardFrontView's cardContentsSet property is true.  This property gets set to false on init, true when the cards contents is layed out, and back to false when the contents is removed from superview.
+    func deckContentsSet() -> Bool {
+        return deckVC.cardFrontView.cardContentsSet
     }
     
     func cardAnimationComplete() {
@@ -203,7 +216,9 @@ extension LWGameViewController {
     }
     
     func cardComplete() {
+//#if DEVICE_TESTING
         detectorController.needAlignment = false
+//#endif
     }
     
     func getShape(AtIndex index: Int) -> UIImageView {

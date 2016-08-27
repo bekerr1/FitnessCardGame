@@ -17,6 +17,7 @@ import UIKit
 //MARK: Callback Protocol
 protocol GameViewCallBackDelegate {
     func deviceIsOriented() -> Bool
+    func deckContentsSet() -> Bool
     func cardAnimationComplete()
     func cardComplete()
     func startPreviewSession()
@@ -93,7 +94,8 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     var currentPushupAnimatingLabel: UILabel = UILabel()
     var currentPushupCount: Int {
         willSet (newValue) {
-           currentPushupCountLabel.text = "\(newValue)"
+            currentPushupCountLabel.text = "\(newValue)"
+            NSNotificationCenter.defaultCenter().postNotificationName("pushupCompleted", object: nil, userInfo: ["pushupCount": newValue])
         }
     }
     @IBOutlet weak var pushupsCompletedLabel: UILabel!
@@ -154,22 +156,26 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
         
     }
     
+    ///Moves the deckContainer into place after its contents have been configured.
     func testTransform() {
-        //deckViewContainer.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-        //deckViewContainer.transform = CGAffineTransformMakeScale(0.8, 0.8)
-        //print("\(NSStringFromCGSize(deckPlaceholderView.frame.size))")
-        //deckViewContainer.frame.size = currentCardContainer.frame.size
-        //deckViewContainer.frame.size = deckPlaceholderView.frame.size
-        deckViewContainer.center = deckPlaceholderView.center
-        deckViewContainer.center.y += 10.0
-        let concatTransforms = CGAffineTransformConcat(CGAffineTransformMakeRotation(CGFloat(M_PI_2)), CGAffineTransformMakeScale(0.7, 0.7))
-        deckViewContainer.transform = concatTransforms //CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
         
-        if let sv = deckViewContainer.superview {
-            print("DeckViewContainer has superview \(sv)")
-            print(NSStringFromCGRect(deckViewContainer.frame))
-            //deckViewContainer.backgroundColor = UIColor.redColor()
+        if callBack!.deckContentsSet() {
+            
+            print("deck configured, transform and center changed.")
+            deckViewContainer.center = deckPlaceholderView.center
+            deckViewContainer.center.y += 10.0
+            let concatTransforms = CGAffineTransformConcat(CGAffineTransformMakeRotation(CGFloat(M_PI_2)), CGAffineTransformMakeScale(0.7, 0.7))
+            deckViewContainer.transform = concatTransforms //CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+            
+            if let sv = deckViewContainer.superview {
+                print("DeckViewContainer has superview \(sv)")
+                print(NSStringFromCGRect(deckViewContainer.frame))
+                //deckViewContainer.backgroundColor = UIColor.redColor()
+            }
+        } else {
+            print("deck wasnt configured, shouldnt change transform yet.")
         }
+        
     }
     
     func prepareView() {
@@ -262,7 +268,7 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
         //self.addSubview(calibrateLabel)
     }
     
-    
+    ///Reveals hidden subviews and containers after viewDidAppear
     func showContents() {
         
         UIView.animateWithDuration(2.0, animations: {
@@ -272,6 +278,7 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
             self.deckViewContainer.alpha = 1.0
             self.decorationView.alpha = 1.0
         })
+        
         self.insertSubview(deckPlaceholderView, aboveSubview: deckViewContainer)
         
     }
@@ -282,6 +289,13 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
         self.insertSubview(deckPlaceholderView, aboveSubview: deckViewContainer)
         self.deckViewContainer.transform = CGAffineTransformIdentity
         self.deckViewContainer.frame = fr
+        self.deckViewContainer.hidden = false
+    }
+    
+    func resetForNextAnimation() {
+        
+        self.insertSubview(deckPlaceholderView, aboveSubview: deckViewContainer)
+        self.testTransform()
         self.deckViewContainer.hidden = false
     }
     
@@ -354,11 +368,8 @@ extension LWGameView {
         
         UIView.animateWithDuration(1.0, animations: {
             
-            //self.deckViewContainer.frame.size = CGSizeMake(self.currentCardContainer.frame.size.height, self.currentCardContainer.frame.size.width)
-            //self.deckViewContainer.frame.size = self.deckViewContainerFinalSize!
-            //self.deckViewContainer.center = self.currentCardContainer.center
+            
             self.deckViewContainer.center = self.currentCardContainer.center
-            //self.deckViewContainer.transform = CGAffineTransformRotate(self.deckViewContainer.transform, CGFloat(M_PI * 1.5))
             self.deckViewContainer.transform = CGAffineTransformIdentity
             
             }, completion: {(complete: Bool) -> () in
@@ -366,7 +377,6 @@ extension LWGameView {
                 
         })
         
-        //let finalT = CGAffineTransformConcat(CGAffineTransformMakeScale(1.0, 1.0), CGAffineTransformMakeRotation(CGFloat(M_PI * 1.5)))
         UIView.animateWithDuration(0.3, delay: 0.4, options: [.BeginFromCurrentState], animations: {
             self.deckViewContainer.transform = CGAffineTransformScale(self.deckViewContainer.transform, 1.3, 1.3);
             
@@ -380,14 +390,16 @@ extension LWGameView {
                             print("Second Transform animation completed")
                             self.currentCardContainer.hidden = false
                             self.deckViewContainer.hidden = true
-                            //self.resetForNextAnimation(WithFrame: originalFrame)
                             self.callBack!.cardAnimationComplete()
+                            self.resetForNextAnimation()
                             self.callBack!.startPreviewSession()
                             
                     })
                 } else {
                     self.deckViewContainer.transform = CGAffineTransformIdentity
                     self.callBack!.cardAnimationComplete()
+                    self.callBack!.startPreviewSession()
+                    self.resetForNextAnimation()
                     self.callBack!.startPreviewSession()
                 }
         })
@@ -434,8 +446,9 @@ extension LWGameView {
         print("3D transform")
         let currentCardSavedCenter = currentCardContainer.center
         let animatedCardSavedCenter = emptySpringCard.center
-        self.placeholderEmptyCard.center = currentCardSavedCenter
-        self.cardContainerTopLayoutGuideConstraint.constant = 600
+        placeholderEmptyCard.center = currentCardSavedCenter
+        insertSubview(currentCardContainer, aboveSubview: deckPlaceholderView)
+        cardContainerTopLayoutGuideConstraint.constant = 600
         
         let lift = CGAffineTransformMakeScale(1.3, 1.3)
         //ANIMATE CARD OFFSCREEN

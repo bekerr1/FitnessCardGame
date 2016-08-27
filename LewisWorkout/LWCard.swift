@@ -75,7 +75,7 @@ struct LWCard {
         var cardRank: String {
             switch self {
             case .Ace:
-                return "Ace"
+                return "A"
             case .Jack:
                 return "Jack"
             case .Queen:
@@ -87,6 +87,17 @@ struct LWCard {
             case .Two, .Three, .Four, .Five, .Six, .Seven, .Eight, .Nine, .Ten:
                 return String(self.rawValue)
                 
+            }
+        }
+        
+        var pushupCount: Int {
+            switch self {
+            case .Jack, .Queen, .King:
+                return 15
+            case .Joker:
+                return 25
+            default:
+                return self.rawValue
             }
         }
         

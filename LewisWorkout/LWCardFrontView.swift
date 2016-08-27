@@ -14,57 +14,65 @@ class LWCardFrontView: UIView {
     
     var currentCardModel: LWCard!
     var pastCards: [LWCard] = Array()
+    var cardContentsSet: Bool = false
     //var sideWays: Bool = false
     var cardContents: [UIImageView] = Array()
-    let labelFrameWidth: CGFloat = 40
-    let labelFrameHeight: CGFloat = 100
-    let cardTopLabel: UILabel!
-    let cardBottomLabel: UILabel!
+    let smallLabelFrameWidth: CGFloat = 40
+    let smallLabelFrameHeight: CGFloat = 100
+    let largeLabelFrameWidth: CGFloat = 60
+    let largeLabelFrameHeight: CGFloat = 150
+    
+    lazy var cardTopLabel: UILabel = {
+        let returnLabel = UILabel(frame: CGRectZero)
+        returnLabel.backgroundColor = UIColor.yellowColor()
+        returnLabel.textAlignment = .Center
+        returnLabel.font = UIFont(name: "Menlo-Bold", size: 25)
+        returnLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius
+        returnLabel.numberOfLines = 0
+        returnLabel.clipsToBounds = true
+        return returnLabel
+    }()
+    
+    lazy var cardBottomLabel: UILabel = {
+        let returnLabel = UILabel(frame: CGRectZero)
+        returnLabel.backgroundColor = UIColor.yellowColor()
+        returnLabel.textAlignment = .Center
+        returnLabel.font = UIFont(name: "Menlo-Bold", size: 25)
+        returnLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius
+        returnLabel.numberOfLines = 0
+        returnLabel.clipsToBounds = true
+        returnLabel.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+        return returnLabel
+    }()
+    
+    lazy var cardMiddleLabelCount: UILabel = {
+        let returnLabel = UILabel(frame: CGRectZero)
+        returnLabel.backgroundColor = UIColor.yellowColor()
+        returnLabel.textAlignment = .Center
+        returnLabel.font = UIFont(name: "Menlo-Bold", size: 25)
+        returnLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius
+        returnLabel.numberOfLines = 0
+        returnLabel.clipsToBounds = true
+        return returnLabel
+    }()
+
     
     let contentSize: CGSize = CGSizeMake(40, 40)
     
     
     required init?(coder aDecoder: NSCoder) {
-
-        cardTopLabel = UILabel(frame: CGRectZero)
-        cardTopLabel.backgroundColor = UIColor.yellowColor()
-        cardTopLabel.textAlignment = .Center
-        cardTopLabel.font = UIFont(name: "Menlo-Bold", size: 25)
-        cardTopLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius
-        
-        cardBottomLabel = UILabel(frame: CGRectZero)
-        cardBottomLabel.backgroundColor = UIColor.yellowColor()
-        cardBottomLabel.textAlignment = .Center
-        cardBottomLabel.font = UIFont(name: "Menlo-Bold", size: 25)
-        cardBottomLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius
-        
         super.init(coder: aDecoder)
-        
-        cardTopLabel.frame = CGRectMake(0, 0, labelFrameWidth, labelFrameHeight)
-        cardBottomLabel.frame = CGRectMake(frame.width - labelFrameWidth, frame.height - labelFrameHeight, labelFrameWidth, labelFrameHeight)
-        
         self.layer.cornerRadius = LewisGeometricConstants.cornerRadius
     }
     
     
     override init(frame: CGRect) {
-        
-        cardTopLabel = UILabel(frame: CGRectZero)
-        cardTopLabel.backgroundColor = UIColor.yellowColor()
-        
-        cardBottomLabel = UILabel(frame: CGRectZero)
-        cardBottomLabel.backgroundColor = UIColor.yellowColor()
-        
         super.init(frame: frame)
-        
-        cardTopLabel.frame = CGRectMake(0, 0, labelFrameWidth, labelFrameHeight)
-        cardBottomLabel.frame = CGRectMake(frame.width - labelFrameWidth, frame.height - labelFrameHeight, labelFrameWidth, labelFrameHeight)
-        
         self.layer.cornerRadius = LewisGeometricConstants.cornerRadius
     }
     
+    
     override func layoutSubviews() {
-        //Layout
         super.layoutSubviews()
     }
     
@@ -84,6 +92,7 @@ class LWCardFrontView: UIView {
             layoutUsingModel(CardModel: model)
         }
         
+        cardContentsSet = true
         
     }
     
@@ -92,8 +101,11 @@ class LWCardFrontView: UIView {
         for suit in cardContents {
             suit.removeFromSuperview()
         }
-        
         cardContents = Array()
+        cardContentsSet = false
+        cardMiddleLabelCount.removeFromSuperview()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        
     }
     
     func addShapesToView() {
@@ -113,7 +125,16 @@ class LWCardFrontView: UIView {
         var cardLayout = ClassicalCardLayout(WithContents: queue)
         print("Laying out contents inside \(NSStringFromCGRect(frame))")
         cardLayout.layoutShapes(Model: model, InsideRect: bounds)
-        cardLayout.layoutIDLabels(TopLabel: cardTopLabel, BottomLabel: cardBottomLabel, TotalRect: bounds)
+        
+    }
+    
+    ///Used to change the cardMiddleLabel text after a pushup is completed. Pushups are recorded inside gameView which is a couple views away from this one. Notification is easiest option
+    func pushupCompleted(notification: NSNotification) {
+        if let info = notification.userInfo {
+            guard let count = info["pushupCount"] as? Int else { return }
+            let difference = currentCardModel.rank.pushupCount - count
+            cardMiddleLabelCount.text = "\(difference)"
+        }
         
     }
     
@@ -126,7 +147,11 @@ class LWCardFrontView: UIView {
             switch currentCardModel.rank {
             case .Jack, .Queen, .King, .Joker:
                 
-                //Change label
+                //larger frame for cards that will contain words
+                cardTopLabel.frame = CGRectMake(0, 0, largeLabelFrameWidth, largeLabelFrameHeight)
+                cardBottomLabel.frame = CGRectMake(frame.width - largeLabelFrameWidth, frame.height - largeLabelFrameHeight, largeLabelFrameWidth, largeLabelFrameHeight)
+                cardMiddleLabelCount.frame = CGRectMake(frame.width/2, frame.height/2, 150, 150)
+                
                 var labelString: String = String()
                 for character in currentCardModel.rank.cardRank.characters {
                     labelString.append(character)
@@ -135,9 +160,17 @@ class LWCardFrontView: UIView {
                 print(labelString)
                 cardTopLabel.text = labelString
                 cardBottomLabel.text = labelString
+                cardMiddleLabelCount.text = "\(currentCardModel.rank.pushupCount)"
+                
+                addSubview(cardMiddleLabelCount)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pushupCompleted(_:)), name: "pushupCompleted", object: nil)
                 
                 break
             default:
+                
+                //smaller frame for cards that only have number and suit
+                cardTopLabel.frame = CGRectMake(0, 0, smallLabelFrameWidth, smallLabelFrameHeight)
+                cardBottomLabel.frame = CGRectMake(frame.width - smallLabelFrameWidth, frame.height - smallLabelFrameHeight, smallLabelFrameWidth, smallLabelFrameHeight)
                 
                 let numberLabelString = currentCardModel.rank.cardRank + "\n" + currentCardModel.suit.suitString
                 cardTopLabel.text = numberLabelString

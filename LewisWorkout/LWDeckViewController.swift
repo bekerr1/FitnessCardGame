@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class LWDeckViewController: UIViewController {
     
     //MARK: Properties
@@ -106,6 +107,7 @@ class LWDeckViewController: UIViewController {
         cardFrontView.clearContentsFromScreen()
     }
     
+    ///Called when all deck animations are completed.  Resets the flip views, clears contents from hidden front view, and generates new card for viewing.
     func resetForCompletedAnimations() {
         
         dispatch_async(dispatch_get_main_queue(), {
@@ -127,12 +129,13 @@ class LWDeckViewController: UIViewController {
         return deckModel.pickRandomCard(WithReplacement: false)
     }
 
-    ///Generates a random card model from the deck and sets that model to the cardFrontView view model
+    ///Generates a random card model from the deck and sets that model to the cardFrontView view model.  This causes the frontView of this instance to create a fully configured card.
     func generateNewCardForViewing() {
         
         let card = randomCardFromDeck()
         print("\(card.suit), \(card.rank)")
         cardFrontView.newCardToView(card)
+        
     }
     
     

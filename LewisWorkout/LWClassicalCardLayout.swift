@@ -11,7 +11,6 @@ import UIKit
 
 protocol ClassicCardLayout {
     mutating func layoutShapes(Model model: LWCard, InsideRect rect: CGRect)
-    mutating func layoutIDLabels(TopLabel label1: UILabel, BottomLabel label2: UILabel, TotalRect rect: CGRect)
 }
 
 struct ClassicalCardLayout<Shape: Shapeable>: ClassicCardLayout {
@@ -31,11 +30,6 @@ struct ClassicalCardLayout<Shape: Shapeable>: ClassicCardLayout {
     }
     
     //MARK: Layout protocol
-
-    mutating func layoutIDLabels(TopLabel label1: UILabel, BottomLabel label2: UILabel, TotalRect rect: CGRect) {
-        
-        
-    }
     
     mutating func layoutShapes(Model model: LWCard, InsideRect rect: CGRect) {
         //Layout using contents directed by model
