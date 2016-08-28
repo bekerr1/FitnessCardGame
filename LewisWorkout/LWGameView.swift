@@ -33,7 +33,7 @@ enum PushupPosition {
     case down
     case up
 }
-
+//11.36
 
 class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     
@@ -113,6 +113,9 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     var currentPosition: PushupPosition?
     
     @IBOutlet weak var cardContainerTopLayoutGuideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var deckPlaceholderTopLayoutGuideConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewTopLayoutGuideConstraint: NSLayoutConstraint!
+    
     //MARK: Initialization
     required init?(coder aDecoder: NSCoder) {
         print("coder init in game view")
@@ -149,11 +152,23 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
         configureShadowLayer()
         configureCalibrateLabel()
         deckPlaceholderView.createStackEffect()
+        deckPlaceholderView.addAlignmentGradient()
         configureAlignment()
         prepareView()
         configureEmptyCardViews()
         configureAnimationLabels()
+        adjustDeckConstraintForViewSize()
+        adjustStackViewConstraintForViewSize()
         
+    }
+    
+    
+    func adjustDeckConstraintForViewSize() {
+        deckPlaceholderTopLayoutGuideConstraint.constant = frame.height - (141 + 30)
+    }
+    
+    func adjustStackViewConstraintForViewSize() {
+        stackViewTopLayoutGuideConstraint.constant = (frame.height / 11.36)
     }
     
     ///Moves the deckContainer into place after its contents have been configured.
@@ -368,7 +383,6 @@ extension LWGameView {
         
         UIView.animateWithDuration(1.0, animations: {
             
-            
             self.deckViewContainer.center = self.currentCardContainer.center
             self.deckViewContainer.transform = CGAffineTransformIdentity
             
@@ -392,6 +406,7 @@ extension LWGameView {
                             self.deckViewContainer.hidden = true
                             self.callBack!.cardAnimationComplete()
                             self.resetForNextAnimation()
+                            self.deckPlaceholderView.showAlignmentGradient()
                             self.callBack!.startPreviewSession()
                             
                     })
@@ -449,6 +464,7 @@ extension LWGameView {
         placeholderEmptyCard.center = currentCardSavedCenter
         insertSubview(currentCardContainer, aboveSubview: deckPlaceholderView)
         cardContainerTopLayoutGuideConstraint.constant = 600
+        deckPlaceholderView.hideAlignmentGradient()
         
         let lift = CGAffineTransformMakeScale(1.3, 1.3)
         //ANIMATE CARD OFFSCREEN

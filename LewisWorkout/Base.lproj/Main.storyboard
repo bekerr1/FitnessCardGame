@@ -106,10 +106,12 @@
                             <outlet property="currentCardContainer" destination="D2Q-A0-d4k" id="d45-6C-zQX"/>
                             <outlet property="currentCardLabel" destination="oLR-Gu-9DV" id="6RH-rg-xTK"/>
                             <outlet property="currentPushupCountLabel" destination="YHO-eh-CbP" id="IYZ-Bb-V6z"/>
+                            <outlet property="deckPlaceholderTopLayoutGuideConstraint" destination="Clo-mR-2Hq" id="cbJ-Yy-yHv"/>
                             <outlet property="deckPlaceholderView" destination="s2s-8D-kLo" id="BfB-BK-aDu"/>
                             <outlet property="labelStackView" destination="Ifb-QA-rka" id="faA-mE-Gnc"/>
                             <outlet property="pushupCountLabel" destination="jdU-ta-2hG" id="U8k-m9-5Gy"/>
                             <outlet property="pushupsCompletedLabel" destination="eVs-8n-0f4" id="Cto-lG-myI"/>
+                            <outlet property="stackViewTopLayoutGuideConstraint" destination="SSZ-Ao-8jc" id="Skw-uY-qGY"/>
                             <outlet property="stageImageView" destination="Ta0-st-GRK" id="cIm-x8-lqK"/>
                             <outlet property="totalCardsCompletedLabel" destination="O8X-gn-qG8" id="lOQ-A9-qwc"/>
                         </connections>

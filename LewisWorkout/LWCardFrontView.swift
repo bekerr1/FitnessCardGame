@@ -130,6 +130,7 @@ class LWCardFrontView: UIView {
     
     ///Used to change the cardMiddleLabel text after a pushup is completed. Pushups are recorded inside gameView which is a couple views away from this one. Notification is easiest option
     func pushupCompleted(notification: NSNotification) {
+        print("notification herd in frontView")
         if let info = notification.userInfo {
             guard let count = info["pushupCount"] as? Int else { return }
             let difference = currentCardModel.rank.pushupCount - count

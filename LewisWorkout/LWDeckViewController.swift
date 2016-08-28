@@ -21,7 +21,7 @@ class LWDeckViewController: UIViewController {
     lazy var cardBackView: LWCardBackView = {
         print("fromView initialized")
         let aview: LWCardBackView = LWCardBackView.init(frame: self.view.bounds)
-        aview.backgroundColor = UIColor.grayColor()
+        aview.backgroundColor = UIColor.whiteColor()
         aview.autoresizingMask =  [.FlexibleHeight, .FlexibleWidth]
         return aview
     }()
