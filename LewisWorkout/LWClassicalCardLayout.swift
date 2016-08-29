@@ -39,7 +39,7 @@ struct ClassicalCardLayout<Shape: Shapeable>: ClassicCardLayout {
         offsets = placementPointOffsets(model)
         originShiftX = rect.origin.x
         originShiftY = rect.origin.y
-        baseHeight = rectBaseHeight(FromHeight: rect.height)
+        baseHeight = rectBaseHeight(FromHeight: rect.height, Model: model)
         
         switch model.rank.rowsForRank {
             
@@ -244,8 +244,13 @@ struct ClassicalCardLayout<Shape: Shapeable>: ClassicCardLayout {
         }
     }
     
-    private func rectBaseHeight(FromHeight rectHeight: CGFloat) -> CGFloat {
-        return rectHeight / 8
+    private func rectBaseHeight(FromHeight rectHeight: CGFloat, Model model: LWCard) -> CGFloat {
+        if model.rank.rawValue < 10 {
+            return rectHeight / 8
+        } else {
+            return 1
+        }
+        
     }
 
     

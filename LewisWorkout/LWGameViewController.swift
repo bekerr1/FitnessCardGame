@@ -32,7 +32,7 @@ let DEVICE_TESTING = 1
     var deviceOrientation = UIDevice.currentDevice().orientation
     //View controllers
     private var deckViewContainerController: LWDeckViewContainerController!
-    private var deckVC: LWDeckViewController!
+    private var deckVC: LWCardViewController!
     private var currentCardVC: LWCardViewController!
     private var tap: Bool = false
     private var detectorController: LWAVDetectorController!
@@ -47,7 +47,7 @@ let DEVICE_TESTING = 1
         
         
         //DeckVC is the childVC of deckViewContainerController. DeckVC is added as a child and gameView.deckViewContainer is set to the container's view.  This is so the container view can be animated and manipulated and the contents inside can also change independently
-        deckVC = LWDeckViewController()
+        deckVC = LWCardViewController()
         deckViewContainerController = LWDeckViewContainerController()
         print("setting view container")
         if let deck = deckVC {
@@ -84,6 +84,7 @@ let DEVICE_TESTING = 1
         detectorController = LWAVDetectorController(withparentFrame: self.view.frame)
         detectorController.delegate = gameView
 //#endif
+        deckVC.setCardFaceDown()
         loadDeckVCContentsAndLayout()
         gameView.showContents()
         gameView.testTransform()
@@ -96,7 +97,7 @@ let DEVICE_TESTING = 1
         
         if self.tap {
             
-            deckVC.deckTapAnimation()
+            deckVC.deckTapAnimationFlipToFront()
             setCardVCViewToAnimated()
             //gameView.animationStart()
             gameView.testNewAnimationStart()
@@ -113,14 +114,14 @@ let DEVICE_TESTING = 1
     
     //MARK: Getting views contents ready for display
     
-    ///Calls generateNewCardForViewing on LWDeckViewController. Should only be used on initialization.
+    ///Calls generateNewCardForViewing on LWCardViewController. Should only be used on initialization.
     func loadDeckVCContentsAndLayout() {
         deckVC.generateNewCardForViewing()
     }
     
     ///Gives the currentCardVC (card that the users interacts with) the deckVC's cardFrontView cardModel so when animation is complete the deckVC can be configure for the next card and the CurrentCardVC can interact with the user.
     func setCardVCViewToAnimated() {
-        currentCardVC.setViewToNewCard(deckVC.cardFrontView.currentCardModel)
+        currentCardVC.useCardModel(CardModel: deckVC.cardFrontView.currentCardModel)
     }
     
     
@@ -129,7 +130,7 @@ let DEVICE_TESTING = 1
         
         if segue.identifier == "deckSegue" {
             print("deck segue")
-            deckVC = segue.destinationViewController as? LWDeckViewController
+            deckVC = segue.destinationViewController as? LWCardViewController
         } else if segue.identifier == "cardSegue" {
             print("card segue")
             currentCardVC = segue.destinationViewController as? LWCardViewController
@@ -221,7 +222,7 @@ extension LWGameViewController {
 //#endif
     }
     
-    func getShape(AtIndex index: Int) -> UIImageView {
+    func getShape(AtIndex index: Int) -> UIImageView? {
         return currentCardVC.shapeAtIndex(Index: index)
     }
     

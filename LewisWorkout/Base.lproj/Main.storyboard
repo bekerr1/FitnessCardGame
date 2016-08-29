@@ -30,7 +30,7 @@
                                     <constraint firstAttribute="width" constant="240" id="4aU-tM-Pgv"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k" customClass="LWCardView">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-A0-d4k">
                                 <rect key="frame" x="409" y="60" width="161" height="316"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -132,13 +132,10 @@
                         <viewControllerLayoutGuide type="top" id="xK9-uJ-uLM"/>
                         <viewControllerLayoutGuide type="bottom" id="zAc-P3-Ii3"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR" customClass="LWCardFrontView" customModule="LewisWorkout" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="XN5-Q5-zRR">
                         <rect key="frame" x="0.0" y="0.0" width="161" height="316"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
-                    <connections>
-                        <outlet property="cardFrontView" destination="XN5-Q5-zRR" id="nV0-Ug-vYZ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EsW-Rz-cBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -259,7 +256,7 @@
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pcN-lQ-jQp">
                                             <rect key="frame" x="30" y="0.0" width="540" height="119"/>
-                                            <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="56"/>
+                                            <fontDescription key="fontDescription" name="GurmukhiMN-Bold" family="Gurmukhi MN" pointSize="56"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <color key="shadowColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>

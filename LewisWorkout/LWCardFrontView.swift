@@ -113,6 +113,7 @@ class LWCardFrontView: UIView {
             self.addSubview(shape)
         }
     }
+
     
     func addLabelsToView() {
         addSubview(cardTopLabel)
@@ -139,6 +140,9 @@ class LWCardFrontView: UIView {
         
     }
     
+    func observeChangeInPushups() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pushupCompleted(_:)), name: "pushupCompleted", object: nil)
+    }
     
     func createViewContentsFromCardModel() {
         
@@ -151,20 +155,27 @@ class LWCardFrontView: UIView {
                 //larger frame for cards that will contain words
                 cardTopLabel.frame = CGRectMake(0, 0, largeLabelFrameWidth, largeLabelFrameHeight)
                 cardBottomLabel.frame = CGRectMake(frame.width - largeLabelFrameWidth, frame.height - largeLabelFrameHeight, largeLabelFrameWidth, largeLabelFrameHeight)
-                cardMiddleLabelCount.frame = CGRectMake(frame.width/2, frame.height/2, 150, 150)
+                
+                cardTopLabel.font = UIFont(name: "GurmukhiMN-Bold", size: 25)
+                cardBottomLabel.font = UIFont(name: "GurmukhiMN-Bold", size: 25)
+                
+                cardMiddleLabelCount.frame = CGRectMake(0, 0, 150, 150)
+                cardMiddleLabelCount.center = CGPointMake(frame.width/2, frame.height/2)
                 
                 var labelString: String = String()
                 for character in currentCardModel.rank.cardRank.characters {
                     labelString.append(character)
                     labelString.appendContentsOf("\n")
                 }
-                print(labelString)
-                cardTopLabel.text = labelString
-                cardBottomLabel.text = labelString
+                
+                let strippedLabelString = String(labelString.characters.dropLast())
+                print(strippedLabelString)
+                cardTopLabel.text = strippedLabelString
+                cardBottomLabel.text = strippedLabelString
                 cardMiddleLabelCount.text = "\(currentCardModel.rank.pushupCount)"
                 
                 addSubview(cardMiddleLabelCount)
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pushupCompleted(_:)), name: "pushupCompleted", object: nil)
+                
                 
                 break
             default:

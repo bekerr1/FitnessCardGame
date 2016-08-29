@@ -21,7 +21,7 @@ protocol GameViewCallBackDelegate {
     func cardAnimationComplete()
     func cardComplete()
     func startPreviewSession()
-    func getShape(AtIndex index: Int) -> UIImageView
+    func getShape(AtIndex index: Int) -> UIImageView?
     func getShapeCenter(ForShape shape: UIImageView, InView view: UIView) -> CGPoint
     func currentCardBeingDisplayed() -> LWCard
     func cardAboutToBeShown() -> LWCard
@@ -579,37 +579,46 @@ extension LWGameView {
         
         
         //animate suit to position
-        let suitToAnimate = callBack!.getShape(AtIndex: currentPushupCount)
-        let suitCenter = callBack!.getShapeCenter(ForShape: suitToAnimate, InView: self)
-        let suitNewCenter = labelStackView.convertPoint(currentPushupCountLabel.center, toView: self)
+        let suitToAnimate: UIImageView? = callBack!.getShape(AtIndex: currentPushupCount)
         
-        let currentSuit = UIImageView(image: suitToAnimate.image!)
-        currentSuit.frame = suitToAnimate.frame
-        currentSuit.center = suitCenter
-        
-        currentPushupCount += 1
-        //this call pushupActions() comes from a self-created queue so need to do ui stuff on main queue
-        dispatch_async(dispatch_get_main_queue(), {
-            //animate suit to position
-            self.addSubview(currentSuit)
-            suitToAnimate.removeFromSuperview()
-            self.animateSuit(Suit: currentSuit, ToPosition: suitNewCenter)
+        //If card has animateable contents (suit images) then do this stuff.  Will not happen if card is Jack, Queen, King, or Joker
+        if let validSuit = suitToAnimate {
             
-            //add a count to pushups this card
-            //self.currentPushupCountLabel.text = "\(self.currentPushupCount)"
-            print("suitCenterInSuperVIew: \(NSStringFromCGPoint(suitCenter)), SuitDesiredNewCenterInSuperView: \(NSStringFromCGPoint(suitNewCenter)), SuitActualNewCenterInSuperView: \(NSStringFromCGPoint(currentSuit.center))")
+            let suitCenter = callBack!.getShapeCenter(ForShape: validSuit, InView: self)
+            let suitNewCenter = labelStackView.convertPoint(currentPushupCountLabel.center, toView: self)
             
-            let currentCard = self.callBack!.currentCardBeingDisplayed()
-            if currentCard.rank.rawValue != self.currentPushupCount {
-                //If the pushup count doesnt match rank, keep doing pushups
+            let currentSuit = UIImageView(image: validSuit.image!)
+            currentSuit.frame = validSuit.frame
+            currentSuit.center = suitCenter
+            
+            currentPushupCount += 1
+            //this call pushupActions() comes from a self-created queue so need to do ui stuff on main queue
+            dispatch_async(dispatch_get_main_queue(), {
+                //animate suit to position
+                self.addSubview(currentSuit)
+                validSuit.removeFromSuperview()
+                self.animateSuit(Suit: currentSuit, ToPosition: suitNewCenter)
                 
-            } else {
-                //Do all actions to get ready for the next card
-                self.currentCardCompleted()
-            }
+                //add a count to pushups this card
+                //self.currentPushupCountLabel.text = "\(self.currentPushupCount)"
+                print("suitCenterInSuperVIew: \(NSStringFromCGPoint(suitCenter)), SuitDesiredNewCenterInSuperView: \(NSStringFromCGPoint(suitNewCenter)), SuitActualNewCenterInSuperView: \(NSStringFromCGPoint(currentSuit.center))")
+                
+                let currentCard = self.callBack!.currentCardBeingDisplayed()
+                if currentCard.rank.rawValue != self.currentPushupCount {
+                    //If the pushup count doesnt match rank, keep doing pushups
+                    
+                } else {
+                    //Do all actions to get ready for the next card
+                    self.currentCardCompleted()
+                }
+                
+                
+            })
 
+        } else {
+            //Card is jack, qeen, king, or joker.  Maybe do different animation
             
-        })
+        }
         
     }
     //this should be in controller
@@ -631,6 +640,9 @@ extension LWGameView {
             pushupCompleted()
         }
     }
+    
+    
+
 }
 
 

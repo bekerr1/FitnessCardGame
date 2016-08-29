@@ -18,8 +18,7 @@
 		F41D8BE31CFB465D00458A3F /* LewisWorkoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8BE21CFB465D00458A3F /* LewisWorkoutTests.swift */; };
 		F41D8BEE1CFB465D00458A3F /* LewisWorkoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8BED1CFB465D00458A3F /* LewisWorkoutUITests.swift */; };
 		F41D8C021CFB4F8600458A3F /* LWGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8C011CFB4F8600458A3F /* LWGameViewController.swift */; };
-		F41D8C041CFD712C00458A3F /* LWDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8C031CFD712C00458A3F /* LWDeckViewController.swift */; };
-		F41D8C071CFEA2CB00458A3F /* LWCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8C061CFEA2CB00458A3F /* LWCardViewController.swift */; };
+		F41D8C041CFD712C00458A3F /* LWCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8C031CFD712C00458A3F /* LWCardViewController.swift */; };
 		F41D8C461CFF825100458A3F /* LWAVDetectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8C451CFF825100458A3F /* LWAVDetectorController.swift */; };
 		F41D8C481CFFD88C00458A3F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = F41D8C471CFFD88C00458A3F /* squarePNG.png */; };
 		F42E7B191D2D8DC0005247B8 /* LWClassicalCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E7B181D2D8DC0005247B8 /* LWClassicalCardLayout.swift */; };
@@ -86,8 +85,7 @@
 		F41D8BED1CFB465D00458A3F /* LewisWorkoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LewisWorkoutUITests.swift; sourceTree = "<group>"; };
 		F41D8BEF1CFB465D00458A3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F41D8C011CFB4F8600458A3F /* LWGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWGameViewController.swift; sourceTree = "<group>"; };
-		F41D8C031CFD712C00458A3F /* LWDeckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWDeckViewController.swift; sourceTree = "<group>"; };
-		F41D8C061CFEA2CB00458A3F /* LWCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWCardViewController.swift; sourceTree = "<group>"; };
+		F41D8C031CFD712C00458A3F /* LWCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWCardViewController.swift; sourceTree = "<group>"; };
 		F41D8C451CFF825100458A3F /* LWAVDetectorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWAVDetectorController.swift; sourceTree = "<group>"; };
 		F41D8C471CFFD88C00458A3F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
 		F42E7B181D2D8DC0005247B8 /* LWClassicalCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWClassicalCardLayout.swift; sourceTree = "<group>"; };
@@ -190,13 +188,12 @@
 				F41D8C011CFB4F8600458A3F /* LWGameViewController.swift */,
 				F45437AE1D3FFAC600BF4777 /* LWGameView.swift */,
 				F430388C1D6B9FFD00F61E0F /* LWDeckViewContainerController.swift */,
-				F41D8C031CFD712C00458A3F /* LWDeckViewController.swift */,
+				F41D8C031CFD712C00458A3F /* LWCardViewController.swift */,
 				F4F9E6CD1D15FE1E000BFCB0 /* LWCardBackView.swift */,
 				F4F9E6CF1D15FE2D000BFCB0 /* LWCardFrontView.swift */,
 				F4F1E8B01D243B3F0034539D /* LewisLayout.swift */,
 				F42E7B181D2D8DC0005247B8 /* LWClassicalCardLayout.swift */,
 				F4F1E8B41D2445240034539D /* LWClassicalCardShapes.swift */,
-				F41D8C061CFEA2CB00458A3F /* LWCardViewController.swift */,
 				F41D8C451CFF825100458A3F /* LWAVDetectorController.swift */,
 				F45437A41D36FE0D00BF4777 /* LWDetectionCenter.swift */,
 				F4FC304A1D05F3360048ADE7 /* LWCard.swift */,
@@ -402,7 +399,7 @@
 				F41D8C461CFF825100458A3F /* LWAVDetectorController.swift in Sources */,
 				F45437A51D36FE0D00BF4777 /* LWDetectionCenter.swift in Sources */,
 				F4F1E8AD1D1ECF950034539D /* LWDetectionStructures.swift in Sources */,
-				F41D8C041CFD712C00458A3F /* LWDeckViewController.swift in Sources */,
+				F41D8C041CFD712C00458A3F /* LWCardViewController.swift in Sources */,
 				F42E7B1B1D2E114F005247B8 /* SwiftQueue.swift in Sources */,
 				F4F1E8B51D2445240034539D /* LWClassicalCardShapes.swift in Sources */,
 				F45437FD1D41D23100BF4777 /* LWCalibrateControlViewController.swift in Sources */,
@@ -418,7 +415,6 @@
 				F41D8BCD1CFB465C00458A3F /* ViewController.swift in Sources */,
 				F45437A91D3D4BA400BF4777 /* LWTestAnimateViewController.swift in Sources */,
 				F41D8BCB1CFB465C00458A3F /* AppDelegate.swift in Sources */,
-				F41D8C071CFEA2CB00458A3F /* LWCardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
