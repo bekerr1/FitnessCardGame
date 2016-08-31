@@ -12,7 +12,6 @@
 		F41D8BCB1CFB465C00458A3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */; };
 		F41D8BCD1CFB465C00458A3F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8BCC1CFB465C00458A3F /* ViewController.swift */; };
 		F41D8BD01CFB465D00458A3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F41D8BCE1CFB465D00458A3F /* Main.storyboard */; };
-		F41D8BD31CFB465D00458A3F /* LewisWorkout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F41D8BD11CFB465D00458A3F /* LewisWorkout.xcdatamodeld */; };
 		F41D8BD51CFB465D00458A3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F41D8BD41CFB465D00458A3F /* Assets.xcassets */; };
 		F41D8BD81CFB465D00458A3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F41D8BD61CFB465D00458A3F /* LaunchScreen.storyboard */; };
 		F41D8BE31CFB465D00458A3F /* LewisWorkoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8BE21CFB465D00458A3F /* LewisWorkoutTests.swift */; };
@@ -74,7 +73,6 @@
 		F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F41D8BCC1CFB465C00458A3F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F41D8BCF1CFB465D00458A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F41D8BD21CFB465D00458A3F /* LewisWorkout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LewisWorkout.xcdatamodel; sourceTree = "<group>"; };
 		F41D8BD41CFB465D00458A3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F41D8BD71CFB465D00458A3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F41D8BD91CFB465D00458A3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 				F41D8BD41CFB465D00458A3F /* Assets.xcassets */,
 				F41D8BD61CFB465D00458A3F /* LaunchScreen.storyboard */,
 				F41D8BD91CFB465D00458A3F /* Info.plist */,
-				F41D8BD11CFB465D00458A3F /* LewisWorkout.xcdatamodeld */,
 				55ABDA681D35200200DE03CA /* Suits.xcassets */,
 				F454379E1D35726E00BF4777 /* Stages.xcassets */,
 				55ABDA9E1D35D69B00DE03CA /* LWStartTableViewController.swift */,
@@ -406,7 +403,6 @@
 				F4ABCDF81D32A7C700F52D8C /* LWStartView.swift in Sources */,
 				F430388D1D6B9FFD00F61E0F /* LWDeckViewContainerController.swift in Sources */,
 				F42E7B191D2D8DC0005247B8 /* LWClassicalCardLayout.swift in Sources */,
-				F41D8BD31CFB465D00458A3F /* LewisWorkout.xcdatamodeld in Sources */,
 				F41D8C021CFB4F8600458A3F /* LWGameViewController.swift in Sources */,
 				F4F9E6CE1D15FE1E000BFCB0 /* LWCardBackView.swift in Sources */,
 				55ABDA9F1D35D69B00DE03CA /* LWStartTableViewController.swift in Sources */,
@@ -666,19 +662,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F41D8BD11CFB465D00458A3F /* LewisWorkout.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F41D8BD21CFB465D00458A3F /* LewisWorkout.xcdatamodel */,
-			);
-			currentVersion = F41D8BD21CFB465D00458A3F /* LewisWorkout.xcdatamodel */;
-			path = LewisWorkout.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = F41D8BBF1CFB465C00458A3F /* Project object */;
 }

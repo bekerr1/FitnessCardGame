@@ -27,16 +27,15 @@ extension LWStartViewController : UIViewControllerTransitioningDelegate {
 
 class LWStartViewController: UIViewController, TableResponseDelegate {
     
-    @IBOutlet var startView: LWStartView!
+    //@IBOutlet var startView: LWStartView!
     @IBOutlet weak var containerView: UIView!
     private let tapPresentAnimation = TapPresentAnimationController()
     private var presentationOrigin = CGRectZero
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        startView.configure()
-        
+        (self.view as! LWStartView).configure()
+        //startView.configure()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -46,8 +45,8 @@ class LWStartViewController: UIViewController, TableResponseDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-        startView.programmedAnimation()
+        (self.view as! LWStartView).programmedAnimation()
+        //startView.programmedAnimation()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -129,8 +128,9 @@ class LWStartViewController: UIViewController, TableResponseDelegate {
         
         if segue.identifier == "LWStageTableSegue" {
             print("LWStageTableSegue")
-            let table = segue.destinationViewController as! LewisStartTableViewController
-            table.delegate = self
+            if let table = segue.destinationViewController as? LWStartTableViewController {
+                table.delegate = self
+            }
             
             
         }
