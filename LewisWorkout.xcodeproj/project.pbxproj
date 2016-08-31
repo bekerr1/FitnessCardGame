@@ -27,7 +27,6 @@
 		F45437A51D36FE0D00BF4777 /* LWDetectionCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437A41D36FE0D00BF4777 /* LWDetectionCenter.swift */; };
 		F45437A71D3D3F3700BF4777 /* TapPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437A61D3D3F3700BF4777 /* TapPresentAnimationController.swift */; };
 		F45437A91D3D4BA400BF4777 /* LWTestAnimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437A81D3D4BA400BF4777 /* LWTestAnimateViewController.swift */; };
-		F45437AB1D3DA20900BF4777 /* LWGamePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437AA1D3DA20900BF4777 /* LWGamePresentationController.swift */; };
 		F45437AF1D3FFAC600BF4777 /* LWGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437AE1D3FFAC600BF4777 /* LWGameView.swift */; };
 		F45437F81D41924700BF4777 /* LWSliderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437F51D41924700BF4777 /* LWSliderLayer.swift */; };
 		F45437F91D41924700BF4777 /* LWAnimatedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437F61D41924700BF4777 /* LWAnimatedSlider.swift */; };
@@ -143,6 +142,7 @@
 			children = (
 				F41D8BCC1CFB465C00458A3F /* ViewController.swift */,
 				F4F1E8B01D243B3F0034539D /* LewisLayout.swift */,
+				F45437AA1D3DA20900BF4777 /* LWGamePresentationController.swift */,
 			);
 			name = Deprecated;
 			sourceTree = "<group>";
@@ -206,7 +206,6 @@
 				F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */,
 				F42E7B1A1D2E114F005247B8 /* SwiftQueue.swift */,
 				F45437A61D3D3F3700BF4777 /* TapPresentAnimationController.swift */,
-				F45437AA1D3DA20900BF4777 /* LWGamePresentationController.swift */,
 				F41D8BD41CFB465D00458A3F /* Assets.xcassets */,
 				F41D8BCE1CFB465D00458A3F /* Main.storyboard */,
 				F41D8BD61CFB465D00458A3F /* LaunchScreen.storyboard */,
@@ -408,7 +407,6 @@
 				F41D8C021CFB4F8600458A3F /* LWGameViewController.swift in Sources */,
 				F4F9E6CE1D15FE1E000BFCB0 /* LWCardBackView.swift in Sources */,
 				55ABDA9F1D35D69B00DE03CA /* LWStartTableViewController.swift in Sources */,
-				F45437AB1D3DA20900BF4777 /* LWGamePresentationController.swift in Sources */,
 				F45437A91D3D4BA400BF4777 /* LWTestAnimateViewController.swift in Sources */,
 				F41D8BCB1CFB465C00458A3F /* AppDelegate.swift in Sources */,
 			);
