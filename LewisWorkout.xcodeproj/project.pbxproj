@@ -213,12 +213,12 @@
 			isa = PBXGroup;
 			children = (
 				F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */,
-				F45437FB1D41924F00BF4777 /* CalibrateSlider */,
 				55CFC6471D773BD400453DA1 /* Start Presentation */,
 				55CFC6481D773E9700453DA1 /* Game Play */,
 				F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */,
 				F42E7B1A1D2E114F005247B8 /* SwiftQueue.swift */,
 				F45437A61D3D3F3700BF4777 /* TapPresentAnimationController.swift */,
+				F45437FB1D41924F00BF4777 /* CalibrateSlider */,
 				F41D8BD41CFB465D00458A3F /* Assets.xcassets */,
 				F41D8BCE1CFB465D00458A3F /* Main.storyboard */,
 				F41D8BD61CFB465D00458A3F /* LaunchScreen.storyboard */,
