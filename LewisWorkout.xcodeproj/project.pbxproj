@@ -147,6 +147,17 @@
 			name = Deprecated;
 			sourceTree = "<group>";
 		};
+		55CFC6471D773BD400453DA1 /* Start Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				F4ABCDF51D32A77700F52D8C /* LWStartViewController.swift */,
+				F4ABCDF71D32A7C700F52D8C /* LWStartView.swift */,
+				55ABDA9E1D35D69B00DE03CA /* LWStartTableViewController.swift */,
+				F45437A01D36956F00BF4777 /* LWStartAnimations.swift */,
+			);
+			name = "Start Presentation";
+			sourceTree = "<group>";
+		};
 		F41D8BBE1CFB465C00458A3F = {
 			isa = PBXGroup;
 			children = (
@@ -173,9 +184,7 @@
 				F45437FB1D41924F00BF4777 /* CalibrateSlider */,
 				55ABDAA01D35E37C00DE03CA /* Deprecated */,
 				F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */,
-				F4ABCDF51D32A77700F52D8C /* LWStartViewController.swift */,
-				F4ABCDF71D32A7C700F52D8C /* LWStartView.swift */,
-				F45437A01D36956F00BF4777 /* LWStartAnimations.swift */,
+				55CFC6471D773BD400453DA1 /* Start Presentation */,
 				F454379A1D356EC000BF4777 /* LWStageView.swift */,
 				F45437981D33077500BF4777 /* LWStageTableView.swift */,
 				F4A5AF4E1D18F4A400CA5ED4 /* LWDeckPlaceholderView.swift */,
@@ -195,7 +204,6 @@
 				F4FC304C1D05F4EB0048ADE7 /* LWDeck.swift */,
 				F4A5AF501D18FDEA00CA5ED4 /* GeormetricConstants.swift */,
 				F42E7B1A1D2E114F005247B8 /* SwiftQueue.swift */,
-				55ABDA9E1D35D69B00DE03CA /* LWStartTableViewController.swift */,
 				F45437A61D3D3F3700BF4777 /* TapPresentAnimationController.swift */,
 				F45437AA1D3DA20900BF4777 /* LWGamePresentationController.swift */,
 				F45437A81D3D4BA400BF4777 /* LWTestAnimateViewController.swift */,
