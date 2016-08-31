@@ -140,6 +140,8 @@
 		55ABDAA01D35E37C00DE03CA /* Deprecated */ = {
 			isa = PBXGroup;
 			children = (
+				F454379A1D356EC000BF4777 /* LWStageView.swift */,
+				F45437981D33077500BF4777 /* LWStageTableView.swift */,
 				F41D8BCC1CFB465C00458A3F /* ViewController.swift */,
 				F4F1E8B01D243B3F0034539D /* LewisLayout.swift */,
 				F45437AA1D3DA20900BF4777 /* LWGamePresentationController.swift */,
@@ -185,8 +187,6 @@
 				F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */,
 				F45437FB1D41924F00BF4777 /* CalibrateSlider */,
 				55CFC6471D773BD400453DA1 /* Start Presentation */,
-				F454379A1D356EC000BF4777 /* LWStageView.swift */,
-				F45437981D33077500BF4777 /* LWStageTableView.swift */,
 				F4A5AF4E1D18F4A400CA5ED4 /* LWDeckPlaceholderView.swift */,
 				F41D8C011CFB4F8600458A3F /* LWGameViewController.swift */,
 				F45437AE1D3FFAC600BF4777 /* LWGameView.swift */,
