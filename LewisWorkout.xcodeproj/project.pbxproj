@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		55ABDA691D35200200DE03CA /* Suits.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55ABDA681D35200200DE03CA /* Suits.xcassets */; };
 		55ABDA9F1D35D69B00DE03CA /* LWStartTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ABDA9E1D35D69B00DE03CA /* LWStartTableViewController.swift */; };
+		55CFC6461D773A2200453DA1 /* ArtWork.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55CFC6451D773A2100453DA1 /* ArtWork.xcassets */; };
 		F41D8BCB1CFB465C00458A3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */; };
 		F41D8BD01CFB465D00458A3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F41D8BCE1CFB465D00458A3F /* Main.storyboard */; };
 		F41D8BD51CFB465D00458A3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F41D8BD41CFB465D00458A3F /* Assets.xcassets */; };
@@ -18,7 +19,6 @@
 		F41D8C021CFB4F8600458A3F /* LWGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8C011CFB4F8600458A3F /* LWGameViewController.swift */; };
 		F41D8C041CFD712C00458A3F /* LWCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8C031CFD712C00458A3F /* LWCardViewController.swift */; };
 		F41D8C461CFF825100458A3F /* LWAVDetectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D8C451CFF825100458A3F /* LWAVDetectorController.swift */; };
-		F41D8C481CFFD88C00458A3F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = F41D8C471CFFD88C00458A3F /* squarePNG.png */; };
 		F42E7B191D2D8DC0005247B8 /* LWClassicalCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E7B181D2D8DC0005247B8 /* LWClassicalCardLayout.swift */; };
 		F42E7B1B1D2E114F005247B8 /* SwiftQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E7B1A1D2E114F005247B8 /* SwiftQueue.swift */; };
 		F430388D1D6B9FFD00F61E0F /* LWDeckViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F430388C1D6B9FFD00F61E0F /* LWDeckViewContainerController.swift */; };
@@ -28,7 +28,6 @@
 		F45437A71D3D3F3700BF4777 /* TapPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437A61D3D3F3700BF4777 /* TapPresentAnimationController.swift */; };
 		F45437A91D3D4BA400BF4777 /* LWTestAnimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437A81D3D4BA400BF4777 /* LWTestAnimateViewController.swift */; };
 		F45437AB1D3DA20900BF4777 /* LWGamePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437AA1D3DA20900BF4777 /* LWGamePresentationController.swift */; };
-		F45437AD1D3F00F700BF4777 /* blankFace.png in Resources */ = {isa = PBXBuildFile; fileRef = F45437AC1D3F00F700BF4777 /* blankFace.png */; };
 		F45437AF1D3FFAC600BF4777 /* LWGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437AE1D3FFAC600BF4777 /* LWGameView.swift */; };
 		F45437F81D41924700BF4777 /* LWSliderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437F51D41924700BF4777 /* LWSliderLayer.swift */; };
 		F45437F91D41924700BF4777 /* LWAnimatedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45437F61D41924700BF4777 /* LWAnimatedSlider.swift */; };
@@ -67,6 +66,7 @@
 /* Begin PBXFileReference section */
 		55ABDA681D35200200DE03CA /* Suits.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Suits.xcassets; sourceTree = "<group>"; };
 		55ABDA9E1D35D69B00DE03CA /* LWStartTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWStartTableViewController.swift; sourceTree = "<group>"; };
+		55CFC6451D773A2100453DA1 /* ArtWork.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ArtWork.xcassets; sourceTree = "<group>"; };
 		F41D8BC71CFB465C00458A3F /* LewisWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LewisWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F41D8BCC1CFB465C00458A3F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +83,6 @@
 		F41D8C011CFB4F8600458A3F /* LWGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWGameViewController.swift; sourceTree = "<group>"; };
 		F41D8C031CFD712C00458A3F /* LWCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWCardViewController.swift; sourceTree = "<group>"; };
 		F41D8C451CFF825100458A3F /* LWAVDetectorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWAVDetectorController.swift; sourceTree = "<group>"; };
-		F41D8C471CFFD88C00458A3F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
 		F42E7B181D2D8DC0005247B8 /* LWClassicalCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWClassicalCardLayout.swift; sourceTree = "<group>"; };
 		F42E7B1A1D2E114F005247B8 /* SwiftQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftQueue.swift; sourceTree = "<group>"; };
 		F430388C1D6B9FFD00F61E0F /* LWDeckViewContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWDeckViewContainerController.swift; sourceTree = "<group>"; };
@@ -95,7 +94,6 @@
 		F45437A61D3D3F3700BF4777 /* TapPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapPresentAnimationController.swift; sourceTree = "<group>"; };
 		F45437A81D3D4BA400BF4777 /* LWTestAnimateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWTestAnimateViewController.swift; sourceTree = "<group>"; };
 		F45437AA1D3DA20900BF4777 /* LWGamePresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWGamePresentationController.swift; sourceTree = "<group>"; };
-		F45437AC1D3F00F700BF4777 /* blankFace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blankFace.png; sourceTree = "<group>"; };
 		F45437AE1D3FFAC600BF4777 /* LWGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LWGameView.swift; sourceTree = "<group>"; };
 		F45437F51D41924700BF4777 /* LWSliderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LWSliderLayer.swift; path = CalibrateSlider/LWSliderLayer.swift; sourceTree = "<group>"; };
 		F45437F61D41924700BF4777 /* LWAnimatedSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LWAnimatedSlider.swift; path = CalibrateSlider/LWAnimatedSlider.swift; sourceTree = "<group>"; };
@@ -174,8 +172,6 @@
 			children = (
 				F45437FB1D41924F00BF4777 /* CalibrateSlider */,
 				55ABDAA01D35E37C00DE03CA /* Deprecated */,
-				F41D8C471CFFD88C00458A3F /* squarePNG.png */,
-				F45437AC1D3F00F700BF4777 /* blankFace.png */,
 				F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */,
 				F4ABCDF51D32A77700F52D8C /* LWStartViewController.swift */,
 				F4ABCDF71D32A7C700F52D8C /* LWStartView.swift */,
@@ -209,6 +205,7 @@
 				F45437A61D3D3F3700BF4777 /* TapPresentAnimationController.swift */,
 				F45437AA1D3DA20900BF4777 /* LWGamePresentationController.swift */,
 				F45437A81D3D4BA400BF4777 /* LWTestAnimateViewController.swift */,
+				55CFC6451D773A2100453DA1 /* ArtWork.xcassets */,
 			);
 			path = LewisWorkout;
 			sourceTree = "<group>";
@@ -349,10 +346,9 @@
 			files = (
 				F41D8BD81CFB465D00458A3F /* LaunchScreen.storyboard in Resources */,
 				F41D8BD51CFB465D00458A3F /* Assets.xcassets in Resources */,
-				F41D8C481CFFD88C00458A3F /* squarePNG.png in Resources */,
 				F454379F1D35726E00BF4777 /* Stages.xcassets in Resources */,
-				F45437AD1D3F00F700BF4777 /* blankFace.png in Resources */,
 				F41D8BD01CFB465D00458A3F /* Main.storyboard in Resources */,
+				55CFC6461D773A2200453DA1 /* ArtWork.xcassets in Resources */,
 				55ABDA691D35200200DE03CA /* Suits.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
