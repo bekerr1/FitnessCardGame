@@ -182,9 +182,8 @@
 		F41D8BC91CFB465C00458A3F /* LewisWorkout */ = {
 			isa = PBXGroup;
 			children = (
-				F45437FB1D41924F00BF4777 /* CalibrateSlider */,
-				55ABDAA01D35E37C00DE03CA /* Deprecated */,
 				F41D8BCA1CFB465C00458A3F /* AppDelegate.swift */,
+				F45437FB1D41924F00BF4777 /* CalibrateSlider */,
 				55CFC6471D773BD400453DA1 /* Start Presentation */,
 				F454379A1D356EC000BF4777 /* LWStageView.swift */,
 				F45437981D33077500BF4777 /* LWStageTableView.swift */,
@@ -213,6 +212,7 @@
 				55ABDA681D35200200DE03CA /* Suits.xcassets */,
 				F454379E1D35726E00BF4777 /* Stages.xcassets */,
 				55CFC6451D773A2100453DA1 /* ArtWork.xcassets */,
+				55ABDAA01D35E37C00DE03CA /* Deprecated */,
 			);
 			path = LewisWorkout;
 			sourceTree = "<group>";
