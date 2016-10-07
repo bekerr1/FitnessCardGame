@@ -58,20 +58,7 @@ struct DetectionConfidence {
     
     mutating func checkConfidence(ForMotion position: PushupPosition) -> Bool {
         
-        //if high confidence or medium confidence, change can be linient and still pass
-//        if confidenceInDetection >= (highConfidence * tolerance) && lenientChange(ForMotion: position)  {
-//            return true
-//        } else if confidenceInDetection >= (mediumConfidence * tolerance) && lenientChange(ForMotion: position) {
-//            return true
-//            //when confidence is low, must have a confident change to pass
-//        } else if confidenceInDetection >= (lowConfidence * tolerance) && confidentChange(ForMotion: position) {
-//            return true
-//        } else if confidentChange(ForMotion: position) {
-//            return true
-//        } else {
-//            //not enough proof to complete current motion
-//        }
-//        return false
+
         if confidentChange(ForMotion: position) {
             return true
         } else {
@@ -259,6 +246,21 @@ struct FaceRectFilter {
 
 
 
+
+//if high confidence or medium confidence, change can be linient and still pass
+//        if confidenceInDetection >= (highConfidence * tolerance) && lenientChange(ForMotion: position)  {
+//            return true
+//        } else if confidenceInDetection >= (mediumConfidence * tolerance) && lenientChange(ForMotion: position) {
+//            return true
+//            //when confidence is low, must have a confident change to pass
+//        } else if confidenceInDetection >= (lowConfidence * tolerance) && confidentChange(ForMotion: position) {
+//            return true
+//        } else if confidentChange(ForMotion: position) {
+//            return true
+//        } else {
+//            //not enough proof to complete current motion
+//        }
+//        return false
 //class FaceRectAnalyzer {
 //
 //    var faceRectQueue = DetectionQueue<CGRect>()

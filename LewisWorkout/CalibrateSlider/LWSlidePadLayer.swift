@@ -14,12 +14,7 @@ class LWSlidePadLayer: CALayer {
     let gradient = CAGradientLayer()
     let gradient1 = CAGradientLayer()
     
-    override init() {
-        //Generic init
-        super.init()
-        
-        
-    }
+    override init() {super.init()}
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
