@@ -20,7 +20,7 @@ protocol TableResponseDelegate {
 }
 
 
-class LewisStartTableViewController: UITableViewController {
+class LWStartTableViewController: UITableViewController {
 
     
     var delegate: TableResponseDelegate?
