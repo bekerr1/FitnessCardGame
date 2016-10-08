@@ -59,11 +59,11 @@ class LWStartTableViewController: UITableViewController {
                 
             } else if indexPath.row == 2 {
                 stageCell.stageImageView.image = UIImage(named: "menuItem - 3")
-                stageCell.stageLabel.text = "Soccer"
+                stageCell.stageLabel.text = "Gym"
                 
             }else if indexPath.row == 3 {
                 stageCell.stageImageView.image = UIImage(named: "menuItem - 4")
-                stageCell.stageLabel.text = "Hockey"
+                stageCell.stageLabel.text = "Track"
                 
             }
         }

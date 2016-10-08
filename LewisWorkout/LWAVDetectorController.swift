@@ -216,6 +216,7 @@ class LWAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferDele
             
             //OUTPUT DEVICE
             self.captureDataOutput.setSampleBufferDelegate(self, queue: self.videoDataQueue)
+            
             //SWift having trouble converting this
             //self.captureDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey : kCVPixelFormatType_32BGRA as!  AnyObject]
             //print("captureData VideoSettings? = \(self.captureDataOutput.videoSettings.description)")
@@ -376,7 +377,7 @@ class LWAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferDele
             }
             
             //areas for detection center
-            if facesFound % 1 == 0 {
+            if facesFound % 3 == 0 {
                 delegate.newFaceArea(faceRectArea)
             }
             

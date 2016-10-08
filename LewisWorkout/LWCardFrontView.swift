@@ -24,7 +24,8 @@ class LWCardFrontView: UIView {
     
     lazy var cardTopLabel: UILabel = {
         let returnLabel = UILabel(frame: CGRectZero)
-        returnLabel.backgroundColor = UIColor.yellowColor()
+        //returnLabel.backgroundColor = UIColor.yellowColor()
+        returnLabel.backgroundColor = UIColor.whiteColor()
         returnLabel.textAlignment = .Center
         returnLabel.font = UIFont(name: "Menlo-Bold", size: 25)
         returnLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius
@@ -35,7 +36,8 @@ class LWCardFrontView: UIView {
     
     lazy var cardBottomLabel: UILabel = {
         let returnLabel = UILabel(frame: CGRectZero)
-        returnLabel.backgroundColor = UIColor.yellowColor()
+        //returnLabel.backgroundColor = UIColor.yellowColor()
+        returnLabel.backgroundColor = UIColor.whiteColor()
         returnLabel.textAlignment = .Center
         returnLabel.font = UIFont(name: "Menlo-Bold", size: 25)
         returnLabel.layer.cornerRadius = LewisGeometricConstants.cornerRadius

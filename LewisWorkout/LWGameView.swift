@@ -108,6 +108,7 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     var deckTapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
     
     //View Model (does this belong in the controller??)
+    var pushData: PushupData = PushupData()
     var faceRectAreasForAccelerate: [Float] = Array()
     var faceRectFilter: FaceRectFilter?
     var currentPosition: PushupPosition?
@@ -733,23 +734,28 @@ extension LWGameView {
     //Called from a queue other than main queue
     func newFaceArea(area: CGFloat) {
         
-        if faceRectAreasForAccelerate.count > 4 {
-            if faceRectFilter == nil {
-                currentPosition = .up
-                faceRectFilter = FaceRectFilter(WithInitialPoints: faceRectAreasForAccelerate, FromNumberOfValues: UInt(faceRectAreasForAccelerate.count), CurrentMotion: currentPosition!)
-                faceRectFilter?.delegate = self
-            } else {
-                if currentPosition == .up {
-                    faceRectFilter?.newAreaArrived(area, Operation: >, Condition: <)
-                } else {
-                    faceRectFilter?.newAreaArrived(area, Operation: <, Condition: >)
-                }
-                //faceRectFilter?.newAreaArrived(area)
-            }
-        } else {
-            faceRectAreasForAccelerate.append(Float(area))
-        }
+        dispatch_async(dispatch_get_main_queue(), {
+            self.pushData.insertValue(ToAnalyze: Float(area))
+            
+        })
         
+        
+//        if faceRectAreasForAccelerate.count > 4 {
+//            if faceRectFilter == nil {
+//                currentPosition = .up
+//                faceRectFilter = FaceRectFilter(WithInitialPoints: faceRectAreasForAccelerate, FromNumberOfValues: UInt(faceRectAreasForAccelerate.count), CurrentMotion: currentPosition!)
+//                faceRectFilter?.delegate = self
+//            } else {
+//                if currentPosition == .up {
+//                    faceRectFilter?.newAreaArrived(area, Operation: >, Condition: <)
+//                } else {
+//                    faceRectFilter?.newAreaArrived(area, Operation: <, Condition: >)
+//                }
+//                //faceRectFilter?.newAreaArrived(area)
+//            }
+//        } else {
+//            faceRectAreasForAccelerate.append(Float(area))
+//        }
         
     }
 }

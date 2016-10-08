@@ -112,7 +112,7 @@ struct FaceRectFilter {
     var lastAreaFromPreviousMotion: CGFloat = 0.0
     var delegate: PushupDelegate?
     var currentMotion: PushupPosition
-    var currentSamplesF: [Float]
+    var currentSamplesF: [Float] = Array()
     var runningMeanF: Float = 0.0
     var lastValue: CGFloat
     var currentSamplePointer: Int = 0
@@ -244,6 +244,159 @@ struct FaceRectFilter {
 }
 
 
+
+
+struct PushupData {
+    
+    enum ValueDescription {
+        
+        case increasing(Int, Float, Float, Float)
+        case decreasing(Int, Float, Float, Float)
+        case neutral
+        
+        var thisManyTimes: Int {
+            switch self {
+            case .increasing(let times, _,  _, _):
+                return times
+                
+            case .decreasing(let times, _, _, _):
+                return times
+                
+            case neutral:
+                return 0
+            }
+        }
+        
+        var change: Float {
+            switch self {
+            case .increasing(_, let val, let previous, let change):
+                return change + (val - previous)
+            case .decreasing(_, let val, let previous, let change):
+                return change + (previous - val)
+            case .neutral:
+                return 0
+            }
+        }
+    }
+    
+    var maxValue: Float?
+    var minValue: Float?
+    var meanValue: Float?
+    var pushupValues: [Float] = Array()
+    var pushupCounter: Int = 0
+    var changeInPushup: Float = 0
+    var valueCount: Int = 0
+    var frameCount: Int = 0
+    var vDescription: ValueDescription = .neutral
+    var previousValue: Float = 0.0
+    
+
+    var valueAnalyzer: (Float, Float, Int, Float) -> (Int, Float)
+    
+    init() {
+        self.valueAnalyzer = { previousValue, value, count, change in return (0, 0)}
+        createAnalyzer()
+    }
+    
+    mutating func createAnalyzer() {
+        
+        self.valueAnalyzer = { previousValue, value, count, totalChange in
+            
+            var returnCount = 0
+            var returnChange: Float = 0.0
+            
+            switch self.vDescription {
+            case .increasing(count, _, _, _):
+                if value > previousValue - 1000 {
+                    
+                    self.vDescription = .increasing(count + 1, value, previousValue, totalChange)
+                    print("increasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
+                    
+                } else if value == previousValue {
+                    self.vDescription = .increasing(count + 1, value, previousValue, 0)
+                } else {
+                    self.vDescription = .decreasing(0, 0, 0, 0)
+                    return (0, 0)
+                }
+                
+                returnCount = count + 1
+                returnChange = self.vDescription.change
+                
+            case .decreasing(count, _, _, _):
+                if value < previousValue + 1000 {
+                    
+                    self.vDescription = .decreasing(count + 1, value, previousValue, totalChange)
+                    print("decreasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
+                    
+                } else if value == previousValue {
+                    self.vDescription = .decreasing(count + 1, value, previousValue, 0)
+                } else {
+                    self.vDescription = .increasing(0, 0, 0, 0)
+                    return (0, 0)
+                }
+                
+                returnCount = count + 1
+                returnChange = self.vDescription.change
+                
+            case .neutral:
+                
+                print("starting out neutral")
+                self.vDescription = value >= previousValue ? .increasing(count, value, 0, totalChange) : .decreasing(count, value, 0, totalChange)
+                return (count, totalChange)
+                
+            default:
+                
+                print("IS NEUTRAL")
+                self.vDescription = .neutral
+            }
+            return (returnCount, returnChange)
+        }
+
+        
+    }
+    
+    mutating func insertValue(ToAnalyze value: Float) {
+        frameCount += 1
+        if frameCount > 50 {
+            print("new value to analyze \(value)")
+            pushupValues.append(value)
+            (pushupCounter, changeInPushup) = valueAnalyzer(previousValue, value, pushupCounter, changeInPushup)
+        } else {
+            print("still ignoring frames")
+        }
+        
+        previousValue = value
+    }
+    
+    
+}
+
+//self.valueAnalyzer = { previousValue, value in
+//    
+//    switch self.vDescription {
+//    case .increasing(Int(previousValue)):
+//        if value > previousValue {
+//            print("increasing value")
+//            self.vDescription = .increasing(value)
+//        }
+//        break
+//        
+//    case .decreasing(Int(previousValue)):
+//        if value < previousValue {
+//            print("decreasing value")
+//            self.vDescription = .decreasing(value)
+//        }
+//        break
+//        
+//    case .neutral:
+//        print("starting out neutral")
+//        self.vDescription = value >= previousValue ? .increasing(value) : .decreasing(value)
+//        
+//    default:
+//        print("IS NEUTRAL")
+//        self.vDescription = .neutral
+//    }
+//}
 
 
 

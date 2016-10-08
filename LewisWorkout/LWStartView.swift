@@ -122,7 +122,7 @@ class LWStartView: UIView {
     
     func configureLabels() {
         
-        toplabel.text = "Push-up"
+        toplabel.text = "52 Card"
         toplabel.textAlignment = .Center
         toplabel.textColor = UIColor.whiteColor()
         toplabel.font = UIFont(name: "Futura-CondensedExtraBold", size: 50)
@@ -133,7 +133,7 @@ class LWStartView: UIView {
         toplabel.center = CGPointMake(-toplabel.frame.width/2, self.frame.height/2 - labelDistance - labelHeightOffset)
         //toplabel.backgroundColor = UIColor.redColor()
         
-        bottomLabel.text = "Card Game"
+        bottomLabel.text = "Push-up"
         bottomLabel.textAlignment = .Center
         bottomLabel.font = UIFont(name: "Futura-CondensedExtraBold", size: 50)
         bottomLabel.textColor = UIColor.whiteColor()
