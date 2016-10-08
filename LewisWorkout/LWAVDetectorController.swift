@@ -377,8 +377,11 @@ class LWAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferDele
             }
             
             //areas for detection center
-            if facesFound % 3 == 0 {
-                delegate.newFaceArea(faceRectArea)
+            if facesFound % 1 == 0 {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.delegate.newFaceArea(faceRectArea)
+                })
+                
             }
             
 

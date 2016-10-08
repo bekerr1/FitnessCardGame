@@ -245,8 +245,35 @@ struct FaceRectFilter {
 
 
 
+struct PushupStatistics {
+    
+    var maxValues: [Float] = Array()
+    var minValues: [Float] = Array()
+    var averageMaxValue: Float {
+        didSet {
+            medianOfAverages = averageMaxValue - averageMinValue
+        }
+    }
+    var averageMinValue: Float {
+        didSet {
+            medianOfAverages = averageMaxValue - averageMinValue
+        }
+    }
 
-struct PushupData {
+    var medianOfAverages: Float?
+    
+    
+}
+
+
+
+enum BadStatisticError: ErrorType {
+    case badStatistic(String)
+}
+
+
+//Made up of all value types!! could this be a struct or is it too big??!?! Large structs are stored on the heap anyway, is the class mem allocation really that bad...
+class PushupData {
     
     enum ValueDescription {
         
@@ -267,6 +294,17 @@ struct PushupData {
             }
         }
         
+        var currentValue: Float {
+            switch self {
+            case .increasing(_, let currentVal, _, _):
+                return currentVal
+            case .decreasing(_, let currentVal, _, _):
+                return currentVal
+            case .neutral:
+                return 0
+            }
+        }
+        
         var change: Float {
             switch self {
             case .increasing(_, let val, let previous, let change):
@@ -276,6 +314,18 @@ struct PushupData {
             case .neutral:
                 return 0
             }
+        }
+        
+        var valueType: String {
+            switch self {
+            case .increasing(_, _, _, _):
+                return "Max"
+            case .decreasing(_, _, _, _):
+                return "Min"
+            default:
+                "Something Else"
+            }
+            return ""
         }
     }
     
@@ -290,86 +340,154 @@ struct PushupData {
     var vDescription: ValueDescription = .neutral
     var previousValue: Float = 0.0
     
-
-    var valueAnalyzer: (Float, Float, Int, Float) -> (Int, Float)
+    //var valueAnalyzer: (Float, Float, Int, Float) -> (Int, Float)
     
-    init() {
-        self.valueAnalyzer = { previousValue, value, count, change in return (0, 0)}
-        createAnalyzer()
-    }
+    init() {}
     
-    mutating func createAnalyzer() {
+    func valueAnalyzer(OfPrevious previousValue: Float, Current value: Float, PushupCount count: Int, ChangeInValue totalChange: Float) -> (Int, Float, String) {
         
-        self.valueAnalyzer = { previousValue, value, count, totalChange in
-            
-            var returnCount = 0
-            var returnChange: Float = 0.0
-            
-            switch self.vDescription {
-            case .increasing(count, _, _, _):
-                if value > previousValue - 1000 {
-                    
-                    self.vDescription = .increasing(count + 1, value, previousValue, totalChange)
-                    print("increasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
-                    
-                } else if value == previousValue {
-                    self.vDescription = .increasing(count + 1, value, previousValue, 0)
-                } else {
-                    self.vDescription = .decreasing(0, 0, 0, 0)
-                    return (0, 0)
-                }
+        switch self.vDescription {
+        case .increasing(count, _, _, _):
+            if value > previousValue - 1000 {
                 
-                returnCount = count + 1
-                returnChange = self.vDescription.change
+                self.vDescription = .increasing(count + 1, value, previousValue, totalChange)
+                //print("increasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
                 
-            case .decreasing(count, _, _, _):
-                if value < previousValue + 1000 {
-                    
-                    self.vDescription = .decreasing(count + 1, value, previousValue, totalChange)
-                    print("decreasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
-                    
-                } else if value == previousValue {
-                    self.vDescription = .decreasing(count + 1, value, previousValue, 0)
-                } else {
-                    self.vDescription = .increasing(0, 0, 0, 0)
-                    return (0, 0)
-                }
-                
-                returnCount = count + 1
-                returnChange = self.vDescription.change
-                
-            case .neutral:
-                
-                print("starting out neutral")
-                self.vDescription = value >= previousValue ? .increasing(count, value, 0, totalChange) : .decreasing(count, value, 0, totalChange)
-                return (count, totalChange)
-                
-            default:
-                
-                print("IS NEUTRAL")
-                self.vDescription = .neutral
+            } else if value == previousValue {
+                self.vDescription = .increasing(count + 1, value, previousValue, 0)
+            } else {
+                self.vDescription = .decreasing(0, 0, 0, 0)
+                return (0, 0, "")
             }
-            return (returnCount, returnChange)
+            
+            
+            
+        case .decreasing(count, _, _, _):
+            if value < previousValue + 1000 {
+                
+                self.vDescription = .decreasing(count + 1, value, previousValue, totalChange)
+                //print("decreasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
+                
+            } else if value == previousValue {
+                self.vDescription = .decreasing(count + 1, value, previousValue, 0)
+            } else {
+                self.vDescription = .increasing(0, 0, 0, 0)
+                return (0, 0, "")
+            }
+            
+            
+        case .neutral:
+            
+            print("starting out neutral")
+            self.vDescription = value >= previousValue ? .increasing(count, value, 0, totalChange) : .decreasing(count, value, 0, totalChange)
+            return (count, totalChange, "")
+            
+        default:
+            
+            print("IS NEUTRAL")
+            self.vDescription = .neutral
         }
-
         
+        return (count + 1, self.vDescription.change, self.vDescription.valueType)
     }
     
-    mutating func insertValue(ToAnalyze value: Float) {
+    
+    func insertValue(ToAnalyze value: Float, GoodStat block: (Int, Float, String) -> ()) throws {
         frameCount += 1
-        if frameCount > 50 {
-            print("new value to analyze \(value)")
+        var stringMaxMinID: String = ""
+        
+        if frameCount > 20 {
+            //print("new value to analyze \(value)")
             pushupValues.append(value)
-            (pushupCounter, changeInPushup) = valueAnalyzer(previousValue, value, pushupCounter, changeInPushup)
+            (pushupCounter, changeInPushup, stringMaxMinID) = valueAnalyzer(OfPrevious: previousValue, Current: value, PushupCount: pushupCounter, ChangeInValue: changeInPushup)
         } else {
             print("still ignoring frames")
         }
         
         previousValue = value
+        
+        guard let _ = goodStatistic() else {
+            throw BadStatisticError.badStatistic("Unreliable Statistic.")
+        }
+        
+        block(pushupCounter, previousValue, stringMaxMinID)
+    }
+    
+    
+    func goodStatistic() -> Bool? {
+        
+        if pushupCounter >= 8 && changeInPushup > 7000 { //just changed to 7000 w/o testing, 6500 worked
+            return true
+        }
+        return nil
     }
     
     
 }
+
+
+
+
+
+
+
+//    mutating func createAnalyzer() {
+//
+//        self.valueAnalyzer = { previousValue, value, count, totalChange in
+//
+//            var returnCount = 0
+//            var returnChange: Float = 0.0
+//
+//            switch self.vDescription {
+//            case .increasing(count, _, _, _):
+//                if value > previousValue - 1000 {
+//
+//                    self.vDescription = .increasing(count + 1, value, previousValue, totalChange)
+//                    print("increasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
+//
+//                } else if value == previousValue {
+//                    self.vDescription = .increasing(count + 1, value, previousValue, 0)
+//                } else {
+//                    self.vDescription = .decreasing(0, 0, 0, 0)
+//                    return (0, 0)
+//                }
+//
+//                returnCount = count + 1
+//                returnChange = self.vDescription.change
+//
+//            case .decreasing(count, _, _, _):
+//                if value < previousValue + 1000 {
+//
+//                    self.vDescription = .decreasing(count + 1, value, previousValue, totalChange)
+//                    print("decreasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
+//
+//                } else if value == previousValue {
+//                    self.vDescription = .decreasing(count + 1, value, previousValue, 0)
+//                } else {
+//                    self.vDescription = .increasing(0, 0, 0, 0)
+//                    return (0, 0)
+//                }
+//
+//                returnCount = count + 1
+//                returnChange = self.vDescription.change
+//
+//            case .neutral:
+//
+//                print("starting out neutral")
+//                self.vDescription = value >= previousValue ? .increasing(count, value, 0, totalChange) : .decreasing(count, value, 0, totalChange)
+//                return (count, totalChange)
+//
+//            default:
+//
+//                print("IS NEUTRAL")
+//                self.vDescription = .neutral
+//            }
+//            return (returnCount, returnChange)
+//        }
+//
+//
+//    }
+
 
 //self.valueAnalyzer = { previousValue, value in
 //    

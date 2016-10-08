@@ -731,13 +731,18 @@ extension LWGameView {
         
     }
     
-    //Called from a queue other than main queue
+    //Sometimes called from a queue other than main queue
     func newFaceArea(area: CGFloat) {
         
-        dispatch_async(dispatch_get_main_queue(), {
-            self.pushData.insertValue(ToAnalyze: Float(area))
+        do {
+            try self.pushData.insertValue(ToAnalyze: Float(area)) { count, value, stringID in
+                print("A good stat was returned with a value of \(value) with an ID of \(stringID)")
+            }
+        } catch (BadStatisticError.badStatistic(let message)) { //bad statistics error has error string
+            print(message)
+        } catch { //catch to catch every other error
             
-        })
+        }
         
         
 //        if faceRectAreasForAccelerate.count > 4 {
