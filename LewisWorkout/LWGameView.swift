@@ -109,6 +109,8 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     
     //View Model (does this belong in the controller??)
     var pushData: PushupData = PushupData()
+    var pushStats: PushupStatistics = PushupStatistics()
+    var calibrationComplete: Bool = false
     var faceRectAreasForAccelerate: [Float] = Array()
     var faceRectFilter: FaceRectFilter?
     var currentPosition: PushupPosition?
@@ -734,15 +736,24 @@ extension LWGameView {
     //Sometimes called from a queue other than main queue
     func newFaceArea(area: CGFloat) {
         
-        do {
-            try self.pushData.insertValue(ToAnalyze: Float(area)) { count, value, stringID in
-                print("A good stat was returned with a value of \(value) with an ID of \(stringID)")
+        if !calibrationComplete {
+            
+            var validDataCollector: (Float) -> ()
+            do {
+                try self.pushData.insertValue(ToAnalyze: Float(area)) { count, value, stringID in
+                    print("A good stat was returned with a value of \(value) with an ID of \(stringID)")
+                    (self.calibrationComplete, validDataCollector) = self.pushStats.needMoreData(WithID: stringID)
+                    validDataCollector(value)
+                }
+            } catch (BadStatisticError.badStatistic(let message)) { //bad statistics error has error string
+                print(message)
+            } catch { //catch to catch every other error
+                
             }
-        } catch (BadStatisticError.badStatistic(let message)) { //bad statistics error has error string
-            print(message)
-        } catch { //catch to catch every other error
+        } else {
             
         }
+        
         
         
 //        if faceRectAreasForAccelerate.count > 4 {

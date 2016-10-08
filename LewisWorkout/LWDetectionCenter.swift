@@ -247,8 +247,11 @@ struct FaceRectFilter {
 
 struct PushupStatistics {
     
-    var maxValues: [Float] = Array()
-    var minValues: [Float] = Array()
+    private var maxValues: [Float] = Array()
+    private var enoughMaxValues: Bool = false
+    private var minValues: [Float] = Array()
+    private var enoughMinValues: Bool = false
+    
     var averageMaxValue: Float {
         didSet {
             medianOfAverages = averageMaxValue - averageMinValue
@@ -262,6 +265,44 @@ struct PushupStatistics {
 
     var medianOfAverages: Float?
     
+    
+    mutating func needMoreData(WithID sid: String) -> (Bool, (Float) -> ()) {
+        switch sid {
+        case "Max":
+            if maxValues.count < 10 {
+                
+                return (false, { data in
+                    print("max value recieved of \(data)")
+                    self.maxValues.append(data)
+                })
+                
+            } else {
+                enoughMaxValues = true
+            }
+        case "Min":
+            if minValues.count < 10 {
+                
+                return (false, { data in
+                    print("min value recieved of \(data)")
+                    self.minValues.append(data)
+                })
+                
+            } else {
+                enoughMinValues = true
+            }
+        default: break
+            
+        }
+        
+        return calibrationComplete()
+    }
+    
+    
+    func calibrationComplete() -> (Bool, (Float) -> ()) {
+        return ((enoughMaxValues && enoughMinValues), {_ in
+            
+        })
+    }
     
 }
 
@@ -416,7 +457,7 @@ class PushupData {
     
     func goodStatistic() -> Bool? {
         
-        if pushupCounter >= 8 && changeInPushup > 7000 { //just changed to 7000 w/o testing, 6500 worked
+        if pushupCounter >= 8 && changeInPushup > 5000 { //just changed to 7000 w/o testing, 6500 worked
             return true
         }
         return nil
