@@ -57,13 +57,7 @@ struct DetectionConfidence {
     
     
     mutating func checkConfidence(ForMotion position: PushupPosition) -> Bool {
-        
-
-        if confidentChange(ForMotion: position) {
-            return true
-        } else {
-            return false
-        }
+        return confidentChange(ForMotion: position)
     }
     
     
@@ -96,9 +90,6 @@ struct DetectionConfidence {
         case .down:
             //downcode
             return (changeInArea < -(strongChange * tolerance)) ? true : false
-            
-//        default:
-//            print("default")
         }
     }
 }
@@ -106,7 +97,7 @@ struct DetectionConfidence {
 
 
 
-struct FaceRectFilter {
+class FaceRectFilter {
     
     var faceAreaArray = Array<CGFloat>()
     var lastAreaFromPreviousMotion: CGFloat = 0.0
@@ -139,7 +130,7 @@ struct FaceRectFilter {
     }
     
     
-    mutating func newAreaArrived(area: CGFloat) {
+    func newAreaArrived(area: CGFloat) {
         
         
         if checkIfAreaIsInRange(Area: area) {
@@ -163,7 +154,7 @@ struct FaceRectFilter {
         }
     }
     
-    mutating func newAreaArrived(area: CGFloat, Operation operate: (Float, Float) -> Bool, Condition condition: (Float, Float) -> Bool) {
+    func newAreaArrived(area: CGFloat, Operation operate: (Float, Float) -> Bool, Condition condition: (Float, Float) -> Bool) {
         
         
         if checkIfAreaIsInRange(Area: area, Operation: operate, Condition: condition) {
@@ -189,7 +180,7 @@ struct FaceRectFilter {
 
 
     
-    mutating func checkIfAreaIsInRange(Area faceRectArea: CGFloat, Operation operate: (Float, Float) -> Bool, Condition condition: (Float, Float) -> Bool) -> Bool {
+    func checkIfAreaIsInRange(Area faceRectArea: CGFloat, Operation operate: (Float, Float) -> Bool, Condition condition: (Float, Float) -> Bool) -> Bool {
         
         var percentOfMean: Float = 0.0
         var minMaxValue: Float = 0.0
@@ -223,7 +214,7 @@ struct FaceRectFilter {
     }
     
     
-    mutating func checkIfAreaIsInRange(Area faceRectArea: CGFloat) -> Bool {
+    func checkIfAreaIsInRange(Area faceRectArea: CGFloat) -> Bool {
         
         //if Float(faceRectArea) < (runningMeanF * upperPercentOfMean) && Float(faceRectArea) > (runningMeanF * lowerPercentOfMean)
         if faceRectArea < (lastValue * upperPercent) && faceRectArea > (lastValue * lowerPercent) {
@@ -245,12 +236,12 @@ struct FaceRectFilter {
 
 
 
-struct PushupStatistics {
+class PushupStatistics {
     
-    private var maxValues: [Float] = Array()
-    private var enoughMaxValues: Bool = false
-    private var minValues: [Float] = Array()
-    private var enoughMinValues: Bool = false
+    private var maxValues: [Float]
+    private var enoughMaxValues: Bool
+    private var minValues: [Float]
+    private var enoughMinValues: Bool
     
     var averageMaxValue: Float {
         didSet {
@@ -266,11 +257,21 @@ struct PushupStatistics {
     var medianOfAverages: Float?
     
     
-    mutating func needMoreData(WithID sid: String) -> (Bool, (Float) -> ()) {
+    init() {
+        maxValues = Array()
+        averageMaxValue = 0.0
+        enoughMaxValues = false
+        
+        minValues = Array()
+        averageMinValue = 0.0
+        enoughMinValues = false
+    }
+    
+    func needMoreData(WithID sid: String) -> (Bool, (Float) -> ()) {
         switch sid {
         case "Max":
-            if maxValues.count < 10 {
-                
+            if maxValues.count < 5 {
+                enoughMaxValues = false
                 return (false, { data in
                     print("max value recieved of \(data)")
                     self.maxValues.append(data)
@@ -281,7 +282,7 @@ struct PushupStatistics {
             }
         case "Min":
             if minValues.count < 10 {
-                
+                enoughMinValues = false
                 return (false, { data in
                     print("min value recieved of \(data)")
                     self.minValues.append(data)
@@ -299,7 +300,14 @@ struct PushupStatistics {
     
     
     func calibrationComplete() -> (Bool, (Float) -> ()) {
+        minValues = Array(Set(minValues))
+        maxValues = Array(Set(maxValues))
         return ((enoughMaxValues && enoughMinValues), {_ in
+            self.averageMaxValue = self.maxValues.reduce(0, combine: +)
+            self.averageMaxValue = (self.maxValues.count != 0) ? self.averageMaxValue / Float(self.maxValues.count) : self.averageMaxValue / 1
+            
+            self.averageMinValue = self.minValues.reduce(0, combine: +)
+            self.averageMinValue = (self.minValues.count != 0) ? self.averageMinValue / Float(self.minValues.count) : self.averageMinValue / 1
             
         })
     }
@@ -457,7 +465,7 @@ class PushupData {
     
     func goodStatistic() -> Bool? {
         
-        if pushupCounter >= 8 && changeInPushup > 5000 { //just changed to 7000 w/o testing, 6500 worked
+        if pushupCounter >= 3 && changeInPushup > 5000 { //just changed to 7000 w/o testing, 6500 worked
             return true
         }
         return nil

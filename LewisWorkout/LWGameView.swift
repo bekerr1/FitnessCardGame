@@ -35,7 +35,7 @@ enum PushupPosition {
 }
 //11.36
 
-class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
+class LWGameView: UIView {
     
     //MARK: Properties
     var callBack: GameViewCallBackDelegate?
@@ -107,13 +107,6 @@ class LWGameView: UIView, DetectorClassProtocol, PushupDelegate {
     //GESTURES
     var deckTapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
     
-    //View Model (does this belong in the controller??)
-    var pushData: PushupData = PushupData()
-    var pushStats: PushupStatistics = PushupStatistics()
-    var calibrationComplete: Bool = false
-    var faceRectAreasForAccelerate: [Float] = Array()
-    var faceRectFilter: FaceRectFilter?
-    var currentPosition: PushupPosition?
     
     @IBOutlet weak var cardContainerTopLayoutGuideConstraint: NSLayoutConstraint!
     @IBOutlet weak var deckPlaceholderTopLayoutGuideConstraint: NSLayoutConstraint!
@@ -550,6 +543,62 @@ extension LWGameView {
 
 
 
+//MARK: Reacting to detector Protocol from Controller
+extension LWGameView {
+    
+    func placeAlignmentView(At center: CGPoint) {
+        
+        if invisibleTopView.superview == nil {
+            alignmentCenterPoint = deckPlaceholderView.convertCenterOfSquareToView(self)
+            print("AlignmentCenter = \(NSStringFromCGPoint(alignmentCenterPoint))")
+            self.addSubview(invisibleTopView)
+            alignmentLayer.hidden = false
+        }
+        
+        //Center = 160, 460 (468 is at very edge)
+        //From y = 488 to 389 and x = 265 to 58
+        //y - 79 = OB, y + 30 = OB
+        //x - 102 = ob , x + 105 = ob
+        //BUNCH OF HARD CODED NUMBERs.....Not GOod!!
+        
+        
+        let controlCenter = CGPointMake(alignmentCenterPoint.x, alignmentCenterPoint.y - 10)
+        let actualShiftAmountY: CGFloat = 20
+        let actualShiftAmountX: CGFloat = 10
+        let xOutOfBounds: CGFloat = 102
+        
+        let xShift = center.x - controlCenter.x
+        let xOffset = (xShift / xOutOfBounds) * actualShiftAmountX
+        
+        var yOffset: CGFloat = 0.0
+        let yShift = center.y - controlCenter.y
+        
+        if yShift > 0 {
+            yOffset = (yShift / 30.0) * actualShiftAmountY
+        } else {
+            yOffset = (yShift / 70.0) * actualShiftAmountY
+        }
+        
+        let adjustedCenter = CGPointMake(controlCenter.x + xOffset, controlCenter.y + yOffset)
+        //print("\(NSStringFromCGPoint(adjustedCenter))")
+        alignmentLayer.position = adjustedCenter
+    }
+    
+    func add(Image image: CIImage) {
+        
+        let newImage = UIImage(CIImage: image)
+        let imageSize = CGSizeMake(newImage.size.width + 100, frame.width + 100)
+        //let imageSize = newImage.size
+        imageDisplayView.frame = CGRectMake(0, 0, imageSize.width, imageSize.height)
+        print("\(NSStringFromCGRect(imageDisplayView.frame))")
+        imageDisplayView.image = newImage
+        addSubview(imageDisplayView)
+        
+    }
+}
+
+
+
 
 
 //MARK: Gestures
@@ -624,25 +673,6 @@ extension LWGameView {
         }
         
     }
-    //this should be in controller
-    //MARK: Pushup Delegate
-    func pushupCompleted() {
-        faceRectFilter = nil
-        pushupActions()
-    }
-    
-    func motionCompleted() {
-        
-        if currentPosition == .up {
-            print("\(currentPosition) motion completed")
-            currentPosition = .down
-            faceRectFilter?.currentMotion = currentPosition!
-        } else if currentPosition == .down {
-            print("\(currentPosition) motion completed")
-            currentPosition = .up
-            pushupCompleted()
-        }
-    }
     
     
 
@@ -673,107 +703,6 @@ extension LWGameView {
     }
     
     
-}
-
-
-
-
-//This should be in controller
-//MARK: detection protocol
-extension LWGameView {
-    
-    func getCenterForAlignment(CenterPoint center: CGPoint) {
-        
-        if invisibleTopView.superview == nil {
-            alignmentCenterPoint = deckPlaceholderView.convertCenterOfSquareToView(self)
-            print("AlignmentCenter = \(NSStringFromCGPoint(alignmentCenterPoint))")
-            self.addSubview(invisibleTopView)
-            alignmentLayer.hidden = false
-        }
-        
-        //Center = 160, 460 (468 is at very edge)
-        //From y = 488 to 389 and x = 265 to 58
-        //y - 79 = OB, y + 30 = OB
-        //x - 102 = ob , x + 105 = ob
-        
-        
-        
-        let controlCenter = CGPointMake(alignmentCenterPoint.x, alignmentCenterPoint.y - 10)
-        let actualShiftAmountY: CGFloat = 20
-        let actualShiftAmountX: CGFloat = 10
-        let xOutOfBounds: CGFloat = 102
-        
-        let xShift = center.x - controlCenter.x
-        let xOffset = (xShift / xOutOfBounds) * actualShiftAmountX
-        
-        var yOffset: CGFloat = 0.0
-        let yShift = center.y - controlCenter.y
-        
-        if yShift > 0 {
-            yOffset = (yShift / 30.0) * actualShiftAmountY
-        } else {
-            yOffset = (yShift / 70.0) * actualShiftAmountY
-        }
-        
-        let adjustedCenter = CGPointMake(controlCenter.x + xOffset, controlCenter.y + yOffset)
-        //print("\(NSStringFromCGPoint(adjustedCenter))")
-        alignmentLayer.position = adjustedCenter
-    }
-    
-    func gotCIImageFromVideoDataOutput(image: CIImage) {
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            let newImage = UIImage(CIImage: image)
-            let imageSize = newImage.size
-            self.imageDisplayView.frame = CGRectMake(0, 0, imageSize.width, imageSize.height)
-            print("\(NSStringFromCGRect(self.imageDisplayView.frame))")
-            self.imageDisplayView.image = newImage
-            
-        })
-        
-    }
-    
-    //Sometimes called from a queue other than main queue
-    func newFaceArea(area: CGFloat) {
-        
-        if !calibrationComplete {
-            
-            var validDataCollector: (Float) -> ()
-            do {
-                try self.pushData.insertValue(ToAnalyze: Float(area)) { count, value, stringID in
-                    print("A good stat was returned with a value of \(value) with an ID of \(stringID)")
-                    (self.calibrationComplete, validDataCollector) = self.pushStats.needMoreData(WithID: stringID)
-                    validDataCollector(value)
-                }
-            } catch (BadStatisticError.badStatistic(let message)) { //bad statistics error has error string
-                print(message)
-            } catch { //catch to catch every other error
-                
-            }
-        } else {
-            
-        }
-        
-        
-        
-//        if faceRectAreasForAccelerate.count > 4 {
-//            if faceRectFilter == nil {
-//                currentPosition = .up
-//                faceRectFilter = FaceRectFilter(WithInitialPoints: faceRectAreasForAccelerate, FromNumberOfValues: UInt(faceRectAreasForAccelerate.count), CurrentMotion: currentPosition!)
-//                faceRectFilter?.delegate = self
-//            } else {
-//                if currentPosition == .up {
-//                    faceRectFilter?.newAreaArrived(area, Operation: >, Condition: <)
-//                } else {
-//                    faceRectFilter?.newAreaArrived(area, Operation: <, Condition: >)
-//                }
-//                //faceRectFilter?.newAreaArrived(area)
-//            }
-//        } else {
-//            faceRectAreasForAccelerate.append(Float(area))
-//        }
-        
-    }
 }
 
 

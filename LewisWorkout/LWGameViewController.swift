@@ -11,7 +11,7 @@ import UIKit
 
 
 
-class LWGameViewController: UIViewController, GameViewCallBackDelegate {
+class LWGameViewController: UIViewController, GameViewCallBackDelegate, DetectorClassProtocol, PushupDelegate {
 let DEVICE_TESTING = 1
     //MARK: Properties
     //Subviews used in transition
@@ -30,14 +30,19 @@ let DEVICE_TESTING = 1
     //Main View
     @IBOutlet var gameView: LWGameView!
     var deviceOrientation = UIDevice.currentDevice().orientation
-    //View controllers
+    //View controllers (children)
     private var deckViewContainerController: LWDeckViewContainerController!
     private var deckVC: LWCardViewController!
     private var currentCardVC: LWCardViewController!
     private var tap: Bool = false
     private var detectorController: LWAVDetectorController!
-    
-    
+    //Model (to main view)
+    var pushData: PushupData = PushupData()
+    var pushStats: PushupStatistics = PushupStatistics()
+    var calibrationComplete: Bool = false
+    var faceRectAreasForAccelerate: [Float] = Array()
+    var faceRectFilter: FaceRectFilter?
+    var currentPosition: PushupPosition?
     
     //MARK: Initialize
     override func viewDidLoad() {
@@ -57,6 +62,7 @@ let DEVICE_TESTING = 1
         gameView.deckViewContainer = deckViewContainerController.view
         gameView.deckViewContainer.frame = CGRectMake(0, 0, LewisGeometricConstants.deckContainerWidth, LewisGeometricConstants.deckContainerHeight)
         
+        //Game view initialization type calls
         gameView.callBack = self
         gameView.viewGestures()
         gameView.setupFrameDependentElements()
@@ -82,7 +88,7 @@ let DEVICE_TESTING = 1
         print("ViewDidAppearframe = \(NSStringFromCGRect(self.view.frame))")
 //#if DEVICE_TESTING
         detectorController = LWAVDetectorController(withparentFrame: self.view.frame)
-        detectorController.delegate = gameView
+        detectorController.delegate = self
 //#endif
         deckVC.setCardFaceDown()
         loadDeckVCContentsAndLayout()
@@ -241,6 +247,91 @@ extension LWGameViewController {
 
 }
 
+
+
+
+
+
+//MARK: detection protocol
+extension LWGameViewController {
+    
+    func getCenterForAlignment(CenterPoint center: CGPoint) {
+        gameView.placeAlignmentView(At: center)
+    }
+    
+    func gotCIImageFromVideoDataOutput(image: CIImage) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.gameView.add(Image: image)
+        })
+        
+    }
+    
+    //Sometimes called from a queue other than main queue
+    func newFaceArea(area: CGFloat) {
+        
+        if !calibrationComplete {
+            
+            var validDataCollector: (Float) -> () = { _ in }
+            
+            do {
+                try self.pushData.insertValue(ToAnalyze: Float(area)) { count, value, stringID in
+                    print("A good stat was returned with a value of \(value) with an ID of \(stringID)")
+                    (self.calibrationComplete, validDataCollector) = self.pushStats.needMoreData(WithID: stringID)
+                    validDataCollector(value)
+                }
+            } catch (BadStatisticError.badStatistic(let message)) { //bad statistics error has error string
+                print(message)
+            } catch { //catch to catch every other error
+                
+            }
+        } else {
+            print("Max Average ended up being \(self.pushStats.averageMaxValue) and Min Average ended up being \(self.pushStats.averageMinValue) and median of averages is \(self.pushStats.medianOfAverages)")
+        }
+        
+        
+        
+        //        if faceRectAreasForAccelerate.count > 4 {
+        //            if faceRectFilter == nil {
+        //                currentPosition = .up
+        //                faceRectFilter = FaceRectFilter(WithInitialPoints: faceRectAreasForAccelerate, FromNumberOfValues: UInt(faceRectAreasForAccelerate.count), CurrentMotion: currentPosition!)
+        //                faceRectFilter?.delegate = self
+        //            } else {
+        //                if currentPosition == .up {
+        //                    faceRectFilter?.newAreaArrived(area, Operation: >, Condition: <)
+        //                } else {
+        //                    faceRectFilter?.newAreaArrived(area, Operation: <, Condition: >)
+        //                }
+        //                //faceRectFilter?.newAreaArrived(area)
+        //            }
+        //        } else {
+        //            faceRectAreasForAccelerate.append(Float(area))
+        //        }
+        
+    }
+    
+    
+    //this should be in controller
+    //MARK: Pushup Delegate
+    func pushupCompleted() {
+        faceRectFilter = nil
+        gameView.pushupActions()
+    }
+    
+    func motionCompleted() {
+        
+        if currentPosition == .up {
+            print("\(currentPosition) motion completed")
+            currentPosition = .down
+            faceRectFilter?.currentMotion = currentPosition!
+        } else if currentPosition == .down {
+            print("\(currentPosition) motion completed")
+            currentPosition = .up
+            pushupCompleted()
+        }
+    }
+
+}
 
 
 

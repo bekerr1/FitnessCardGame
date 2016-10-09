@@ -510,8 +510,8 @@ class LWAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferDele
         imageCI = determineFilterSettingsFromBrightness(brightness, AppliedToImage: imageCI, ImageHeight: imageHeight, ImageWidth: imageWidth)
         
         //for displaying image used every 20 images
-        if detectionCount % 10 == 0 {
-            //delegate.gotCIImageFromVideoDataOutput(imageCI)
+        if detectionCount % 5 == 0 {
+            delegate.gotCIImageFromVideoDataOutput(imageCI)
             if !faceFound {
                 //cropWidthOffset += 20
             }
@@ -576,7 +576,8 @@ class LWAVDetectorController: NSObject, AVCaptureVideoDataOutputSampleBufferDele
         //returnImage = returnImage.imageByApplyingFilter("CICrop", withInputParameters: ["inputImage" : returnImage, "inputRectangle" : cropTangle])
         
         returnImage = returnImage.imageByApplyingFilter("CIExposureAdjust", withInputParameters: ["inputImage" : returnImage, "inputEV" : 2.0])
-        returnImage = returnImage.imageByCroppingToRect(CGRectMake(CGFloat(width) - cropWidthOffset, CGFloat(height) - cropHeightOffset, cropWidth, cropHeight))
+        //returnImage = returnImage.imageByCroppingToRect(CGRectMake(CGFloat(width) - cropWidthOffset, CGFloat(height) - cropHeightOffset, cropWidth, cropHeight))
+        returnImage = returnImage.imageByCroppingToRect(CGRectMake(CGFloat(width) - cropWidthOffset, CGFloat(height) - cropHeightOffset, CGFloat(width), CGFloat(height)))
         
         return returnImage
         
