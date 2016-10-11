@@ -43,6 +43,13 @@ let DEVICE_TESTING = 1
     var faceRectAreasForAccelerate: [Float] = Array()
     var faceRectFilter: FaceRectFilter?
     var currentPosition: PushupPosition?
+    var frameQueue: DetectionQueue = DetectionQueue<CGFloat>()
+    var dataTimer: NSTimer?
+    var frameCount = 0
+    var timerCount = 0
+    
+    //GDC
+    var dataQueue: dispatch_queue_t?
     
     //MARK: Initialize
     override func viewDidLoad() {
@@ -69,6 +76,8 @@ let DEVICE_TESTING = 1
         
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(orientationChanged(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
+        dataQueue = dispatch_queue_create("com.Lewis.Data", DISPATCH_QUEUE_SERIAL)
         
         view.addSubview(topHiderView)
         view.addSubview(bottomHiderView)
@@ -267,25 +276,57 @@ extension LWGameViewController {
         
     }
     
+    
+    func dataCollectionTimer(timer: NSTimer) {
+        //print("Timer hit")
+        timerCount += 1
+        guard let area = frameQueue.dequeue() else {
+            return
+        }
+    
+        do {
+            
+            self.calibrationComplete = try self.pushData.insertValue(ToAnalyze: Float(area))
+                
+//                count, value, stringID in
+//                print("A good stat was returned with a value of \(value) with an ID of \(stringID)")
+//                self.calibrationComplete = self.pushStats.needMoreData(WithID: stringID, Value: value)
+////                if self.calibrationComplete {
+////                    print("calibration should completed")
+////                    self.newFaceArea(0.0)
+////                }
+//            }
+        } catch (BadStatisticError.badStatistic(let message)) { //bad statistic error
+            //print(message)
+        } catch { //every other error
+            
+        }
+        
+        
+    }
+    
+    func startTimer() {
+        
+        if dataTimer == nil && !calibrationComplete {
+            print("Timer created")
+            dataTimer = NSTimer(timeInterval: 0.1, target: self, selector: #selector(dataCollectionTimer(_:)), userInfo: nil, repeats: true)
+            NSRunLoop.mainRunLoop().addTimer(dataTimer!, forMode: "NSDefaultRunLoopMode")
+        }
+    }
+    
     //Sometimes called from a queue other than main queue
     func newFaceArea(area: CGFloat) {
+        //print("new area")
+        frameCount += 1
+        pushData.frameCount = frameCount
+        startTimer()
+        frameQueue.enqueue(area)
         
         if !calibrationComplete {
-            
-            var validDataCollector: (Float) -> () = { _ in }
-            
-            do {
-                try self.pushData.insertValue(ToAnalyze: Float(area)) { count, value, stringID in
-                    print("A good stat was returned with a value of \(value) with an ID of \(stringID)")
-                    (self.calibrationComplete, validDataCollector) = self.pushStats.needMoreData(WithID: stringID)
-                    validDataCollector(value)
-                }
-            } catch (BadStatisticError.badStatistic(let message)) { //bad statistics error has error string
-                print(message)
-            } catch { //catch to catch every other error
-                
-            }
+            //do nothing
+            //print("calibration not complete")
         } else {
+            dataTimer?.invalidate()
             print("Max Average ended up being \(self.pushStats.averageMaxValue) and Min Average ended up being \(self.pushStats.averageMinValue) and median of averages is \(self.pushStats.medianOfAverages)")
         }
         

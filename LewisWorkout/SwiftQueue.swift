@@ -83,65 +83,78 @@ struct ShapeQueue<T: Shapeable> : QueueType, ArrayLiteralConvertible {
 }
     
 
-struct DetectionQueue<T> : QueueType, ArrayLiteralConvertible {
+struct DetectionQueue<T : Equatable> : QueueType, ArrayLiteralConvertible {
+    
+    typealias Element = T
+    private var left : [Element]
+    private var right: [Element]
+    
+    
+    init () {
+        left = []
+        right = []
         
-        typealias Element = T
-        private var left : [Element]
-        private var right: [Element]
+    }
+    
+    init(arrayLiteral elements: Element...) {
         
+        left = []
+        right = []
         
-        init () {
-            left = []
-            right = []
-            
-        }
+        populateQueueWithArr(elements)
+    }
+    
+    init(WithArray contents: [Element]) {
+        left = []
+        right = []
         
-        init(arrayLiteral elements: Element...) {
-            
-            left = []
-            right = []
-            
-            populateQueueWithArr(elements)
-        }
+        populateQueueWithArr(contents)
+    }
+    
+    /// Add an element to the back of the queue in O(1).
+    mutating func enqueue(element: Element) {
         
-        init(WithArray contents: [Element]) {
-            left = []
-            right = []
-            
-            populateQueueWithArr(contents)
-        }
-        
-        /// Add an element to the back of the queue in O(1).
-        mutating func enqueue(element: Element) {
-            
+        if let previousElement = right.last {
+            if element != previousElement {
+                right.append(element)
+            }
+        } else {
             right.append(element)
         }
+    }
+    
+    /// Removes front of the queue in amortized O(1).
+    mutating func dequeue() -> Element? {
         
-        /// Removes front of the queue in amortized O(1).
-        mutating func dequeue() -> Element? {
-            
-            /// Returns nil in case of an empty queue.
-            //guard !( left.isEmpty && right.isEmpty) else { return nil }
-            
-            if left.isEmpty {
-                left = right.reverse()
-                right.removeAll(keepCapacity: true)
-            }
-            
-            return left.removeLast()
-            
+        /// Returns nil in case of an empty queue.
+        guard !( left.isEmpty && right.isEmpty) else { return nil }
+        
+        if left.isEmpty {
+            left = right.reverse()
+            right.removeAll(keepCapacity: true)
         }
         
-        func queueContents() -> [Element] {
-            
-            return left + right.reverse()
-        }
+        return left.removeLast()
         
-        mutating func populateQueueWithArr(contents: [Element]) {
-            
-            for element in contents {
-                enqueue(element)
-            }
+    }
+    
+    func queueContents() -> [Element] {
+        
+        return left + right.reverse()
+    }
+    
+    mutating func populateQueueWithArr(contents: [Element]) {
+        
+        for element in contents {
+            enqueue(element)
         }
-
+    }
+    
+    
+//    mutating func uniqueify() {
+//        left = Array(Set(left))
+//        right = Array(Set(right))
+//    }
+    
 }
+

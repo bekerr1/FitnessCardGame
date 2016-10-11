@@ -267,30 +267,26 @@ class PushupStatistics {
         enoughMinValues = false
     }
     
-    func needMoreData(WithID sid: String) -> (Bool, (Float) -> ()) {
+    func needMoreData(WithID sid: String, Value data: Float) -> Bool {
         switch sid {
         case "Max":
-            if maxValues.count < 5 {
-                enoughMaxValues = false
-                return (false, { data in
-                    print("max value recieved of \(data)")
-                    self.maxValues.append(data)
-                })
-                
-            } else {
+            
+            self.maxValues.append(data)
+            
+            if maxValues.count >= 1 {
                 enoughMaxValues = true
             }
+            break
+            
         case "Min":
-            if minValues.count < 10 {
-                enoughMinValues = false
-                return (false, { data in
-                    print("min value recieved of \(data)")
-                    self.minValues.append(data)
-                })
-                
-            } else {
+            
+            self.minValues.append(data)
+            
+            if minValues.count >= 1 {
                 enoughMinValues = true
             }
+            break
+            
         default: break
             
         }
@@ -299,17 +295,29 @@ class PushupStatistics {
     }
     
     
-    func calibrationComplete() -> (Bool, (Float) -> ()) {
+    func calibrationComplete() -> Bool {
+        
+        //Doing this becuase the user can have the same max or min value on different pushups, but on the current pushup, sometimes alot of values are the same so want to avoid filling arrays with repreats on the current turn.
         minValues = Array(Set(minValues))
         maxValues = Array(Set(maxValues))
-        return ((enoughMaxValues && enoughMinValues), {_ in
-            self.averageMaxValue = self.maxValues.reduce(0, combine: +)
-            self.averageMaxValue = (self.maxValues.count != 0) ? self.averageMaxValue / Float(self.maxValues.count) : self.averageMaxValue / 1
-            
-            self.averageMinValue = self.minValues.reduce(0, combine: +)
-            self.averageMinValue = (self.minValues.count != 0) ? self.averageMinValue / Float(self.minValues.count) : self.averageMinValue / 1
-            
-        })
+        
+        if let aveMin = minValues.first {
+            self.averageMinValue = aveMin
+        }
+        
+        if let aveMax = maxValues.first {
+            self.averageMaxValue = aveMax
+        }
+        
+        
+        
+//        self.averageMaxValue = self.maxValues.reduce(0, combine: +)
+//        self.averageMaxValue = (self.maxValues.count != 0) ? self.averageMaxValue / Float(self.maxValues.count) : self.averageMaxValue / 1
+//        
+//        self.averageMinValue = self.minValues.reduce(0, combine: +)
+//        self.averageMinValue = (self.minValues.count != 0) ? self.averageMinValue / Float(self.minValues.count) : self.averageMinValue / 1
+        
+        return enoughMaxValues && enoughMinValues
     }
     
 }
@@ -388,6 +396,7 @@ class PushupData {
     var frameCount: Int = 0
     var vDescription: ValueDescription = .neutral
     var previousValue: Float = 0.0
+    var internalPushStats: PushupStatistics = PushupStatistics()
     
     //var valueAnalyzer: (Float, Float, Int, Float) -> (Int, Float)
     
@@ -397,10 +406,10 @@ class PushupData {
         
         switch self.vDescription {
         case .increasing(count, _, _, _):
-            if value > previousValue - 1000 {
+            if value > previousValue {
                 
                 self.vDescription = .increasing(count + 1, value, previousValue, totalChange)
-                //print("increasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
+                print("increasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
                 
             } else if value == previousValue {
                 self.vDescription = .increasing(count + 1, value, previousValue, 0)
@@ -412,10 +421,10 @@ class PushupData {
             
             
         case .decreasing(count, _, _, _):
-            if value < previousValue + 1000 {
+            if value < previousValue {
                 
                 self.vDescription = .decreasing(count + 1, value, previousValue, totalChange)
-                //print("decreasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
+                print("decreasing value \(self.vDescription.thisManyTimes) times with a change of \(self.vDescription.change)")
                 
             } else if value == previousValue {
                 self.vDescription = .decreasing(count + 1, value, previousValue, 0)
@@ -441,8 +450,8 @@ class PushupData {
     }
     
     
-    func insertValue(ToAnalyze value: Float, GoodStat block: (Int, Float, String) -> ()) throws {
-        frameCount += 1
+    func insertValue(ToAnalyze value: Float) throws -> Bool {
+        
         var stringMaxMinID: String = ""
         
         if frameCount > 20 {
@@ -459,7 +468,15 @@ class PushupData {
             throw BadStatisticError.badStatistic("Unreliable Statistic.")
         }
         
-        block(pushupCounter, previousValue, stringMaxMinID)
+        //block(pushupCounter, previousValue, stringMaxMinID)
+        
+        return checkForCompleteCalibration(pushupCounter, previousValue, stringMaxMinID)
+    }
+    
+    
+    func checkForCompleteCalibration(count: Int, _ value: Float, _ stringID: String) -> Bool {
+        print("A good stat was returned with a value of \(value) with an ID of \(stringID)")
+        return internalPushStats.needMoreData(WithID: stringID, Value: value)
     }
     
     

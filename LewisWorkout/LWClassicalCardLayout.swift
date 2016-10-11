@@ -187,19 +187,19 @@ struct ClassicalCardLayout<Shape: Shapeable>: ClassicCardLayout {
         
     }
     
-    private mutating func verticalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
-        
-        let leftShape = content.dequeue()
-        let rightShape = content.dequeue()
-        
-        //rotate 90 deg before place
-        leftShape?.rotateBy(CGFloat(M_PI_2))
-        rightShape?.rotateBy(CGFloat(M_PI_2))
-        
-        leftShape?.place(AtPoint: CGPointMake(atWidth, atHeight - doubleSeperation))
-        rightShape?.place(AtPoint: CGPointMake(atWidth, atHeight + doubleSeperation))
-        
-    }
+//    private mutating func verticalDouble(atWidth: CGFloat, Height atHeight: CGFloat) {
+//        
+//        let leftShape = content.dequeue()
+//        let rightShape = content.dequeue()
+//        
+//        //rotate 90 deg before place
+//        leftShape?.rotateBy(CGFloat(M_PI_2))
+//        rightShape?.rotateBy(CGFloat(M_PI_2))
+//        
+//        leftShape?.place(AtPoint: CGPointMake(atWidth, atHeight - doubleSeperation))
+//        rightShape?.place(AtPoint: CGPointMake(atWidth, atHeight + doubleSeperation))
+//        
+//    }
 
     private mutating func single(atWidth: CGFloat, Height atHeight: CGFloat) {
         

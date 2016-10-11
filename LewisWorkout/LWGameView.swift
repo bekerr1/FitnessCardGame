@@ -586,12 +586,18 @@ extension LWGameView {
     
     func add(Image image: CIImage) {
         
-        let newImage = UIImage(CIImage: image)
-        let imageSize = CGSizeMake(newImage.size.width + 100, frame.width + 100)
+        if let _ = imageDisplayView.superview {
+            let newImage = UIImage(CIImage: image)
+            let imageSize = CGSizeMake(newImage.size.width, frame.width)
+            imageDisplayView.frame = CGRectMake(0, 0, imageSize.width, imageSize.height)
+            imageDisplayView.image = newImage
+            return
+        }
+        
         //let imageSize = newImage.size
-        imageDisplayView.frame = CGRectMake(0, 0, imageSize.width, imageSize.height)
+        
         print("\(NSStringFromCGRect(imageDisplayView.frame))")
-        imageDisplayView.image = newImage
+        imageDisplayView.transform = CGAffineTransformMakeScale(1.6, 1.6)
         addSubview(imageDisplayView)
         
     }
